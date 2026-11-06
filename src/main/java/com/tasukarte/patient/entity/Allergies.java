@@ -7,9 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
 
-@Data
+
 @Entity
 @Table(name = "allergies")
 public class Allergies {
@@ -27,5 +26,39 @@ public class Allergies {
 
     @Column(name = "allergy_symptom", nullable = false)
     private String allergySymptom;
+    
+    
+    //getter/setter
+	public Integer getAllergyId() {
+		return allergyId;
+	}
+
+	public void setAllergyId(Integer allergyId) {
+		this.allergyId = allergyId;
+	}
+
+	public Integer getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
+
+	public String getAllergyType() {
+		return allergyType;
+	}
+
+	public void setAllergyType(String allergyType) {
+		this.allergyType = allergyType;
+	}
+
+	public String getAllergySymptom() {
+		return allergySymptom;
+	}
+
+	public void setAllergySymptom(String allergySymptom) {
+		this.allergySymptom = allergySymptom;
+	}
 
 }

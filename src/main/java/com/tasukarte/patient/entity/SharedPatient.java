@@ -9,9 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
 
-@Data
+
 @Entity
 @Table(name = "shared_patients")
 public class SharedPatient {
@@ -41,5 +40,71 @@ public class SharedPatient {
 
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted;
+    
+    
+    //getter/setter
+	public Integer getSharePatientId() {
+		return sharePatientId;
+	}
+
+	public void setSharePatientId(Integer sharePatientId) {
+		this.sharePatientId = sharePatientId;
+	}
+
+	public Integer getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
+
+	public Integer getSharedByHospitalId() {
+		return sharedByHospitalId;
+	}
+
+	public void setSharedByHospitalId(Integer sharedByHospitalId) {
+		this.sharedByHospitalId = sharedByHospitalId;
+	}
+
+	public Integer getShareWithHospitalId() {
+		return shareWithHospitalId;
+	}
+
+	public void setShareWithHospitalId(Integer shareWithHospitalId) {
+		this.shareWithHospitalId = shareWithHospitalId;
+	}
+
+	public Integer getReferralId() {
+		return referralId;
+	}
+
+	public void setReferralId(Integer referralId) {
+		this.referralId = referralId;
+	}
+
+	public LocalDate getSharedStartAt() {
+		return sharedStartAt;
+	}
+
+	public void setSharedStartAt(LocalDate sharedStartAt) {
+		this.sharedStartAt = sharedStartAt;
+	}
+
+	public LocalDate getSharedEndAt() {
+		return sharedEndAt;
+	}
+
+	public void setSharedEndAt(LocalDate sharedEndAt) {
+		this.sharedEndAt = sharedEndAt;
+	}
+
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 
 }
