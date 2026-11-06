@@ -8,9 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
 
-@Data
 @Entity
 @Table (name = "messages")
 public class Messages {
@@ -46,6 +44,88 @@ public class Messages {
 	
 	@Column(name = "update_at", nullable = false)
 	private LocalDateTime updateAt;
+	
+	
+	//getter/setter
+	public Integer getMessageId() {
+		return messageId;
+	}
+
+	public void setMessageId(Integer messageId) {
+		this.messageId = messageId;
+	}
+
+	public Integer getSenderHospitalId() {
+		return senderHospitalId;
+	}
+
+	public void setSenderHospitalId(Integer senderHospitalId) {
+		this.senderHospitalId = senderHospitalId;
+	}
+
+	public Integer getRecipientHospitalId() {
+		return recipientHospitalId;
+	}
+
+	public void setRecipientHospitalId(Integer recipientHospitalId) {
+		this.recipientHospitalId = recipientHospitalId;
+	}
+
+	public Integer getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(Integer staffId) {
+		this.staffId = staffId;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getMainText() {
+		return mainText;
+	}
+
+	public void setMainText(String mainText) {
+		this.mainText = mainText;
+	}
+
+	public Short getState() {
+		return state;
+	}
+
+	public void setState(Short state) {
+		this.state = state;
+	}
+
+	public LocalDateTime getSendAt() {
+		return sendAt;
+	}
+
+	public void setSendAt(LocalDateTime sendAt) {
+		this.sendAt = sendAt;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdateAt() {
+		return updateAt;
+	}
+
+	public void setUpdateAt(LocalDateTime updateAt) {
+		this.updateAt = updateAt;
+	}
 	
 	
 	

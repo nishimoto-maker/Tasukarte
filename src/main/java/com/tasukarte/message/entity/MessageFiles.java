@@ -8,9 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
 
-@Data
 @Entity
 @Table (name = "message_files")
 
@@ -38,5 +36,63 @@ public class MessageFiles {
 	
 	@Column(name = "created_at", nullable = false)
 	private LocalDateTime createdAt;
+	
+
+	//getter/setter
+	public Integer getAttachmentFileId() {
+		return attachmentFileId;
+	}
+
+	public void setAttachmentFileId(Integer attachmentFileId) {
+		this.attachmentFileId = attachmentFileId;
+	}
+
+	public Integer getMessageId() {
+		return messageId;
+	}
+
+	public void setMessageId(Integer messageId) {
+		this.messageId = messageId;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getSavedFileName() {
+		return savedFileName;
+	}
+
+	public void setSavedFileName(String savedFileName) {
+		this.savedFileName = savedFileName;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public Long getFileSize() {
+		return fileSize;
+	}
+
+	public void setFileSize(Long fileSize) {
+		this.fileSize = fileSize;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
 	
 }
