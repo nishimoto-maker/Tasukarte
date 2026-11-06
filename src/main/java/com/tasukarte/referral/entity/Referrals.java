@@ -9,25 +9,25 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Getter;
+//import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+//import lombok.Setter;
 
 // エンティティの宣言
 @Entity
 // 参照テーブル物理名称
 @Table(name = "referrals")
 // Getter自動生成
-@Getter
+//@Getter
 // Setter自動生成
-@Setter
+//@Setter
 // 引数なしのコンストラクタを自動生成
 @NoArgsConstructor
 public class Referrals {
 
     // (主キー)
     @Id
-    // 主キーをデータベース側で自動採番するための設定
+    // DBの自動採番に対応
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // カラム名
     @Column(name = "referral_id")
@@ -96,4 +96,126 @@ public class Referrals {
     // 共有終了日
     @Column(name = "shared_end_at")
     private LocalDateTime sharedEndAt;
+
+	public Integer getReferralId() {
+		return referralId;
+	}
+
+	public void setReferralId(Integer referralId) {
+		this.referralId = referralId;
+	}
+
+	public Integer getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
+
+	public Integer getSenderHospitalId() {
+		return senderHospitalId;
+	}
+
+	public void setSenderHospitalId(Integer senderHospitalId) {
+		this.senderHospitalId = senderHospitalId;
+	}
+
+	public Integer getRecipientHospitalId() {
+		return recipientHospitalId;
+	}
+
+	public void setRecipientHospitalId(Integer recipientHospitalId) {
+		this.recipientHospitalId = recipientHospitalId;
+	}
+
+	public Integer getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(Integer staffId) {
+		this.staffId = staffId;
+	}
+
+	public String getReferralPurpose() {
+		return referralPurpose;
+	}
+
+	public void setReferralPurpose(String referralPurpose) {
+		this.referralPurpose = referralPurpose;
+	}
+
+	public String getRequestContent() {
+		return requestContent;
+	}
+
+	public void setRequestContent(String requestContent) {
+		this.requestContent = requestContent;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getRequestedAt() {
+		return requestedAt;
+	}
+
+	public void setRequestedAt(LocalDateTime requestedAt) {
+		this.requestedAt = requestedAt;
+	}
+
+	public LocalDateTime getApprovedAt() {
+		return approvedAt;
+	}
+
+	public void setApprovedAt(LocalDateTime approvedAt) {
+		this.approvedAt = approvedAt;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public LocalDateTime getSharedStartAt() {
+		return sharedStartAt;
+	}
+
+	public void setSharedStartAt(LocalDateTime sharedStartAt) {
+		this.sharedStartAt = sharedStartAt;
+	}
+
+	public LocalDateTime getSharedEndAt() {
+		return sharedEndAt;
+	}
+
+	public void setSharedEndAt(LocalDateTime sharedEndAt) {
+		this.sharedEndAt = sharedEndAt;
+	}
+    
+    
 }
