@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="staff_passwords")
 public class StaffPassword {
+	// 主キー（外部キーも兼ねる）
 	@Id
 	@Column(name="staff_id", nullable = false)
 	//職員ID
