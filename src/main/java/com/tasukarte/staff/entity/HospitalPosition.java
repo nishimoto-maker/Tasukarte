@@ -17,8 +17,8 @@ public class HospitalPosition {
 	//役職ID
 	private Integer positionId;
 	
-	@Column(name="position_name", length = 4, nullable = false)
 	//役職名
+	@Column(name="position_name", length = 4, nullable = false)
 	private String positionName;
 	
 	public HospitalPosition() {
