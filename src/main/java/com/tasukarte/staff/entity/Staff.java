@@ -14,52 +14,53 @@ public class Staff {
 	@Id
 	//idを自動生成             //PostgreSQLのIDENTITYによる自動採番を利用
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "staff_id")
 	//職員ID
 	private Integer staffId;
 	
-	@Column(name = "hospital_id", nullable = false)
 	//病院ID
+	@Column(name = "hospital_id", nullable = false)
 	private Integer hospitalId;
-
-	@Column(name = "position_id", nullable = false)
+	
 	//役職ID
+	@Column(name = "position_id", nullable = false)
 	private Integer positionId;
-
-	@Column(name = "role_id", nullable = false)
+	
 	//権限ID
+	@Column(name = "role_id", nullable = false)
 	private Integer roleId;
 	
-	@Column(name = "name_kanji", length = 50, nullable = false)
 	//名前(漢字)
+	@Column(name = "name_kanji", length = 50, nullable = false)
     private String nameKanji;
 	
-	@Column(name = "name_kana", length = 50, nullable = false)
 	//名前(カナ)
+	@Column(name = "name_kana", length = 50, nullable = false)
     private String nameKana;
 	
-	@Column(name = "gender", nullable = false)
 	//性別
+	@Column(name = "gender", nullable = false)
     private short gender;
 	
-	@Column(name = "address", length = 255, nullable = false)
 	//住所
+	@Column(name = "address", length = 255, nullable = false)
     private String address;
 	
-	@Column(name = "post_code", length = 7, nullable = false)
 	//郵便番号
+	@Column(name = "post_code", length = 7, nullable = false)
     private String postCode;
 	
-	@Column(name = "phone_number", length = 20, nullable = false)
 	//電話番号
+	@Column(name = "phone_number", length = 20, nullable = false)
     private String phoneNumber;
 	
-	@Column(name = "email_address", length = 254, nullable = false)
 	//メールアドレス
+	@Column(name = "email_address", length = 254, nullable = false)
     private String emailAddress;
 	
+	// 削除フラグ
 	@Column(name = "is_deleted", nullable = false)
-	//削除フラグ
-    private Boolean isDeleted;
+	private boolean isDeleted;
 	
 	public Staff() {
 	}
@@ -141,10 +142,11 @@ public class Staff {
 		this.emailAddress = emailAddress;
 	}
 	
-	public Boolean getIsDeleted() {
-		return isDeleted;
+	public boolean getIsDeleted() {
+	    return isDeleted;
 	}
-	public void setIsDeleted(Boolean isDeleted) {
-		this.isDeleted = isDeleted;
+
+	public void setIsDeleted(boolean isDeleted) {
+	    this.isDeleted = isDeleted;
 	}
 }
