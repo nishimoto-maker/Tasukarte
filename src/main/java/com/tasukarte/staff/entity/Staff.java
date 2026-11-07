@@ -14,53 +14,52 @@ public class Staff {
 	@Id
 	//idを自動生成             //PostgreSQLのIDENTITYによる自動採番を利用
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "staff_id")
 	//職員ID
 	private Integer staffId;
 	
-	//病院ID
 	@Column(name = "hospital_id", nullable = false)
+	//病院ID
 	private Integer hospitalId;
-	
-	//役職ID
+
 	@Column(name = "position_id", nullable = false)
+	//役職ID
 	private Integer positionId;
-	
-	//権限ID
+
 	@Column(name = "role_id", nullable = false)
+	//権限ID
 	private Integer roleId;
 	
-	//名前(漢字)
 	@Column(name = "name_kanji", length = 50, nullable = false)
+	//名前(漢字)
     private String nameKanji;
 	
-	//名前(カナ)
 	@Column(name = "name_kana", length = 50, nullable = false)
+	//名前(カナ)
     private String nameKana;
 	
-	//性別
 	@Column(name = "gender", nullable = false)
+	//性別
     private short gender;
 	
-	//住所
 	@Column(name = "address", length = 255, nullable = false)
+	//住所
     private String address;
 	
-	//郵便番号
 	@Column(name = "post_code", length = 7, nullable = false)
+	//郵便番号
     private String postCode;
 	
-	//電話番号
 	@Column(name = "phone_number", length = 20, nullable = false)
+	//電話番号
     private String phoneNumber;
 	
-	//メールアドレス
 	@Column(name = "email_address", length = 254, nullable = false)
+	//メールアドレス
     private String emailAddress;
 	
-	// 削除フラグ
 	@Column(name = "is_deleted", nullable = false)
-	private boolean isDeleted;
+	//削除フラグ
+    private Boolean isDeleted;
 	
 	public Staff() {
 	}
@@ -142,11 +141,10 @@ public class Staff {
 		this.emailAddress = emailAddress;
 	}
 	
-	public boolean getIsDeleted() {
-	    return isDeleted;
+	public Boolean getIsDeleted() {
+		return isDeleted;
 	}
-
-	public void setIsDeleted(boolean isDeleted) {
-	    this.isDeleted = isDeleted;
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 }
