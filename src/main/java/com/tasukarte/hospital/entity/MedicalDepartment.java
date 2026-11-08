@@ -8,17 +8,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="medical_departments")
+@Table(name = "medical_departments")
 public class MedicalDepartment {
 	//idを主キーにする。
 	@Id
 	//idを自動生成             //PostgreSQLのIDENTITYによる自動採番を利用
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "medical_department_id")
 	//診療科ID
 	private Integer medicalDepartmentId;
 	
-	@Column(name="medical_department_name", nullable = false)
 	//診療科名
+	@Column(name = "medical_department_name", nullable = false)
 	private String medicalDepartmentName;
 	
 	public MedicalDepartment() {

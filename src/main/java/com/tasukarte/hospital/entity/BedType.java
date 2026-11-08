@@ -8,17 +8,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="bed_type")
+@Table(name = "bed_type")
 public class BedType {
 	//idを主キーにする。
 	@Id
 	//idを自動生成             //PostgreSQLのIDENTITYによる自動採番を利用
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "bed_type_id")
 	//病床種別ID
 	private Integer bedTypeId;
 	
-	@Column(name="bed_type_name", nullable = false)
 	//病床種別名
+	@Column(name = "bed_type_name", nullable = false)
 	private String bedTypeName;
 	
 	public BedType() {
