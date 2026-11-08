@@ -17,8 +17,8 @@ public class HospitalRole {
 	//権限ID
 	private Integer roleId;
 	
-	@Column(name="role_name", length = 5, nullable = false)
 	//権限名
+	@Column(name="role_name", length = 5, nullable = false)
 	private String roleName;
 	
 	public HospitalRole() {

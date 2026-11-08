@@ -32,56 +32,56 @@ public class Staff {
 	//職員ID
 	private Integer staffId;
 	
-	@OneToOne(
-		mappedBy = "staff",
-		cascade = CascadeType.ALL,
-		orphanRemoval = true
-			)
-	private StaffPassword staffPassword;
-	
-	@Column(name = "hospital_id", nullable = false)
+  // パスワード情報
+  @OneToOne(
+      mappedBy = "staff",
+      cascade = CascadeType.ALL,
+      orphanRemoval = true
+  )
+  private StaffPassword staffPassword;
 	//病院ID
+	@Column(name = "hospital_id", nullable = false)
 	private Integer hospitalId;
-
-	@Column(name = "position_id", nullable = false)
+	
 	//役職ID
+	@Column(name = "position_id", nullable = false)
 	private Integer positionId;
-
-	@Column(name = "role_id", nullable = false)
+	
 	//権限ID
+	@Column(name = "role_id", nullable = false)
 	private Integer roleId;
 	
-	@Column(name = "name_kanji", length = 50, nullable = false)
 	//名前(漢字)
-    private String nameKanji;
+	@Column(name = "name_kanji", length = 50, nullable = false)
+  private String nameKanji;
 	
-	@Column(name = "name_kana", length = 50, nullable = false)
 	//名前(カナ)
-    private String nameKana;
+	@Column(name = "name_kana", length = 50, nullable = false)
+  private String nameKana;
 	
-	@Column(name = "gender", nullable = false)
 	//性別
-    private short gender;
+	@Column(name = "gender", nullable = false)
+  private short gender;
 	
-	@Column(name = "address", length = 255, nullable = false)
 	//住所
-    private String address;
+	@Column(name = "address", length = 255, nullable = false)
+  private String address;
 	
-	@Column(name = "post_code", length = 7, nullable = false)
 	//郵便番号
-    private String postCode;
+	@Column(name = "post_code", length = 7, nullable = false)
+  private String postCode;
 	
-	@Column(name = "phone_number", length = 20, nullable = false)
 	//電話番号
-    private String phoneNumber;
+	@Column(name = "phone_number", length = 20, nullable = false)
+  private String phoneNumber;
 	
-	@Column(name = "email_address", length = 254, nullable = false)
 	//メールアドレス
-    private String emailAddress;
+	@Column(name = "email_address", length = 254, nullable = false)
+  private String emailAddress;
 	
-	@Column(name = "is_deleted", nullable = false)
-	//削除フラグ
-    private Boolean isDeleted;
+	// 削除フラグ
+  @Column(name = "is_deleted", nullable = false)
+  private boolean isDeleted;
 
 	public Integer getStaffId() {
 		return staffId;
@@ -178,14 +178,12 @@ public class Staff {
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
+  
+  public boolean getIsDeleted() {
+      return isDeleted;
+  }
 
-	public Boolean getIsDeleted() {
-		return isDeleted;
-	}
-
-	public void setIsDeleted(Boolean isDeleted) {
-		this.isDeleted = isDeleted;
-	}
-	
-	
+  public void setIsDeleted(boolean isDeleted) {
+      this.isDeleted = isDeleted;
+  }
 }
