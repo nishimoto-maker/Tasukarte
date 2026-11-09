@@ -1,7 +1,5 @@
 package com.tasukarte.admin.entity;
 
-import com.tasukarte.auth.entity.SystemAdminPasswords;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
