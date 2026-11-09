@@ -31,8 +31,8 @@ public class MedicalRecord {
 	// 必須、患者テーブルから参照、カラム定義
 	@ManyToOne
 	@NotNull
-	@JoinColumn(name="patient_id" nullable=false)
-	private Patient patient;
+	@JoinColumn(name="patient_id", nullable=false)
+	private Patients patient;
 	
 	// 担当医師
 	// 必須、職員テーブルから参照、カラム定義
