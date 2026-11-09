@@ -12,14 +12,20 @@ import jakarta.persistence.Table;
 
 public class MessagePositions {
 	
+	//宛先役職ID
+	//主キー、自動連番、カラム定義
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "recipient_position_id", nullable = false)
 	private Integer recipientPositionId;
 	
+	//メッセージID
+	//必須、カラム定義
 	@Column(name ="message_id", nullable = false)
 	private Integer messageId;
 	
+	//役職ID
+	//必須、カラム定義
 	@Column(name = "position_id", nullable = false)
 	private Integer positionId;
 

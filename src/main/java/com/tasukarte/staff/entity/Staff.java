@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 //引数なしのコンストラクタを自動生成
 @NoArgsConstructor
 public class Staff {
-	
+
 	//idを主キーにする。
 	@Id
 	//idを自動生成             //PostgreSQLのIDENTITYによる自動採番を利用
@@ -31,57 +31,53 @@ public class Staff {
 	@Column(name = "staff_id")
 	//職員ID
 	private Integer staffId;
-	
-	@OneToOne(
-		mappedBy = "staff",
-		cascade = CascadeType.ALL,
-		orphanRemoval = true
-			)
+
+	// パスワード情報
+	@OneToOne(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true)
 	private StaffPassword staffPassword;
-	
-	@Column(name = "hospital_id", nullable = false)
 	//病院ID
+	@Column(name = "hospital_id", nullable = false)
 	private Integer hospitalId;
 
-	@Column(name = "position_id", nullable = false)
 	//役職ID
+	@Column(name = "position_id", nullable = false)
 	private Integer positionId;
 
-	@Column(name = "role_id", nullable = false)
 	//権限ID
+	@Column(name = "role_id", nullable = false)
 	private Integer roleId;
-	
-	@Column(name = "name_kanji", length = 50, nullable = false)
+
 	//名前(漢字)
-    private String nameKanji;
-	
-	@Column(name = "name_kana", length = 50, nullable = false)
+	@Column(name = "name_kanji", length = 50, nullable = false)
+	private String nameKanji;
+
 	//名前(カナ)
-    private String nameKana;
-	
-	@Column(name = "gender", nullable = false)
+	@Column(name = "name_kana", length = 50, nullable = false)
+	private String nameKana;
+
 	//性別
-    private short gender;
-	
-	@Column(name = "address", length = 255, nullable = false)
+	@Column(name = "gender", nullable = false)
+	private short gender;
+
 	//住所
-    private String address;
-	
-	@Column(name = "post_code", length = 7, nullable = false)
+	@Column(name = "address", length = 255, nullable = false)
+	private String address;
+
 	//郵便番号
-    private String postCode;
-	
-	@Column(name = "phone_number", length = 20, nullable = false)
+	@Column(name = "post_code", length = 7, nullable = false)
+	private String postCode;
+
 	//電話番号
-    private String phoneNumber;
-	
-	@Column(name = "email_address", length = 254, nullable = false)
+	@Column(name = "phone_number", length = 20, nullable = false)
+	private String phoneNumber;
+
 	//メールアドレス
-    private String emailAddress;
-	
+	@Column(name = "email_address", length = 254, nullable = false)
+	private String emailAddress;
+
+	// 削除フラグ
 	@Column(name = "is_deleted", nullable = false)
-	//削除フラグ
-    private Boolean isDeleted;
+	private boolean isDeleted;
 
 	public Integer getStaffId() {
 		return staffId;
@@ -179,13 +175,11 @@ public class Staff {
 		this.emailAddress = emailAddress;
 	}
 
-	public Boolean getIsDeleted() {
+	public boolean getIsDeleted() {
 		return isDeleted;
 	}
 
-	public void setIsDeleted(Boolean isDeleted) {
+	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-	
-	
 }

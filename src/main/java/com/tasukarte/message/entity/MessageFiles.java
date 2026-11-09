@@ -14,26 +14,40 @@ import jakarta.persistence.Table;
 
 public class MessageFiles {
 	
+	//添付ファイルID
+	//主キー、自動連番、カラム定義
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "attachment_file_id", nullable = false)
 	private Integer attachmentFileId;
 	
+	//メッセージID
+	//必須、カラム定義
 	@Column(name = "message_id", nullable = false)
 	private Integer messageId;
 	
+	//ファイル名
+	//必須、255文字まで、カラム定義
 	@Column(name = "file_name", nullable = false, length = 255)
 	private String fileName;
 	
+	//保存ファイル名
+	//必須、255文字まで、カラム定義
 	@Column(name = "saved_file_name", nullable = false, length = 255)
 	private String savedFileName;
 	
+	//ファイルパス
+	//必須、500文字まで、カラム定義
 	@Column(name = "file_path", nullable = false, length = 500)
 	private String filePath;
 	
+	//ファイルサイズ
+	//必須、カラム定義
 	@Column(name = "file_size", nullable = false)
 	private  Long fileSize;
 	
+	//登録日時
+	//必須、カラム定義
 	@Column(name = "created_at", nullable = false)
 	private LocalDateTime createdAt;
 	
