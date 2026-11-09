@@ -49,9 +49,6 @@ public class MedicalHistory {
      * ├ 高血圧
      * ├ 糖尿病
      * └ 喘息
-     *
-     * ※ ER図上のリレーションについては
-     *    設計意図を後日確認予定。
      */
     @ManyToOne
     @JoinColumn(name = "questionnaire_id", nullable = false)
