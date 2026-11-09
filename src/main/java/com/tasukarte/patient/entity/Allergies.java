@@ -13,17 +13,25 @@ import jakarta.persistence.Table;
 @Table(name = "allergies")
 public class Allergies {
 
+	//アレルギーID
+	//主キー、自動連番、カラム定義
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "allergy_id", nullable = false)
     private Integer allergyId;
 
+    //患者ID
+    //必須、カラム定義
     @Column(name = "patient_id", nullable = false)
     private Integer patientId;
 
+    //アレルギー種別
+    //必須、100文字まで、カラム定義
     @Column(name = "allergy_type", nullable = false, length = 100)
     private String allergyType;
 
+    //アレルギー症状
+    //必須、カラム定義
     @Column(name = "allergy_symptom", nullable = false)
     private String allergySymptom;
     

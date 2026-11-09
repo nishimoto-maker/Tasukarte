@@ -16,57 +16,91 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "patients")
 public class Patients {
-
+	
+	//患者ID
+	//主キー、自動連番、カラム定義
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "patient_id")
     private Integer patientId;
-
+    
+    //病院ID
+    //必須、カラム定義
     @Column(name = "hospital_id", nullable = false)
     private Integer hospitalId;
 
+    //氏名
+    //必須、255文字まで、カラム定義
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
+    //フリガナ
+    //必須、255文字まで、カラム定義
     @Column(name = "kata", nullable = false, length = 255)
     private String kata;
 
+    //生年月日
+    //必須、カラム定義
     @Column(name = "birth_day", nullable = false)
     private LocalDate birthDay;
 
+    //性別
+    //必須、カラム定義
     @Column(name = "gender", nullable = false)
     private Short gender;
 
+    //電話番号
+    //必須、20文字まで、カラム定義
     @Column(name = "phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
+    //メールアドレス
+    //255文字まで、カラム定義
     @Column(name = "email_address", length = 255)
     private String emailAddress;
 
+    //住所
+    //必須、255文字まで、カラム定義
     @Column(name = "address", nullable = false, length = 255)
     private String address;
 
+    //郵便番号
+    //必須、7文字まで、カラム定義
     @Column(name = "post_code", nullable = false, length = 7)
     private String postCode;
 
+    //血液型
+    //2文字まで、カラム定義
     @Column(name = "blood_type", length = 2)
     private String bloodType;
 
+    //RH
+    //カラム定義
     @Column(name = "rh")
     private Boolean rh;
 
+    //アレルギー有無
+    //必須、カラム定義
     @Column(name = "allergy", nullable = false)
     private Boolean allergy;
 
+    //体重
+    //合計5桁まで小数点2桁まで、カラム定義
     @Column(name = "weight", precision = 5, scale = 2)
     private BigDecimal weight;
 
+    //身長
+    //合計5桁まで小数点2桁まで、カラム定義
     @Column(name = "height", precision = 5, scale = 2)
     private BigDecimal height;
 
+    //登録日
+    //必須、カラム定義
     @Column(name = "create_at", nullable = false)
     private LocalDateTime createAt;
 
+    //更新日
+    //カラム定義
     @Column(name = "update_at")
     private LocalDateTime updateAt;
     
