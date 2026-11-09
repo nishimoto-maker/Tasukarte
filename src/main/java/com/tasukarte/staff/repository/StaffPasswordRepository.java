@@ -1,5 +1,10 @@
 package com.tasukarte.staff.repository;
 
-public class StaffPasswordRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.tasukarte.staff.entity.StaffPassword;
+
+public interface StaffPasswordRepository
+		extends JpaRepository<StaffPassword, Integer> {
 
 }

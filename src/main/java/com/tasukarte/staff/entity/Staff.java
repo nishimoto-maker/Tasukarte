@@ -1,11 +1,16 @@
 package com.tasukarte.staff.entity;
 
+import com.tasukarte.hospital.entity.HospitalManagement;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 //import lombok.Getter;
@@ -33,17 +38,21 @@ public class Staff {
 	// パスワード情報
 	@OneToOne(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true)
 	private StaffPassword staffPassword;
-	//病院ID
-	@Column(name = "hospital_id", nullable = false)
-	private Integer hospitalId;
+	
+	//病院ID(外部キー)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "hospital_id", nullable = false)
+	private HospitalManagement hospital;
 
-	//役職ID
-	@Column(name = "position_id", nullable = false)
-	private Integer positionId;
+	//役職ID(外部キー)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "position_id", nullable = false)
+	private HospitalPosition position;
 
-	//権限ID
-	@Column(name = "role_id", nullable = false)
-	private Integer roleId;
+	//権限ID(外部キー)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "role_id", nullable = false)
+	private HospitalRole role;
 
 	//名前(漢字)
 	@Column(name = "name_kanji", length = 50, nullable = false)
