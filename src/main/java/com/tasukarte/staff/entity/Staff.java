@@ -102,28 +102,28 @@ public class Staff {
 		this.staffPassword = staffPassword;
 	}
 
-	public Integer getHospitalId() {
-		return hospitalId;
+	public HospitalManagement getHospital() {
+		return hospital;
 	}
 
-	public void setHospitalId(Integer hospitalId) {
-		this.hospitalId = hospitalId;
+	public void setHospital(HospitalManagement hospital) {
+		this.hospital = hospital;
 	}
 
-	public Integer getPositionId() {
-		return positionId;
+	public HospitalPosition getPosition() {
+		return position;
 	}
 
-	public void setPositionId(Integer positionId) {
-		this.positionId = positionId;
+	public void setPosition(HospitalPosition position) {
+		this.position = position;
 	}
 
-	public Integer getRoleId() {
-		return roleId;
+	public HospitalRole getRole() {
+		return role;
 	}
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
+	public void setRole(HospitalRole role) {
+		this.role = role;
 	}
 
 	public String getNameKanji() {
@@ -186,7 +186,9 @@ public class Staff {
 		return isDeleted;
 	}
 
-	public void setIsDeleted(boolean isDeleted) {
+	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+
+	
 }

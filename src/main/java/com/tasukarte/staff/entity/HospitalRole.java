@@ -15,6 +15,7 @@ public class HospitalRole {
 	//idを自動生成             //PostgreSQLのIDENTITYによる自動採番を利用
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//権限ID
+	@Column(name = "role_id")
 	private Integer roleId;
 	
 	//権限名
