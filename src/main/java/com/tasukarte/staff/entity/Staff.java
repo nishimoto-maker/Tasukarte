@@ -1,7 +1,5 @@
 package com.tasukarte.staff.entity;
 
-import com.tasukarte.auth.entity.StaffPassword;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

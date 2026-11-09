@@ -1,6 +1,4 @@
-package com.tasukarte.auth.entity;
-
-import com.tasukarte.staff.entity.Staff;
+package com.tasukarte.staff.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

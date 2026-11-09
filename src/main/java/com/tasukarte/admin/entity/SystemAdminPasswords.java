@@ -1,6 +1,4 @@
-package com.tasukarte.auth.entity;
-
-import com.tasukarte.admin.entity.SystemAdmins;
+package com.tasukarte.admin.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
