@@ -27,7 +27,7 @@ public class MessageFiles {
 	//必須、カラム定義
 	@ManyToOne
 	@JoinColumn(name = "message_id", nullable = false)
-	private Integer messageId;
+	private Messages message;
 	
 	//ファイル名
 	//必須、255文字まで、カラム定義
@@ -64,12 +64,12 @@ public class MessageFiles {
 		this.attachmentFileId = attachmentFileId;
 	}
 
-	public Integer getMessageId() {
-		return messageId;
+	public Messages getMessageId() {
+		return message;
 	}
 
-	public void setMessageId(Integer messageId) {
-		this.messageId = messageId;
+	public void setMessageId(Messages message) {
+		this.message = message;
 	}
 
 	public String getFileName() {
