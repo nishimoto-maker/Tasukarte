@@ -3,6 +3,9 @@ package com.tasukarte.medicalrecord.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.tasukarte.patient.entity.Patients;
+import com.tasukarte.staff.entity.Staff;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -119,10 +122,10 @@ public class MedicalRecord {
 		this.medicalRecordId = medicalRecordId;
 	}
 
-	public Patient getPatient() {
+	public Patients getPatient() {
 		return patient;
 	}
-	public void setPatient(Patient patient) {
+	public void setPatient(Patients patient) {
 		this.patient = patient;
 	}
 
