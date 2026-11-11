@@ -42,7 +42,7 @@ public class Staff {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id", nullable = false)
-    private HospitalManagement hospitalManagement;
+    private HospitalManagement hospital;
 
     // 院内役職
     @NotNull
@@ -112,13 +112,13 @@ public class Staff {
 		this.staffId = staffId;
 	}
 
-	public HospitalManagement getHospitalManagement() {
-		return hospitalManagement;
+	public HospitalManagement getHospital() {
+		return hospital;
 	}
 
 
-	public void setHospitalManagement(HospitalManagement hospitalManagement) {
-		this.hospitalManagement = hospitalManagement;
+	public void setHospitalManagement(HospitalManagement hospital) {
+		this.hospital = hospital;
 	}
 
 
@@ -205,11 +205,11 @@ public class Staff {
 		this.emailAddress = emailAddress;
 	}
 
-	public boolean isDeleted() {
+	public boolean getIsDeleted() {
 		return isDeleted;
 	}
 
-	public void setDeleted(boolean isDeleted) {
+	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 }
