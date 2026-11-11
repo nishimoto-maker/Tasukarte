@@ -1,8 +1,8 @@
 package com.tasukarte.staff.entity;
 
+
 import com.tasukarte.hospital.entity.HospitalManagement;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,6 +13,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 //import lombok.Getter;
 import lombok.NoArgsConstructor;
 //import lombok.Setter;
@@ -26,7 +29,7 @@ import lombok.NoArgsConstructor;
 //引数なしのコンストラクタを自動生成
 @NoArgsConstructor
 public class Staff {
-
+	
 	//idを主キーにする。
 	@Id
 	//idを自動生成             //PostgreSQLのIDENTITYによる自動採番を利用
@@ -34,57 +37,72 @@ public class Staff {
 	@Column(name = "staff_id")
 	//職員ID
 	private Integer staffId;
-
-	// パスワード情報
-	@OneToOne(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true)
-	private StaffPassword staffPassword;
 	
-	//病院ID(外部キー)
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "hospital_id", nullable = false)
-	private HospitalManagement hospital;
+	// 病院情報管理
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private HospitalManagement hospitalManagement;
 
-	//役職ID(外部キー)
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "position_id", nullable = false)
-	private HospitalPosition position;
+    // 院内役職
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "position_id", nullable = false)
+    private HospitalPosition hospitalPosition;
 
-	//権限ID(外部キー)
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "role_id", nullable = false)
-	private HospitalRole role;
+    // 院内権限
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id", nullable = false)
+    private HospitalRole hospitalRole;
+    
+    // パスワード情報
+    @OneToOne(mappedBy = "staff", fetch = FetchType.LAZY)
+    private StaffPassword staffPassword;
 
-	//名前(漢字)
-	@Column(name = "name_kanji", length = 50, nullable = false)
-	private String nameKanji;
+    // 名前（漢字）
+    @NotBlank
+    @Size(max = 50)
+    @Column(name = "name_kanji", length = 50, nullable = false)
+    private String nameKanji;
 
-	//名前(カナ)
-	@Column(name = "name_kana", length = 50, nullable = false)
-	private String nameKana;
+    // 名前（カナ）
+    @NotBlank
+    @Size(max = 50)
+    @Column(name = "name_kana", length = 50, nullable = false)
+    private String nameKana;
 
-	//性別
-	@Column(name = "gender", nullable = false)
-	private short gender;
+    // 性別
+    @Column(name = "gender", nullable = false)
+    private short gender;
 
-	//住所
-	@Column(name = "address", length = 255, nullable = false)
-	private String address;
+    // 住所
+    @NotBlank
+    @Size(max = 255)
+    @Column(name = "address", length = 255, nullable = false)
+    private String address;
 
-	//郵便番号
-	@Column(name = "post_code", length = 7, nullable = false)
-	private String postCode;
+    // 郵便番号
+    @NotBlank
+    @Size(max = 7)
+    @Column(name = "post_code", length = 7, nullable = false)
+    private String postCode;
 
-	//電話番号
-	@Column(name = "phone_number", length = 20, nullable = false)
-	private String phoneNumber;
+    // 電話番号
+    @NotBlank
+    @Size(max = 20)
+    @Column(name = "phone_number", length = 20, nullable = false)
+    private String phoneNumber;
 
-	//メールアドレス
-	@Column(name = "email_address", length = 254, nullable = false)
-	private String emailAddress;
+    // メールアドレス
+    @NotBlank
+    @Size(max = 254)
+    @Column(name = "email_address", length = 254, nullable = false)
+    private String emailAddress;
 
-	// 削除フラグ
-	@Column(name = "is_deleted", nullable = false)
-	private boolean isDeleted;
+    // 削除フラグ
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 
 	public Integer getStaffId() {
 		return staffId;
@@ -94,36 +112,41 @@ public class Staff {
 		this.staffId = staffId;
 	}
 
+	public HospitalManagement getHospitalManagement() {
+		return hospitalManagement;
+	}
+
+
+	public void setHospitalManagement(HospitalManagement hospitalManagement) {
+		this.hospitalManagement = hospitalManagement;
+	}
+
+
+	public HospitalPosition getHospitalPosition() {
+		return hospitalPosition;
+	}
+
+
+	public void setHospitalPosition(HospitalPosition hospitalPosition) {
+		this.hospitalPosition = hospitalPosition;
+	}
+
+
+	public HospitalRole getHospitalRole() {
+		return hospitalRole;
+	}
+
+
+	public void setHospitalRole(HospitalRole hospitalRole) {
+		this.hospitalRole = hospitalRole;
+	}
+
 	public StaffPassword getStaffPassword() {
 		return staffPassword;
 	}
 
 	public void setStaffPassword(StaffPassword staffPassword) {
 		this.staffPassword = staffPassword;
-	}
-
-	public HospitalManagement getHospital() {
-		return hospital;
-	}
-
-	public void setHospital(HospitalManagement hospital) {
-		this.hospital = hospital;
-	}
-
-	public HospitalPosition getPosition() {
-		return position;
-	}
-
-	public void setPosition(HospitalPosition position) {
-		this.position = position;
-	}
-
-	public HospitalRole getRole() {
-		return role;
-	}
-
-	public void setRole(HospitalRole role) {
-		this.role = role;
 	}
 
 	public String getNameKanji() {
@@ -182,13 +205,11 @@ public class Staff {
 		this.emailAddress = emailAddress;
 	}
 
-	public boolean getIsDeleted() {
+	public boolean isDeleted() {
 		return isDeleted;
 	}
 
 	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-
-	
 }
