@@ -8,6 +8,7 @@ import jakarta.persistence.MapsId;
 //import lombok.Setter;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 //import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,21 +22,22 @@ import lombok.NoArgsConstructor;
 //@Setter
 // 引数なしのコンストラクタを自動生成
 @NoArgsConstructor
-public class SystemAdminPasswords {
+public class SystemAdminPassword {
     
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name ="admin_id")
-    private SystemAdmins systemadmin;
+    private SystemAdmin systemadmin;
     
+    @NotBlank
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
-	public SystemAdmins getSystemadmin() {
+	public SystemAdmin getSystemadmin() {
 		return systemadmin;
 	}
 
-	public void setSystemadmin(SystemAdmins systemadmin) {
+	public void setSystemadmin(SystemAdmin systemadmin) {
 		this.systemadmin = systemadmin;
 	}
 
