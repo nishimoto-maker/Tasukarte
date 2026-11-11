@@ -3,7 +3,7 @@ package com.tasukarte.medicalrecord.entity;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.tasukarte.patient.entity.Patients;
+import com.tasukarte.patient.entity.Patient;
 import com.tasukarte.staff.entity.Staff;
 
 import jakarta.persistence.Column;
@@ -35,7 +35,7 @@ public class MedicalRecord {
 	@ManyToOne
 	@NotNull
 	@JoinColumn(name="patient_id", nullable=false)
-	private Patients patient;
+	private Patient patient;
 	
 	// 担当医師
 	// 必須、職員テーブルから参照、カラム定義
@@ -122,10 +122,10 @@ public class MedicalRecord {
 		this.medicalRecordId = medicalRecordId;
 	}
 
-	public Patients getPatient() {
+	public Patient getPatient() {
 		return patient;
 	}
-	public void setPatient(Patients patient) {
+	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
 
