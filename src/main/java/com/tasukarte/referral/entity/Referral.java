@@ -60,7 +60,7 @@ public class Referral {
 
     // 送信先病院ID（必須）
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @Column(name = "recipient_hospital_id", nullable = false)
+    @JoinColumn(name = "recipient_hospital_id", nullable = false)
     private HospitalManagement recipientHospital;
 
     // 作成者職員ID（必須）

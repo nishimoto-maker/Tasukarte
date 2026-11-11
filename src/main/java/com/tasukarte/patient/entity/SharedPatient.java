@@ -3,12 +3,19 @@ package com.tasukarte.patient.entity;
 
 import java.time.LocalDate;
 
+import com.tasukarte.hospital.entity.HospitalManagement;
+import com.tasukarte.referral.entity.Referral;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 
 @Entity
@@ -24,23 +31,31 @@ public class SharedPatient {
 
     //患者ID
     //必須、カラム定義
-    @Column(name = "patient_id", nullable = false)
-    private Integer patientId;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
 
     //共有元病院ID
     //必須、カラム定義
-    @Column(name = "shared_by_hospital_id", nullable = false)
-    private Integer sharedByHospitalId;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "shared_by_hospital_id", nullable = false)
+    private HospitalManagement sharedByHospital;
 
     //共有先病院ID
     //必須、カラム定義
-    @Column(name = "share_with_hospital_id", nullable = false)
-    private Integer shareWithHospitalId;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "share_with_hospital_id", nullable = false)
+    private HospitalManagement shareWithHospital;
 
     //紹介状ID
     //必須、カラム定義
-    @Column(name = "referral_id", nullable = false)
-    private Integer referralId;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "referral_id", nullable = false)
+    private Referral referral;
 
     //共有開始日
     //必須、カラム定義
@@ -54,10 +69,10 @@ public class SharedPatient {
 
     //削除フラグ
     //必須、カラム定義
+    @NotNull
     @Column(name = "is_deleted", nullable = false)
-    private Boolean isDeleted;
-    
-    
+    private boolean isDeleted;
+
     //getter/setter
 	public Integer getSharePatientId() {
 		return sharePatientId;
@@ -67,36 +82,36 @@ public class SharedPatient {
 		this.sharePatientId = sharePatientId;
 	}
 
-	public Integer getPatientId() {
-		return patientId;
+	public Patient getPatient() {
+		return patient;
 	}
 
-	public void setPatientId(Integer patientId) {
-		this.patientId = patientId;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
-	public Integer getSharedByHospitalId() {
-		return sharedByHospitalId;
+	public HospitalManagement getSharedByHospital() {
+		return sharedByHospital;
 	}
 
-	public void setSharedByHospitalId(Integer sharedByHospitalId) {
-		this.sharedByHospitalId = sharedByHospitalId;
+	public void setSharedByHospital(HospitalManagement sharedByHospital) {
+		this.sharedByHospital = sharedByHospital;
 	}
 
-	public Integer getShareWithHospitalId() {
-		return shareWithHospitalId;
+	public HospitalManagement getShareWithHospital() {
+		return shareWithHospital;
 	}
 
-	public void setShareWithHospitalId(Integer shareWithHospitalId) {
-		this.shareWithHospitalId = shareWithHospitalId;
+	public void setShareWithHospital(HospitalManagement shareWithHospital) {
+		this.shareWithHospital = shareWithHospital;
 	}
 
-	public Integer getReferralId() {
-		return referralId;
+	public Referral getReferral() {
+		return referral;
 	}
 
-	public void setReferralId(Integer referralId) {
-		this.referralId = referralId;
+	public void setReferral(Referral referral) {
+		this.referral = referral;
 	}
 
 	public LocalDate getSharedStartAt() {
@@ -115,12 +130,12 @@ public class SharedPatient {
 		this.sharedEndAt = sharedEndAt;
 	}
 
-	public Boolean getIsDeleted() {
+	public boolean isDeleted() {
 		return isDeleted;
 	}
 
-	public void setIsDeleted(Boolean isDeleted) {
+	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
-
+    
 }
