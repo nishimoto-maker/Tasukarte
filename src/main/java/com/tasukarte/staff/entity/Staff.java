@@ -1,5 +1,7 @@
 package com.tasukarte.staff.entity;
 
+
+import com.tasukarte.auth.entity.StaffPassword;
 import com.tasukarte.hospital.entity.HospitalManagement;
 
 import jakarta.persistence.Column;
@@ -15,10 +17,20 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+//import lombok.Getter;
+import lombok.NoArgsConstructor;
+//import lombok.Setter;
 
 @Entity
 @Table(name = "staffs")
+//Getter自動生成
+//@Getter
+//Setter自動生成
+//@Setter
+//引数なしのコンストラクタを自動生成
+@NoArgsConstructor
 public class Staff {
+	
 	//idを主キーにする。
 	@Id
 	//idを自動生成             //PostgreSQLのIDENTITYによる自動採番を利用
@@ -108,21 +120,26 @@ public class Staff {
 		return hospitalManagement;
 	}
 
+
 	public void setHospitalManagement(HospitalManagement hospitalManagement) {
 		this.hospitalManagement = hospitalManagement;
 	}
+
 
 	public HospitalPosition getHospitalPosition() {
 		return hospitalPosition;
 	}
 
+
 	public void setHospitalPosition(HospitalPosition hospitalPosition) {
 		this.hospitalPosition = hospitalPosition;
 	}
 
+
 	public HospitalRole getHospitalRole() {
 		return hospitalRole;
 	}
+
 
 	public void setHospitalRole(HospitalRole hospitalRole) {
 		this.hospitalRole = hospitalRole;
