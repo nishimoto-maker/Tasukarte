@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,8 +25,9 @@ public class MessageFiles {
 	
 	//メッセージID
 	//必須、カラム定義
-	@Column(name = "message_id", nullable = false)
-	private Integer messageId;
+	@ManyToOne
+	@JoinColumn(name = "message_id", nullable = false)
+	private Messages message;
 	
 	//ファイル名
 	//必須、255文字まで、カラム定義
@@ -61,12 +64,12 @@ public class MessageFiles {
 		this.attachmentFileId = attachmentFileId;
 	}
 
-	public Integer getMessageId() {
-		return messageId;
+	public Messages getMessageId() {
+		return message;
 	}
 
-	public void setMessageId(Integer messageId) {
-		this.messageId = messageId;
+	public void setMessageId(Messages message) {
+		this.message = message;
 	}
 
 	public String getFileName() {

@@ -11,4 +11,8 @@ public class DashboardController {
         return "dashboard";
     }
 
+    @GetMapping("/top")
+    public String top() {
+        return "top";
+    }
 }

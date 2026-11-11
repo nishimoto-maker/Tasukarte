@@ -1,0 +1,58 @@
+
+/* 画面全体 */
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3f6f9;
+    font-family: sans-serif;
+}
+
+/* ログインフォーム全体 */
+.login-container {
+    width: 350px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* タイトル */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* 入力項目 */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* 項目名 */
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* 入力欄 */
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* ログインボタン */
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #3478c7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

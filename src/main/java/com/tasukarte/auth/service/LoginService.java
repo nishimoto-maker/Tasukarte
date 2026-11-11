@@ -20,11 +20,11 @@ public class LoginService {
     private final StaffPasswordRepository staffPasswordRepository;
 
     @Transactional(readOnly = true)
-    public Staff login(String emailAddress, String password) {
+    public Staff login(Integer staffId, String password) {
 
-        // ① メールアドレスから職員を検索
+        // ① IDから職員を検索
         Staff staff = staffRepository
-                .findByEmailAddress(emailAddress)
+                .findById(staffId)
                 .orElse(null);
 
         // 職員が存在しない場合
