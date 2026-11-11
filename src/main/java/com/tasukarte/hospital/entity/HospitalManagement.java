@@ -8,6 +8,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "hospital_managements")
@@ -20,30 +22,37 @@ public class HospitalManagement {
     private Integer hospitalId;
 
     // 病院名
+    @NotBlank
     @Column(name = "hospital_name", nullable = false)
     private String hospitalName;
 
     // 住所
+    @NotBlank
     @Column(name = "address", nullable = false)
     private String address;
 
     // 郵便番号
+    @NotBlank
     @Column(name = "post_code", nullable = false)
     private String postCode;
 
 	// 電話番号
+    @NotBlank
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
     // 院長名
+    @NotBlank
     @Column(name = "hospital_director_name", nullable = false)
     private String hospitalDirectorName;
 
     // 設立日
+    @NotNull
     @Column(name = "established_date", nullable = false)
     private LocalDate establishedDate;
 
     // メールアドレス
+    @NotBlank
     @Column(name = "hospital_mail", nullable = false)
     private String hospitalMail;
 
