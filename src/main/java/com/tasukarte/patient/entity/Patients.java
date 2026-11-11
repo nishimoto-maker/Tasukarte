@@ -70,13 +70,13 @@ public class Patients {
     private String postCode;
 
     //血液型
-    //2文字まで、カラム定義
-    @Column(name = "blood_type", length = 2)
+    //必須、2文字まで、カラム定義
+    @Column(name = "blood_type", nullable = false, length = 2)
     private String bloodType;
 
     //RH
-    //カラム定義
-    @Column(name = "rh")
+    //必須、カラム定義
+    @Column(name = "rh", nullable = false)
     private Boolean rh;
 
     //アレルギー有無
@@ -85,13 +85,13 @@ public class Patients {
     private Boolean allergy;
 
     //体重
-    //合計5桁まで小数点2桁まで、カラム定義
-    @Column(name = "weight", precision = 5, scale = 2)
+    //必須、合計5桁まで小数点2桁まで、カラム定義
+    @Column(name = "weight", nullable = false, precision = 5, scale = 2)
     private BigDecimal weight;
 
     //身長
-    //合計5桁まで小数点2桁まで、カラム定義
-    @Column(name = "height", precision = 5, scale = 2)
+    //必須、合計5桁まで小数点2桁まで、カラム定義
+    @Column(name = "height",  nullable = false,precision = 5, scale = 2)
     private BigDecimal height;
 
     //登録日
