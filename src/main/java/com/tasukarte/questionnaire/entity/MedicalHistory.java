@@ -19,6 +19,7 @@ import lombok.Setter;
  *
  * 患者の過去の疾病歴や治療歴を保持する。
  * 問診票1件に対して複数の既往歴を登録できる想定。
+ * 
  */
 @Entity
 @Table(name = "medical_histories")

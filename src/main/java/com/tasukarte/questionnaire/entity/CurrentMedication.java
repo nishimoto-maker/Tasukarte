@@ -19,6 +19,7 @@ import lombok.Setter;
  *
  * 患者が現在服用している薬を保持する。
  * 問診票1件に対して複数の服用薬を登録できる想定。
+ * 
  */
 @Entity
 @Table(name = "current_medications")

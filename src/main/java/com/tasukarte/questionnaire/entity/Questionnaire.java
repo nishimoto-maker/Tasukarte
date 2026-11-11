@@ -17,6 +17,7 @@ import lombok.Setter;
  *
  * 患者が来院した際の問診内容を保持する。
  * 既往歴および現在服用薬については別テーブルで管理する。
+ * 
  */
 @Entity
 @Table(name = "questionnaires")
