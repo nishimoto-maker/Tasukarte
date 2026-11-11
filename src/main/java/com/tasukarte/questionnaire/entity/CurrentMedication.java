@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -64,6 +65,7 @@ public class CurrentMedication {
      * ・ムコスタ錠100mg
      * ・カロナール錠200mg
      */
+    @NotBlank
     @Column(name = "medicine_name", nullable = false)
     private String medicineName;
 }

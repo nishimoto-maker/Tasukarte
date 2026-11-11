@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -56,6 +57,7 @@ public class Questionnaire {
      * ・健康診断
      * ・体調不良
      */
+    @NotBlank
     @Column(name = "visit_purpose", nullable = false)
     private String visitPurpose;
 
@@ -63,6 +65,7 @@ public class Questionnaire {
      * 現在の症状
      * 患者が申告した症状を保持する。
      */
+    @NotBlank
     @Column(name = "symptom", nullable = false)
     private String symptom;
 }
