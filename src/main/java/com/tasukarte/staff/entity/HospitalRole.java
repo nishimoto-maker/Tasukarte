@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="hospital_roles")
@@ -14,10 +16,13 @@ public class HospitalRole {
 	@Id
 	//idを自動生成             //PostgreSQLのIDENTITYによる自動採番を利用
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "role_id", nullable = false)
 	//権限ID
 	private Integer roleId;
 	
 	//権限名
+	@NotBlank
+	@Size(max = 5)
 	@Column(name="role_name", length = 5, nullable = false)
 	private String roleName;
 	
