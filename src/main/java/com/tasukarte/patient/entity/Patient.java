@@ -4,18 +4,26 @@ package com.tasukarte.patient.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import com.tasukarte.hospital.entity.HospitalManagement;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "patients")
-public class Patients {
+public class Patient {
 	
 	//患者ID
 	//主キー、自動連番、カラム定義
@@ -24,33 +32,45 @@ public class Patients {
     @Column(name = "patient_id")
     private Integer patientId;
     
+    // アレルギー情報
+    // 1人の患者に複数のアレルギー情報が紐づく
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private List<Allergie> allergies;
+    
     //病院ID
     //必須、カラム定義
-    @Column(name = "hospital_id", nullable = false)
-    private Integer hospitalId;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private HospitalManagement hospital;
 
     //氏名
     //必須、255文字まで、カラム定義
+    @NotBlank
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
     //フリガナ
     //必須、255文字まで、カラム定義
+    @NotBlank
     @Column(name = "kata", nullable = false, length = 255)
     private String kata;
 
     //生年月日
     //必須、カラム定義
+    @NotNull
     @Column(name = "birth_day", nullable = false)
     private LocalDate birthDay;
 
     //性別
     //必須、カラム定義
+    @NotNull
     @Column(name = "gender", nullable = false)
     private Short gender;
 
     //電話番号
     //必須、20文字まで、カラム定義
+    @NotBlank
     @Column(name = "phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
@@ -61,41 +81,49 @@ public class Patients {
 
     //住所
     //必須、255文字まで、カラム定義
+    @NotBlank
     @Column(name = "address", nullable = false, length = 255)
     private String address;
 
     //郵便番号
     //必須、7文字まで、カラム定義
+    @NotBlank
     @Column(name = "post_code", nullable = false, length = 7)
     private String postCode;
 
     //血液型
     //必須、2文字まで、カラム定義
+    @NotBlank
     @Column(name = "blood_type", nullable = false, length = 2)
     private String bloodType;
 
     //RH
     //必須、カラム定義
+    @NotNull
     @Column(name = "rh", nullable = false)
     private Boolean rh;
 
     //アレルギー有無
     //必須、カラム定義
+    @NotNull
     @Column(name = "allergy", nullable = false)
     private Boolean allergy;
 
     //体重
     //必須、合計5桁まで小数点2桁まで、カラム定義
+    @NotNull
     @Column(name = "weight", nullable = false, precision = 5, scale = 2)
     private BigDecimal weight;
 
     //身長
     //必須、合計5桁まで小数点2桁まで、カラム定義
+    @NotNull
     @Column(name = "height",  nullable = false,precision = 5, scale = 2)
     private BigDecimal height;
 
     //登録日
     //必須、カラム定義
+    @NotNull
     @Column(name = "create_at", nullable = false)
     private LocalDateTime createAt;
 
@@ -103,23 +131,30 @@ public class Patients {
     //カラム定義
     @Column(name = "update_at")
     private LocalDateTime updateAt;
-    
-    
-    //getter/setter
+
+    //setter/getter
 	public Integer getPatientId() {
 		return patientId;
+	}
+	
+	public List<Allergie> getAllergies() {
+	    return allergies;
 	}
 
 	public void setPatientId(Integer patientId) {
 		this.patientId = patientId;
 	}
-
-	public Integer getHospitalId() {
-		return hospitalId;
+	
+	public void setAllergies(List<Allergie> allergies) {
+	    this.allergies = allergies;
 	}
 
-	public void setHospitalId(Integer hospitalId) {
-		this.hospitalId = hospitalId;
+	public HospitalManagement getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(HospitalManagement hospital) {
+		this.hospital = hospital;
 	}
 
 	public String getName() {
@@ -241,5 +276,5 @@ public class Patients {
 	public void setUpdateAt(LocalDateTime updateAt) {
 		this.updateAt = updateAt;
 	}
-
+	
 }
