@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DashboardController {
 
 	@GetMapping("/top")
-	public class DashboardController{
-		
+	public String top(){
 		return "top";
 	}
 }

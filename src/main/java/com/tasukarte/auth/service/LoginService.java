@@ -22,7 +22,7 @@ public class LoginService {
     @Transactional(readOnly = true)
     public Staff login(Integer staffId, String password) {
 
-        // ① メールアドレスから職員を検索
+        // ① IDから職員を検索
         Staff staff = staffRepository
                 .findById(staffId)
                 .orElse(null);
