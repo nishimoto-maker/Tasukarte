@@ -65,11 +65,11 @@ public class LoginUserDetailsService implements UserDetailsService {
                 staff.getHospital().getHospitalId(),
                 staff.getHospital().getHospitalName(),
 
-                staff.getPosition().getPositionId(),
-                staff.getPosition().getPositionName(),
+                staff.getHospitalPosition().getPositionId(),
+                staff.getHospitalPosition().getPositionName(),
 
-                staff.getRole().getRoleId(),
-                staff.getRole().getRoleName(),
+                staff.getHospitalRole().getRoleId(),
+                staff.getHospitalRole().getRoleName(),
 
                 staffPassword.getPasswordHash()
         );
