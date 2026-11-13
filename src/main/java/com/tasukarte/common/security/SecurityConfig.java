@@ -30,7 +30,7 @@ public class SecurityConfig {
             // URLごとのアクセス制限
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/login",
+                    "/auth/login",
                     "/css/**",
                     "/js/**",
                     "/images/**"
@@ -40,8 +40,8 @@ public class SecurityConfig {
 
             // ログイン設定
             .formLogin(form -> form
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
+                .loginPage("/auth/login")
+                .loginProcessingUrl("/auth/login")
                 .usernameParameter("staffId")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/top", true)

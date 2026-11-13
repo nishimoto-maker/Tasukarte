@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
@@ -14,10 +13,10 @@
 
         <h1>ログイン</h1>
 
-        <form>
+        <form th:action="@{/auth/login}" method="post">
             <div class="form-group">
                 <label for="userId">ユーザーID</label>
-                <input type="text" id="userId" name="userId">
+                <input type="text" id="staffId" name="staffId">
             </div>
 
 <!--            <div class="form-group">-->
