@@ -32,6 +32,7 @@ public class MedicalRecord {
 	
 	// 患者
 	// 必須、患者テーブルから参照、カラム定義
+	// 変更は反映されましたか？
 	@ManyToOne
 	@NotNull
 	@JoinColumn(name="patient_id", nullable=false)
