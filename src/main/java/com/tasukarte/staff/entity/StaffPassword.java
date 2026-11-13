@@ -5,38 +5,27 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-//import lombok.Setter;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-//import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="staff_passwords")
-@NoArgsConstructor
 public class StaffPassword {
 	// 主キー（外部キーも兼ねる）
 	@Id
-	@Column(name="staff_id", nullable = false)
-	//職員ID
-	private Integer staffId;
-	
 	@OneToOne(fetch = FetchType.LAZY)
-	@MapsId
-	@JoinColumn(name = "staff_id")
+	@JoinColumn(name = "staff_id", nullable = false)
 	private Staff staff;
 	
+	@NotBlank
+	@Size(max = 255)
 	@Column(name="password_hash", length = 255, nullable = false)
 	//パスワードハッシュ
 	private String passwordHash;
-
-	public Integer getStaffId() {
-		return staffId;
-	}
-
-	public void setStaffId(Integer staffId) {
-		this.staffId = staffId;
+	
+	public StaffPassword() {
 	}
 
 	public Staff getStaff() {
