@@ -9,7 +9,7 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "hospital_medical_department")
+@Table(name = "hospital_medical_departments")
 public class HospitalMedicalDepartment {
 	// 複合主キーを管理する
     @EmbeddedId
@@ -17,6 +17,9 @@ public class HospitalMedicalDepartment {
 
     // 病院Entityとの関連付け
     // 複合主キーのhospitalIdと対応させる
+    // 複数のレコードから同じ病院を参照できる関係を設定する
+    // 関連する病院のデータは必要になるまで取得しない
+    // 外部キーとなる病院IDのカラムを指定する
     @MapsId("hospitalId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id", nullable = false)
