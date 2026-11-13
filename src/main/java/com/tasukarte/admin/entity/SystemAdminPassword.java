@@ -3,6 +3,7 @@ package com.tasukarte.admin.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 //import lombok.Setter;
@@ -23,6 +24,11 @@ import lombok.NoArgsConstructor;
 // 引数なしのコンストラクタを自動生成
 @NoArgsConstructor
 public class SystemAdminPassword {
+	
+	// 主キー（外部キーも兼ねる）	
+	@Id
+	@Column(name = "admin_id")
+	private Integer admin_id;
     
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
@@ -33,6 +39,7 @@ public class SystemAdminPassword {
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
+    
 	public SystemAdmin getSystemadmin() {
 		return systemadmin;
 	}
