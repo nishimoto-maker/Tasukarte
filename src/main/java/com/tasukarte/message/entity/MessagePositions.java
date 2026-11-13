@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table (name = "message_positions")
@@ -23,12 +24,14 @@ public class MessagePositions {
 	
 	//メッセージID
 	//必須、カラム定義
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name ="message_id", nullable = false)
 	private Integer messageId;
 	
 	//役職ID
 	//必須、カラム定義
+	@NotNull
 	@Column(name = "position_id", nullable = false)
 	private Integer positionId;
 

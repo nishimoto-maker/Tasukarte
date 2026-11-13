@@ -8,6 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table (name = "messages")
@@ -22,46 +25,56 @@ public class Messages {
 	
 	//送信元病院ID
 	//必須、カラム定義
+	@NotNull
 	@Column(name = "sender_hospital_id", nullable = false)
 	private Integer senderHospitalId;
 	
 	//送信先病院ID
 	//カラム定義
+	@NotNull
 	@Column(name = "recipient_hospital_id")
 	private Integer recipientHospitalId;
 	
 	//作成者ID
 	//必須、カラム定義
+	@NotNull
 	@Column(name = "staff_id", nullable = false)
 	private Integer staffId;
 	
 	//件名
-	//200文字まで、カラム定義
+	//200字まで、カラム定義
+	@NotBlank
+	@Size(max=200)
 	@Column(name = "subject", nullable = false,length = 200)
 	private String subject;
 	
 	//本文
 	//カラム定義
+	@NotBlank
 	@Column(name = "main_text")
 	private String mainText;
 	
 	//状態
 	//必須、初期値0、カラム定義
+	@NotNull
 	@Column(name = "state", nullable = false)
 	private Short state = 0;
 	
 	//送信日時
 	//カラム定義
+	@NotNull
 	@Column(name = "send_at")
 	private LocalDateTime sendAt;
 	
 	//作成日時
 	//必須、カラム定義
+	@NotNull
 	@Column(name = "created_at", nullable = false)
 	private LocalDateTime createdAt;
 	
 	//更新日時
 	//必須、カラム定義
+	@NotNull
 	@Column(name = "update_at", nullable = false)
 	private LocalDateTime updateAt;
 	

@@ -10,6 +10,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table (name = "message_files")
@@ -25,32 +28,40 @@ public class MessageFiles {
 	
 	//メッセージID
 	//必須、カラム定義
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "message_id", nullable = false)
 	private Messages message;
 	
 	//ファイル名
-	//必須、255文字まで、カラム定義
+	//必須、255字まで、カラム定義
+	@NotBlank
+	@Size(max = 255)
 	@Column(name = "file_name", nullable = false, length = 255)
 	private String fileName;
 	
 	//保存ファイル名
-	//必須、255文字まで、カラム定義
+	//必須、255字まで、カラム定義
+	@Size(max = 255)
 	@Column(name = "saved_file_name", nullable = false, length = 255)
 	private String savedFileName;
 	
 	//ファイルパス
-	//必須、500文字まで、カラム定義
+	//必須、500字まで、カラム定義
+	@NotBlank
+	@Size(max = 500)
 	@Column(name = "file_path", nullable = false, length = 500)
 	private String filePath;
 	
 	//ファイルサイズ
 	//必須、カラム定義
+	@NotNull
 	@Column(name = "file_size", nullable = false)
 	private  Long fileSize;
 	
 	//登録日時
 	//必須、カラム定義
+	@NotNull
 	@Column(name = "created_at", nullable = false)
 	private LocalDateTime createdAt;
 	
