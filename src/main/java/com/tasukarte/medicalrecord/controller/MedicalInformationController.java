@@ -1,16 +1,11 @@
 package com.tasukarte.medicalrecord.controller;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tasukarte.medicalrecord.service.MedicalRecordService;
-import com.tasukarte.patient.entity.Patient;
 
 // 指定したURLにアクセスされた時に、
 // 対応したメソッドを呼び出すクラスであることを指示
@@ -43,19 +38,19 @@ public class MedicalInformationController {
 	// 患者氏名で検索
 	// いずれはページネーションもやる
 	// 対象データが0件だった時の表示はHTML側のth:if
-	@GetMapping("/search")
-	public String searchPatients(
-			@RequestParam String name,
-			Model model
-			) {
-		if (name != null && !name.isBlank()) {
-			List<Patient> patients = medicalRecordService.searchPatients(name);
-			model.addAttribute("patients", patients);
-		} else {
-			model.addAttribute("errormessage", "患者名を入力して下さい。");
-		}
-		return "medical-records/medical-information";
-	}
+//	@GetMapping("/search")
+//	public String searchPatients(
+//			@RequestParam String name,
+//			Model model
+//			) {
+//		if (name != null && !name.isBlank()) {
+//			List<Patient> patients = medicalRecordService.searchPatients(name);
+//			model.addAttribute("patients", patients);
+//		} else {
+//			model.addAttribute("errormessage", "患者名を入力して下さい。");
+//		}
+//		return "medical-records/medical-information";
+//	}
 	
 	// トップから選択された患者の詳細情報と、各種登録へ遷移できるボタンが配置された
 	// 【患者情報照会・登録内容選択】を表示
