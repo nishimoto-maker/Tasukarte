@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>患者情報検索</title>
+</head>
+<body>
+    <h1>患者情報一覧</h1>
+
+    <a href="@{/patients/patientNew}">
+        +新規登録
+    </a>
+
+    <form method="get" action="/patientSearch">
+
+        <p>
+            氏名：
+            <input type="text" name="name">
+        </p>
+
+        <p>
+            性別：
+            <input type="radio" id="man" name="gender" value="man">
+            <label for="man">男性</label>
+
+            <input type="radio" id="woman" name="gender" value="woman">
+            <label for="woman">女性</label>
+        </p>
+
+        <p>
+            登録日：
+            <input type="date" name="startDate">
+            ～
+            <input type="date" name="endDate">
+        </p>
+
+        <p>
+            再診予定日：
+            <input type="date" name="startNextVisitDate">
+            ～
+            <input type="date" name="endNextVisitDate">
+        </p>
+
+        <p>
+            最終診療日：
+            <input type="date" name="startLastVisitDate">
+            ～
+            <input type="date" name="endLastVisitDate">
+        </p>
+
+		<p>
+			年齢：
+			<input type="number" name="age" >
+		</p>
+
+        <button type="submit">検索</button>
+
+    </form>
+
+</body>
+</html>
