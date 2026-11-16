@@ -1,5 +1,6 @@
 package com.tasukarte.referral.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.tasukarte.hospital.entity.Hospital;
@@ -14,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -106,17 +108,23 @@ public class Referral {
     private String status;
 
     // 削除フラグ
-    @Column(name = "is_deleted")
-    private boolean deleted;
+    @Column(name = "is_deleted", nullable = false)
+    private boolean deleted = false;
 
     // 共有開始日（一時保存時Null許容、本登録時必須）
     @Column(name = "shared_start_at")
-    private LocalDateTime sharedStartAt;
+    private LocalDate sharedStartAt;
 
     // 共有終了日（一時保存時Null許容、本登録時必須）
     @Column(name = "shared_end_at")
-    private LocalDateTime sharedEndAt;
+    private LocalDate sharedEndAt;
 
+    //DB登録直前に実行
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+    
 	public Integer getReferralId() {
 		return referralId;
 	}
@@ -221,19 +229,19 @@ public class Referral {
 		this.deleted = deleted;
 	}
 
-	public LocalDateTime getSharedStartAt() {
+	public LocalDate getSharedStartAt() {
 		return sharedStartAt;
 	}
 
-	public void setSharedStartAt(LocalDateTime sharedStartAt) {
+	public void setSharedStartAt(LocalDate sharedStartAt) {
 		this.sharedStartAt = sharedStartAt;
 	}
 
-	public LocalDateTime getSharedEndAt() {
+	public LocalDate getSharedEndAt() {
 		return sharedEndAt;
 	}
 
-	public void setSharedEndAt(LocalDateTime sharedEndAt) {
+	public void setSharedEndAt(LocalDate sharedEndAt) {
 		this.sharedEndAt = sharedEndAt;
 	}
 
