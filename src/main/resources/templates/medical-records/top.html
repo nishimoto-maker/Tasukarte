@@ -6,36 +6,53 @@
 </head>
 <body>
 
+<!-- 診療記録検索へ遷移可能。aタグで仮置き -->
 <a th:href="@{/medical-records}">診療記録検索</a>
 
+<!-- 問診票検索へ遷移可能。aタグで仮置き -->
 <a th:href="@{/questionnaires}">問診票検索</a>
 
+<!-- 検索欄が空のまま検索を押された時のエラーメッセージを表示する。
+	エラーメッセージがあるときだけ表示される。 -->
+<p th:if="${errormessage}" th:text="${errormessage}"></p>
+<!-- 患者名検索欄 -->
 <form action="/medical-information/search" method="get">
 	<label for="patientName">患者名：</label>
 	<input type="text" id="patientName" name="patientName" required>
 	<button type="submit">検索</button>
 </form>
 
+<!-- 検索実行後、データがあれば表で表示 -->
 <div th:if="${!patients.isEmpty()}">
 	<table>
 		<thead>
+			<!-- 表示する患者情報の数は増やすかも -->
 			<tr>
 				<th>患者氏名</th>
-				<th>情報名</th>
-				<th>情報名</th>
+				<th>生年月日(仮)</th>
+				<th>性別(仮)</th>
 			</tr>
 		</thead>
 		
 		<tbody>
+			<!-- 1件ずつ取り出して表示 -->
 			<tr th:each="patient : ${patients}">
+				<!-- この患者についての患者情報照会・登録内容選択へ遷移 -->
 				<td>
 					<a th:href="@{/medical-information/{patientId}(id=${patient.patientId})}">
 						<p><span th:text="${patient.patientName}"></span></p>
 					</a>
 				</td>
+				<td th:text="${patient.birthDay}"></td>
+				<td th:text="${patient.gender}"></td>
 			</tr>
 		</tbody>
 	</table>
+</div>
+
+<!-- 検索実行後、データが無かった時に表示するメッセージ -->
+<div th:if="${patients.isEmpty()}">
+	<p>検索結果がありません。条件を変えてもう一度検索してください。</p>
 </div>
 </body>
 </html>
