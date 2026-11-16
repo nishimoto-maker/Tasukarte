@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "hospitals")
-public class HospitalManagement {
+public class Hospital {
 
     // idを主キーにする
     @Id
@@ -62,7 +62,7 @@ public class HospitalManagement {
     @Column(name = "is_deleted")
     private boolean isDeleted;
     
-    public HospitalManagement() {
+    public Hospital() {
     }
     
     public Integer getHospitalId() {

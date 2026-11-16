@@ -17,7 +17,7 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table (name = "message_files")
 
-public class MessageFiles {
+public class MessageFile {
 	
 	//添付ファイルID
 	//主キー、自動連番、カラム定義
@@ -31,7 +31,7 @@ public class MessageFiles {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "message_id", nullable = false)
-	private Messages message;
+	private Message message;
 	
 	//ファイル名
 	//必須、255字まで、カラム定義
@@ -75,11 +75,11 @@ public class MessageFiles {
 		this.attachmentFileId = attachmentFileId;
 	}
 
-	public Messages getMessageId() {
+	public Message getMessageId() {
 		return message;
 	}
 
-	public void setMessageId(Messages message) {
+	public void setMessageId(Message message) {
 		this.message = message;
 	}
 

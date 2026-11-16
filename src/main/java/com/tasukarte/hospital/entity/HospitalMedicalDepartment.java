@@ -23,7 +23,7 @@ public class HospitalMedicalDepartment {
     @MapsId("hospitalId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id", nullable = false)
-    private HospitalManagement hospital;
+    private Hospital hospital;
 
     // 診療科Entityとの関連付け
     // 複合主キーのmedicalDepartmentIdと対応させる
@@ -43,11 +43,11 @@ public class HospitalMedicalDepartment {
 		this.id = id;
 	}
 
-	public HospitalManagement getHospital() {
+	public Hospital getHospital() {
 		return hospital;
 	}
 
-	public void setHospital(HospitalManagement hospital) {
+	public void setHospital(Hospital hospital) {
 		this.hospital = hospital;
 	}
 

@@ -1,7 +1,7 @@
 package com.tasukarte.staff.entity;
 
 
-import com.tasukarte.hospital.entity.HospitalManagement;
+import com.tasukarte.hospital.entity.Hospital;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,7 +42,7 @@ public class Staff {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id", nullable = false)
-    private HospitalManagement hospital;
+    private Hospital hospital;
 
     // 院内役職
     @NotNull
@@ -112,12 +112,12 @@ public class Staff {
 		this.staffId = staffId;
 	}
 
-	public HospitalManagement getHospital() {
+	public Hospital getHospital() {
 		return hospital;
 	}
 
 
-	public void setHospitalManagement(HospitalManagement hospital) {
+	public void setHospitalManagement(Hospital hospital) {
 		this.hospital = hospital;
 	}
 
