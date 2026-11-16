@@ -16,6 +16,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http) throws Exception {
     	
+    	
     	//permitAll():ログイン前でもアクセス可能
     	//authenticated():ログイン済みユーザーのみアクセス可能
     	//loginPage():ログイン画面のURL
@@ -45,7 +46,7 @@ public class SecurityConfig {
                 .usernameParameter("staffId")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/top", true)
-                .failureUrl("/login?error")
+                .failureUrl("/auth/login?error")
                 .permitAll()
             )
 

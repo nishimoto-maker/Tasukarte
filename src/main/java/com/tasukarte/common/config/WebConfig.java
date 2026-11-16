@@ -17,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer{
 		
 		//LoginIntercetorで設定した、ログインしていなければログイン画面へ遷移する
 		//決まりをどのURLへのアクセスで適応するのかを設定
-		registry.addInterceptor(loginInterceptor)
-			.addPathPatterns("/top");
+		//registry.addInterceptor(loginInterceptor)
+		//	.addPathPatterns("/top");
 	}
 }
