@@ -1,11 +1,138 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>トップ画面</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOP画面 - Tasukarte</title>
+<link rel="stylesheet" th:href="@{/css/dashboard.css}">
 </head>
 <body>
-    <h1>ログインテスト成功</h1>
-    <p>トップ画面に遷移しました。</p>
+
+  <div th:replace="~{fragments/header :: header}"></div>
+
+  <div class="page-layout">
+	  
+	  <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+  <main>
+<div class="page-header">
+<h1 class="page-title">メインメニュー</h1>
+<p class="page-subtitle">操作する業務メニューを選択してください</p>
+</div>
+
+    <div class="menu-container">
+<!-- 1. 患者情報管理 -->
+<button type="button" class="menu-button">
+<span class="icon-wrapper">
+<svg viewBox="0 0 24 24">
+<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+<circle cx="9" cy="7" r="4"/>
+<path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+</svg>
+</span>
+<span class="menu-text">
+<span class="menu-title">患者情報管理</span>
+<span class="menu-desc">基本情報・来院履歴の登録と照会</span>
+</span>
+</button>
+
+      <!-- 2. 診療情報管理 -->
+<button type="button" class="menu-button">
+<span class="icon-wrapper">
+<svg viewBox="0 0 24 24">
+<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+<polyline points="14 2 14 8 20 8"/>
+<line x1="12" y1="12" x2="12" y2="18"/>
+<line x1="9" y1="15" x2="15" y2="15"/>
+</svg>
+</span>
+<span class="menu-text">
+<span class="menu-title">診療情報管理</span>
+<span class="menu-desc">電子カルテ・診察記録・検査データ</span>
+</span>
+</button>
+
+      <!-- 3. 処方箋管理 -->
+<button type="button" class="menu-button">
+<span class="icon-wrapper">
+<svg viewBox="0 0 24 24">
+<path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/>
+<path d="m8.5 8.5 7 7"/>
+</svg>
+</span>
+<span class="menu-text">
+<span class="menu-title">処方箋管理</span>
+<span class="menu-desc">処方オーダー・投薬履歴の確認</span>
+</span>
+</button>
+
+      <!-- 4. 病院検索 -->
+<button type="button" class="menu-button">
+<span class="icon-wrapper">
+<svg viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="8"/>
+<line x1="21" y1="21" x2="16.65" y2="16.65"/>
+<line x1="11" y1="8" x2="11" y2="14"/>
+<line x1="8" y1="11" x2="14" y2="11"/>
+</svg>
+</span>
+<span class="menu-text">
+<span class="menu-title">病院検索</span>
+<span class="menu-desc">近隣医療機関・診療科目の検索</span>
+</span>
+</button>
+
+      <!-- 5. 病院間連携 -->
+<button type="button" class="menu-button">
+<span class="icon-wrapper">
+<svg viewBox="0 0 24 24">
+<path d="M17 1l4 4-4 4"/>
+<path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+<path d="M7 23l-4-4 4-4"/>
+<path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+</svg>
+</span>
+<span class="menu-text">
+<span class="menu-title">病院間連携</span>
+<span class="menu-desc">紹介状・転院・地域連携データ共有</span>
+</span>
+</button>
+
+      <!-- 6. 職員検索 -->
+<button type="button" class="menu-button">
+<span class="icon-wrapper">
+<svg viewBox="0 0 24 24">
+<rect x="3" y="4" width="18" height="16" rx="2"/>
+<circle cx="9" cy="10" r="2"/>
+<path d="M15 8h2"/>
+<path d="M15 12h2"/>
+<path d="M7 16h10"/>
+</svg>
+</span>
+<span class="menu-text">
+<span class="menu-title">職員検索</span>
+<span class="menu-desc">医師・看護師・スタッフの在籍照会</span>
+</span>
+</button>
+
+      <!-- 7. 院内管理 -->
+<button type="button" class="menu-button">
+<span class="icon-wrapper">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"/>
+<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+</svg>
+</span>
+<span class="menu-text">
+<span class="menu-title">院内管理</span>
+<span class="menu-desc">マスタ設定・権限管理・システム環境</span>
+</span>
+</button>
+</div>
+</main>
+
+</div>
+
 </body>
 </html>

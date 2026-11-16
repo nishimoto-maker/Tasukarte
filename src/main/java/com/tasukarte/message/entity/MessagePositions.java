@@ -25,7 +25,7 @@ public class MessagePositions {
 	//必須、カラム定義
 	@ManyToOne
 	@JoinColumn(name ="message_id", nullable = false)
-	private Integer messageId;
+	private Messages message;
 	
 	//役職ID
 	//必須、カラム定義
@@ -42,12 +42,12 @@ public class MessagePositions {
 		this.recipientPositionId = recipientPositionId;
 	}
 
-	public Integer getMessageId() {
-		return messageId;
+	public Messages getMessage() {
+		return message;
 	}
 
-	public void setMessageId(Integer messageId) {
-		this.messageId = messageId;
+	public void setMessage(Messages message) {
+		this.message = message;
 	}
 
 	public Integer getPositionId() {

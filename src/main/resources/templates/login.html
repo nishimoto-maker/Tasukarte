@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ログイン</title>
-    <link rel="stylesheet" th:href="@{/css/login.css}">
+	<link rel="stylesheet" href="../static/css/login.css">
 </head>
 
 <body>
@@ -17,17 +17,17 @@
         <form>
             <div class="form-group">
                 <label for="userId">ユーザーID</label>
-                <input type="text" id="userId" name="userId">
+                <input type="text" id="userId" name="userId" required>
             </div>
 
             <div class="form-group">
                 <label for="hospitalId">病院ID</label>
-                <input type="text" id="hospitalId" name="hospitalId">
+                <input type="text" id="hospitalId" name="hospitalId" required>
             </div>
 
             <div class="form-group">
                 <label for="password">パスワード</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" required>
             </div>
 
             <div>
@@ -38,6 +38,26 @@
         </form>
 
     </main>
-
+    
+    <script>
+    	// ログインフォームを取得
+    	const loginForm = document.querySelector("form");
+    	
+    	// パスワード入力欄を取得
+    	const passwordInput = document.getElementById("password");
+    	
+    	// 未入力エラーが発生したときの処理
+    	loginForm.addEventListener("invalid", function(event) {
+    		
+    		// パスワード以外の項目でエラーが発生した場合
+    		if (event.target.id !== "password") {
+    			
+    			// パスワードを空欄にする
+    			passwordInput.value = "";
+    		}
+    		
+    	}, true);
+    </script>
+    
 </body>
 </html>

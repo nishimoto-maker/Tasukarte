@@ -7,52 +7,95 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #f3f6f9;
-    font-family: sans-serif;
+    font-family: "Yu Gothic", "Meiryo", sans-serif;
+    color: #333;
 }
 
 /* ログインフォーム全体 */
 .login-container {
     width: 350px;
-    padding: 30px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: calc(100% - 60px);
+    padding: 35px;
+    background-color: #fff;
+    border: 1px solid #e5e9ef;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
 }
 
 /* タイトル */
 h1 {
     text-align: center;
-    margin-bottom: 30px;
+    margin: 0 0 30px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #26364a;
 }
 
 /* 入力項目 */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 /* 項目名 */
 label {
     display: block;
     margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
 }
 
 /* 入力欄 */
 input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border: 1px solid #cbd2dc;
     border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
+
+/* 入力欄を選択したとき */
+input:focus {
+	 outline: none;
+	 border-color: #345477;
+	 box-shadow: 0 0 0 3px rgba(52, 84, 119, 0.12);
+}
+ 
+/* パスワード再設定リンク */
+.login-container a {
+	 display: block;
+	 text-align: right;
+	 color: #45678d;
+	 font-size: 13px;
+	 text-decoration: underline;
+}
+
+.login-container a:hover {
+	text-decoration: underline;
+}
+ 
+ 
 
 /* ログインボタン */
 button {
     width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    background-color: #3478c7;
+    padding: 13px;
+    margin-top: 25px;
+    background-color: #304b6a;
     color: white;
     border: none;
     border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
+
+/* ボタンにカーソルを合わせた時 */
+button:hover {
+	background-color: #243b56;
+}
+

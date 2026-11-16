@@ -20,11 +20,11 @@ public class LoginService {
     private final StaffPasswordRepository staffPasswordRepository;
 
     @Transactional(readOnly = true)
-    public Staff login(String emailAddress, String password) {
+    public Staff login(Integer userId, Integer hospitalId, String password) {
 
-        // ① メールアドレスから職員を検索
+        // ① ユーザーIDと病院IDから職員を検索
         Staff staff = staffRepository
-                .findByEmailAddress(emailAddress)
+                .findByStaffIdAndHospital_HospitalId(userId, hospitalId)
                 .orElse(null);
 
         // 職員が存在しない場合
@@ -37,26 +37,25 @@ public class LoginService {
             return null;
         }
 
-        // ③ 職員IDからパスワード情報を取得
-        StaffPassword staffPassword =
-                staffPasswordRepository
-                        .findById(staff.getStaffId())
-                        .orElse(null);
+        // ③ 所属病院の削除フラグを確認
+        if (staff.getHospital() == null ||
+                staff.getHospital().isDeleted()) {
+            return null;
+        }
+
+        // ④ 職員IDからパスワード情報を取得
+        StaffPassword staffPassword = staffPasswordRepository
+                .findById(staff.getStaffId())
+                .orElse(null);
 
         // パスワード情報が存在しない場合
         if (staffPassword == null) {
             return null;
         }
 
-        // ④ パスワードを照合（現在は平文でのテスト用）
+        // ⑤ パスワードを照合
         if (password == null ||
                 !password.equals(staffPassword.getPasswordHash())) {
-            return null;
-        }
-
-        // ⑤ 所属病院の削除フラグを確認
-        if (staff.getHospital() == null ||
-                staff.getHospital().isDeleted()) {
             return null;
         }
 
