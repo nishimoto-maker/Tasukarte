@@ -15,7 +15,7 @@ public class MedicalRecordService {
 	
 	// コンストラクタで注入
 	public MedicalRecordService (
-			MedicalRecordRepository medicalRecordRepository,
+			MedicalRecordRepository medicalRecordRepository
 			PatientRepository patientRepository
 			) {
 		this.medicalRecordRepository = medicalRecordRepository;
