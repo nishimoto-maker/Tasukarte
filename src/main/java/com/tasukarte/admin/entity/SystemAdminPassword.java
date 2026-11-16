@@ -33,7 +33,7 @@ public class SystemAdminPassword {
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name ="admin_id")
-    private SystemAdmin systemadmin;
+    private SystemAdmin systemAdmin;
     
     @NotBlank
     @Column(name = "password_hash", nullable = false)
@@ -41,11 +41,11 @@ public class SystemAdminPassword {
 
     
 	public SystemAdmin getSystemadmin() {
-		return systemadmin;
+		return systemAdmin;
 	}
 
-	public void setSystemadmin(SystemAdmin systemadmin) {
-		this.systemadmin = systemadmin;
+	public void setSystemAdmin(SystemAdmin systemAdmin) {
+		this.systemAdmin = systemAdmin;
 	}
 
 	public String getPasswordHash() {

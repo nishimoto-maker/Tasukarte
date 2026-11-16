@@ -2,7 +2,7 @@ package com.tasukarte.referral.entity;
 
 import java.time.LocalDateTime;
 
-import com.tasukarte.hospital.entity.HospitalManagement;
+import com.tasukarte.hospital.entity.Hospital;
 import com.tasukarte.patient.entity.Patient;
 import com.tasukarte.staff.entity.Staff;
 
@@ -16,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 //import lombok.Getter;
 import lombok.NoArgsConstructor;
 //import lombok.Setter;
@@ -49,21 +50,25 @@ public class Referral {
     // のように記述
     // Integer型のメリット：自動採番前はnullであるため、null利用が可能であること
     // デメリット：nullを許容するため、nullエラー時のハンドリングが必要
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name ="patient_id", nullable = false)
     private Patient patient;
 
     // 送信元病院ID（必須）
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @Column(name = "sender_hospital_id", nullable = false)
-    private HospitalManagement senderHospital;
+    @JoinColumn(name = "sender_hospital_id", nullable = false)
+    private Hospital senderHospital;
 
-    // 送信先病院ID（必須）
+    // 送信先病院ID（必須)
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "recipient_hospital_id", nullable = false)
-    private HospitalManagement recipientHospital;
+    private Hospital recipientHospital;
 
     // 作成者職員ID（必須）
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "staff_id", nullable = false)
     private Staff staff;
@@ -128,19 +133,19 @@ public class Referral {
 		this.patient = patient;
 	}
 
-	public HospitalManagement getSenderHospital() {
+	public Hospital getSenderHospital() {
 		return senderHospital;
 	}
 
-	public void setSenderHospital(HospitalManagement senderHospital) {
+	public void setSenderHospital(Hospital senderHospital) {
 		this.senderHospital = senderHospital;
 	}
 
-	public HospitalManagement getRecipientHospital() {
+	public Hospital getRecipientHospital() {
 		return recipientHospital;
 	}
 
-	public void setRecipientHospital(HospitalManagement recipientHospital) {
+	public void setRecipientHospital(Hospital recipientHospital) {
 		this.recipientHospital = recipientHospital;
 	}
 

@@ -43,8 +43,8 @@ public class SystemAdmin{
     private String adminMail;
     
     @OneToOne(
-    	// 主キーとして管理する側を指定
-    	mappedBy = "system_admin",
+    	// 関連先のフィールド名（カラム名、DB名ではない）
+    	mappedBy = "systemAdmin",
     	// システム管理者に対する永続化、更新、削除等の操作を外部キー側にも連動させる
     	cascade = CascadeType.ALL,
     	// システム管理者エンティティからパスワードとの関連を解除した場合、パスワードエンティティを削除する

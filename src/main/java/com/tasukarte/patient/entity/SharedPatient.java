@@ -3,7 +3,7 @@ package com.tasukarte.patient.entity;
 
 import java.time.LocalDate;
 
-import com.tasukarte.hospital.entity.HospitalManagement;
+import com.tasukarte.hospital.entity.Hospital;
 import com.tasukarte.referral.entity.Referral;
 
 import jakarta.persistence.Column;
@@ -41,14 +41,14 @@ public class SharedPatient {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "shared_by_hospital_id", nullable = false)
-    private HospitalManagement sharedByHospital;
+    private Hospital sharedByHospital;
 
     //共有先病院ID
     //必須、カラム定義
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "share_with_hospital_id", nullable = false)
-    private HospitalManagement shareWithHospital;
+    private Hospital shareWithHospital;
 
     //紹介状ID
     //必須、カラム定義
@@ -90,19 +90,19 @@ public class SharedPatient {
 		this.patient = patient;
 	}
 
-	public HospitalManagement getSharedByHospital() {
+	public Hospital getSharedByHospital() {
 		return sharedByHospital;
 	}
 
-	public void setSharedByHospital(HospitalManagement sharedByHospital) {
+	public void setSharedByHospital(Hospital sharedByHospital) {
 		this.sharedByHospital = sharedByHospital;
 	}
 
-	public HospitalManagement getShareWithHospital() {
+	public Hospital getShareWithHospital() {
 		return shareWithHospital;
 	}
 
-	public void setShareWithHospital(HospitalManagement shareWithHospital) {
+	public void setShareWithHospital(Hospital shareWithHospital) {
 		this.shareWithHospital = shareWithHospital;
 	}
 

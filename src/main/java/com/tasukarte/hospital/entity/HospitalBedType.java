@@ -25,7 +25,7 @@ public class HospitalBedType {
     @MapsId("hospitalId")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id", nullable = false)
-    private HospitalManagement hospital;
+    private Hospital hospital;
 
     // 病床種別Entityとの関連付け
     // 複合主キーのbedTypeIdと対応させる
@@ -56,11 +56,11 @@ public class HospitalBedType {
 		this.id = id;
 	}
 
-	public HospitalManagement getHospital() {
+	public Hospital getHospital() {
 		return hospital;
 	}
 
-	public void setHospital(HospitalManagement hospital) {
+	public void setHospital(Hospital hospital) {
 		this.hospital = hospital;
 	}
 

@@ -1,7 +1,10 @@
 package com.tasukarte.message.entity;
 
+import com.tasukarte.staff.entity.HospitalPosition;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,7 +16,7 @@ import jakarta.validation.constraints.NotNull;
 @Entity
 @Table (name = "message_positions")
 
-public class MessagePositions {
+public class MessagePosition {
 	
 	//宛先役職ID
 	//主キー、自動連番、カラム定義
@@ -27,13 +30,14 @@ public class MessagePositions {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name ="message_id", nullable = false)
-	private Integer messageId;
+	private Message message;
 	
 	//役職ID
 	//必須、カラム定義
 	@NotNull
-	@Column(name = "position_id", nullable = false)
-	private Integer positionId;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "position_id", nullable = false)
+	private HospitalPosition position;
 
 	
 	//getter/setter
@@ -45,19 +49,19 @@ public class MessagePositions {
 		this.recipientPositionId = recipientPositionId;
 	}
 
-	public Integer getMessageId() {
-		return messageId;
+	public Message getMessage() {
+		return message;
 	}
 
-	public void setMessageId(Integer messageId) {
-		this.messageId = messageId;
+	public void setMessage(Message message) {
+		this.message = message;
 	}
 
-	public Integer getPositionId() {
-		return positionId;
+	public HospitalPosition getPosition() {
+		return position;
 	}
 
-	public void setPositionId(Integer positionId) {
-		this.positionId = positionId;
+	public void setPosition(HospitalPosition position) {
+		this.position = position;
 	}
 }
