@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -13,9 +14,13 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name="staff_passwords")
 public class StaffPassword {
-	// 主キー（外部キーも兼ねる）
+	// 主キー（外部キーも兼ねる）	
 	@Id
+	@Column(name = "staff_id")
+	private Integer staffId;
+	
 	@OneToOne(fetch = FetchType.LAZY)
+	@MapsId
 	@JoinColumn(name = "staff_id", nullable = false)
 	private Staff staff;
 	
@@ -27,6 +32,10 @@ public class StaffPassword {
 	
 	public StaffPassword() {
 	}
+	
+	public Integer getStaffId() {
+        return staffId;
+    }
 
 	public Staff getStaff() {
 		return staff;

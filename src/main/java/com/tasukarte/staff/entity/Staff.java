@@ -1,8 +1,6 @@
 package com.tasukarte.staff.entity;
 
-
-import com.tasukarte.auth.entity.StaffPassword;
-import com.tasukarte.hospital.entity.HospitalManagement;
+import com.tasukarte.hospital.entity.Hospital;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,7 +41,7 @@ public class Staff {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hospital_id", nullable = false)
-    private HospitalManagement hospitalManagement;
+    private Hospital hospital;
 
     // 院内役職
     @NotNull
@@ -104,9 +102,6 @@ public class Staff {
     // 削除フラグ
     @Column(name = "is_deleted")
     private boolean isDeleted;
-	
-	public Staff() {
-	}
 
 	public Integer getStaffId() {
 		return staffId;
@@ -116,13 +111,13 @@ public class Staff {
 		this.staffId = staffId;
 	}
 
-	public HospitalManagement getHospitalManagement() {
-		return hospitalManagement;
+	public Hospital getHospital() {
+		return hospital;
 	}
 
-
-	public void setHospitalManagement(HospitalManagement hospitalManagement) {
-		this.hospitalManagement = hospitalManagement;
+	
+	public void setHospitalManagement(Hospital hospital) {
+		this.hospital = hospital;
 	}
 
 
@@ -209,11 +204,11 @@ public class Staff {
 		this.emailAddress = emailAddress;
 	}
 
-	public boolean isDeleted() {
+	public boolean getIsDeleted() {
 		return isDeleted;
 	}
 
-	public void setDeleted(boolean isDeleted) {
+	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 }

@@ -1,0 +1,3 @@
+ALTER TABLE hospitals
+RENAME COLUMN hospital_derector_name
+TO hospital_director_name;

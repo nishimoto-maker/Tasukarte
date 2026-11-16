@@ -1,0 +1,90 @@
+package com.tasukarte.hospital.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "hospital_bed_types")
+public class HospitalBedType {
+	// 複合主キーを管理する
+    @EmbeddedId
+    private HospitalBedTypeId id;
+
+    // 病院Entityとの関連付け
+    // 複合主キーのhospitalIdと対応させる
+    // @MapsIdで複合主キー内のhospitalIdと関連付ける
+    // @ManyToOneで複数のレコードから同じ病院を参照できるようにする
+    // FetchType.LAZYで必要になるまで関連Entityの取得を遅らせる
+    // @JoinColumnで外部キーとなるカラム名を指定する
+    @MapsId("hospitalId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hospital_id", nullable = false)
+    private Hospital hospital;
+
+    // 病床種別Entityとの関連付け
+    // 複合主キーのbedTypeIdと対応させる
+    // @MapsIdで複合主キー内のbedTypeIdと関連付ける
+    @MapsId("bedTypeId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bed_type_id", nullable = false)
+    private BedType bedType;
+
+    // 許可病床数
+    // 初期値を0に設定
+    @Column(name = "authorized_bed_count", nullable = false)
+    private Integer authorizedBedCount = 0;
+
+    // 稼働病床数
+    // 初期値を0に設定
+    @Column(name = "operational_bed_count", nullable = false)
+    private Integer operationalBedCount = 0;
+	
+	public HospitalBedType() {
+	}
+
+	public HospitalBedTypeId getId() {
+		return id;
+	}
+
+	public void setId(HospitalBedTypeId id) {
+		this.id = id;
+	}
+
+	public Hospital getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(Hospital hospital) {
+		this.hospital = hospital;
+	}
+
+	public BedType getBedType() {
+		return bedType;
+	}
+
+	public void setBedType(BedType bedType) {
+		this.bedType = bedType;
+	}
+
+	public Integer getAuthorizedBedCount() {
+		return authorizedBedCount;
+	}
+
+	public void setAuthorizedBedCount(Integer authorizedBedCount) {
+		this.authorizedBedCount = authorizedBedCount;
+	}
+
+	public Integer getOperationalBedCount() {
+		return operationalBedCount;
+	}
+
+	public void setOperationalBedCount(Integer operationalBedCount) {
+		this.operationalBedCount = operationalBedCount;
+	}
+}
