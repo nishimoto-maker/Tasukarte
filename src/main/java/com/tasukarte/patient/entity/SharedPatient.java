@@ -46,7 +46,7 @@ public class SharedPatient {
 
     //共有先病院ID
     //必須、カラム定義
-    @NotNull
+    @NotNull 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "share_with_hospital_id", nullable = false)
     private HospitalManagement shareWithHospital;
