@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>病院一覧</title>
+</head>
+<body>
+
+    <h1>病院一覧</h1>
+    
+    <p th:if="${#lists.isEmpty(hospitals)}">
+    病院が登録されていません。
+</p>
+
+<ul th:unless="${#lists.isEmpty(hospitals)}">
+    <li th:each="hospital : ${hospitals}"
+        th:text="${hospital.hospitalName}">
+    </li>
+</ul>
+</body>
+</html>
