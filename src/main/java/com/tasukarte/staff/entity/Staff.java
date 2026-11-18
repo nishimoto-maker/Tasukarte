@@ -1,6 +1,5 @@
 package com.tasukarte.staff.entity;
 
-
 import com.tasukarte.hospital.entity.Hospital;
 
 import jakarta.persistence.Column;
@@ -116,7 +115,7 @@ public class Staff {
 		return hospital;
 	}
 
-
+	
 	public void setHospitalManagement(Hospital hospital) {
 		this.hospital = hospital;
 	}
