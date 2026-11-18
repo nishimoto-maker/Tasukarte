@@ -1,6 +1,6 @@
 package com.tasukarte.hospital.dto;
 
-//病院検索結果をやり取りするDTO
+//病院検索結果をやり取りするDTO(紹介状)
 public class HospitalSearchDTO {
 	
 	private Integer hospitalId;
