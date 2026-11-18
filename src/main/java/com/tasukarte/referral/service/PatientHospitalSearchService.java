@@ -9,7 +9,7 @@ import com.tasukarte.common.security.LoginUser;
 import com.tasukarte.hospital.dto.HospitalSearchDTO;
 import com.tasukarte.hospital.entity.Hospital;
 import com.tasukarte.hospital.repository.HospitalRepository;
-import com.tasukarte.patient.dto.PatientSearchDTO;
+import com.tasukarte.patient.dto.PatientSearchReferralDTO;
 import com.tasukarte.patient.entity.Patient;
 import com.tasukarte.patient.repository.PatientRepository;
 
@@ -38,7 +38,7 @@ public class PatientHospitalSearchService {
 	}
 	
 	//患者検索
-	public List<PatientSearchDTO> searchPatients(
+	public List<PatientSearchReferralDTO> searchPatients(
 			String keyword,
 			LoginUser loginUser) {
 		
@@ -55,7 +55,7 @@ public class PatientHospitalSearchService {
 		
 		//取得したPatient型のデータをDTOに変換しリスト化して返す
 		return patients.stream()
-				.map(patient -> new PatientSearchDTO(
+				.map(patient -> new PatientSearchReferralDTO(
 						patient.getPatientId(),
 						patient.getName(),
 						patient.getBirthDay()

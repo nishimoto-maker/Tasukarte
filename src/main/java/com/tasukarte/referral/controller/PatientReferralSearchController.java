@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukarte.common.security.LoginUser;
 import com.tasukarte.hospital.dto.HospitalSearchDTO;
-import com.tasukarte.patient.dto.PatientSearchDTO;
+import com.tasukarte.patient.dto.PatientSearchReferralDTO;
 import com.tasukarte.referral.service.PatientHospitalSearchService;
 
 
@@ -31,7 +31,7 @@ public class PatientReferralSearchController {
 	
 	//患者検索コントローラー
 	@GetMapping("/patients")
-	public List<PatientSearchDTO> serachPatients(
+	public List<PatientSearchReferralDTO> serachPatients(
 			//URLの喰えりパラメーターから取得
 			@RequestParam String keyword,
 			//SpringSecurityで認証済みのログインユーザー情報を取得(common>security>LoginUser)
