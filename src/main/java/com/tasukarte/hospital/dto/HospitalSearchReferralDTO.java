@@ -1,7 +1,7 @@
 package com.tasukarte.hospital.dto;
 
 //病院検索結果をやり取りするDTO(紹介状)
-public class HospitalSearchDTO {
+public class HospitalSearchReferralDTO {
 	
 	private Integer hospitalId;
 	
@@ -9,7 +9,7 @@ public class HospitalSearchDTO {
 	
 	private String hospitalDirectorName;
 	
-	public HospitalSearchDTO(
+	public HospitalSearchReferralDTO(
 			Integer hospitalId,
 			String hospitalName,
 			String hospitalDirectorName) {

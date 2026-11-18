@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tasukarte.common.security.LoginUser;
-import com.tasukarte.hospital.dto.HospitalSearchDTO;
+import com.tasukarte.hospital.dto.HospitalSearchReferralDTO;
 import com.tasukarte.hospital.entity.Hospital;
 import com.tasukarte.hospital.repository.HospitalRepository;
 import com.tasukarte.patient.dto.PatientSearchReferralDTO;
@@ -63,7 +63,7 @@ public class PatientHospitalSearchService {
 	}
 	
 	//宛先病院検索
-	public List<HospitalSearchDTO> searchHospitals(
+	public List<HospitalSearchReferralDTO> searchHospitals(
 			String keyword,
 			LoginUser loginUser) {
 		
@@ -81,7 +81,7 @@ public class PatientHospitalSearchService {
 		
 		//取得したHospital型のデータをDTOに変換しリスト化して返す
 		return hospitals.stream()
-				.map(hospital -> new HospitalSearchDTO(
+				.map(hospital -> new HospitalSearchReferralDTO(
 						hospital.getHospitalId(),
 						hospital.getHospitalName(),
 						hospital.getHospitalDirectorName()

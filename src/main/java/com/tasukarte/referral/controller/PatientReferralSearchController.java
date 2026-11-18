@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tasukarte.common.security.LoginUser;
-import com.tasukarte.hospital.dto.HospitalSearchDTO;
+import com.tasukarte.hospital.dto.HospitalSearchReferralDTO;
 import com.tasukarte.patient.dto.PatientSearchReferralDTO;
 import com.tasukarte.referral.service.PatientHospitalSearchService;
 
@@ -42,7 +42,7 @@ public class PatientReferralSearchController {
 	
 	//宛先病院検索コントローラー
 	@GetMapping("/hospitals")
-	public List<HospitalSearchDTO> searchHospitals(
+	public List<HospitalSearchReferralDTO> searchHospitals(
 			//URLの喰えりパラメーターから取得
 			@RequestParam String keyword,
 			//SpringSecurityで認証済みのログインユーザー情報を取得
