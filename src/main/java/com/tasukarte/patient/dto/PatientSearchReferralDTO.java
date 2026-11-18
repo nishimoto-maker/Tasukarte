@@ -3,7 +3,7 @@ package com.tasukarte.patient.dto;
 import java.time.LocalDate;
 
 //患者の検索結果をやり取りするDTO(紹介状)
-public class PatientSearchDTO {
+public class PatientSearchReferralDTO {
 	
 	private Integer patientId;
 	
@@ -11,7 +11,7 @@ public class PatientSearchDTO {
 	
 	private LocalDate birthDay;
 	
-	public PatientSearchDTO(
+	public PatientSearchReferralDTO(
 			Integer patientId,
 			String name,
 			LocalDate birthDay) {
