@@ -1,11 +1,14 @@
 package com.tasukarte.patient.controller;
 
-import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import com.tasukarte.patient.dto.PatientListDTO;
+import com.tasukarte.patient.dto.PatientSearchDTO;
 
 @Controller
 public class PatientController {
@@ -24,19 +27,17 @@ public class PatientController {
 	}
 	
 	//【患者情報検索】
-	// 患者情報検索の条件を取得（未入力可）
+	// 患者情報検索の条件を取得
 	@GetMapping("/patients/search")
 	public String patientsearch(
-	        @RequestParam(required = false) String name,
-	        @RequestParam(required = false) String gender,
-	        @RequestParam(required = false) Integer age,
-	        @RequestParam(required = false) LocalDate startDate,
-	        @RequestParam(required = false) LocalDate endDate,
-	        @RequestParam(required = false) LocalDate startNextVisitDate,
-	        @RequestParam(required = false) LocalDate endNextVisitDate,
-	        @RequestParam(required = false) LocalDate startLastVisitDate,
-	        @RequestParam(required = false) LocalDate endLastVisitDate,
+			@ModelAttribute PatientSearchDTO searchDto,
 	        Model model) {
+		
+		List<PatientListDTO> patients = 
+				patientService.searchPatients(searchDto);
+		
+		// 該当する患者情報をHTMLに渡す
+		model.addAttribute("patients",patients);
 
 	    return "patient/patientSearch";
 	}
