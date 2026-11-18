@@ -17,8 +17,8 @@
 <p th:if="${errormessage}" th:text="${errormessage}"></p>
 <!-- 患者名検索欄 -->
 <form action="/medical-information/search" method="get">
-	<label for="patientName">患者名：</label>
-	<input type="text" id="patientName" name="patientName" required>
+	<label for="searchPatientName">患者名：</label>
+	<input type="text" id="searchPatientName" name="searchPatientName" required>
 	<button type="submit">検索</button>
 </form>
 
@@ -39,8 +39,11 @@
 			<tr th:each="patient : ${patients}">
 				<!-- この患者についての患者情報照会・登録内容選択へ遷移 -->
 				<td>
-					<a th:href="@{/medical-information/{patientId}(id=${patient.patientId})}">
-						<p><span th:text="${patient.patientName}"></span></p>
+					<a th:href="@{/medical-information/{patientId}(
+						id=${patient.patientId},
+						searchPatientName=${searchPatientName}
+						)}"
+						th:text="${patient.patientName}">
 					</a>
 				</td>
 				<td th:text="${patient.birthDay}"></td>

@@ -1,23 +1,45 @@
 package com.tasukarte.medicalrecord.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.tasukarte.medicalrecord.dto.MedicalRecordRegisterDto;
+import com.tasukarte.medicalrecord.service.MedicalRecordService;
 
 @Controller
 @RequestMapping("/medical-records")
 public class MedicalRecordController {
+	private final MedicalRecordService medicalRecordService;
+	private final PatientService patientService;
+	
+	public MedicalRecordController(
+			MedicalRecordService medicalRecordService,
+			PatientService patientService
+			) {
+		this.medicalRecordService = medicalRecordService;
+		this.patientService = patientService;
+	}
+	
 	// 【診療記録登録】の表示
 	// 患者情報渡す、【内容確認】から戻ってきたときに、元々入力していた内容を反映させる、
-	// (HTML側の話だけど)th:object, th:fieldで対応させる
+	// (HTML側の話だけど)th:object, th:fieldで対応させるために、
+	// 空の診療記録登録DTOを渡しておく
 	@GetMapping("/register/{patientId}")
-	public String showRegisterForm() {
+	public String showRegisterForm(
+			@PathVariable Integer patientId,
+			Model model
+			) {
+		model.addAttribute("medicalRecordRegisterDto", new MedicalRecordRegisterDto());
+		model.addAttribute("patient", patientService.findPatientById(patientId));
 		return "medicalrecords/診療記録登録フォーム";
 	}
 	
 	// 【登録内容確認】表示
-	// POSTにすることで不正アクセスを防ぐ一手になる
+	// POSTにすることで不正アクセス(URL直アクセスによるエラー)を防ぐ一手になる
 	// @ModelAttributeでDTOに入れて【登録】の内容を保持、DB保存にも修正で戻る用にも
 	@PostMapping("/register/{patientId}/confirm")
 	public String showMedicalRecordRegistrationConfirmation() {
