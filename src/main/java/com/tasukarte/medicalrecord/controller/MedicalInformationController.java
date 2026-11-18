@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tasukarte.medicalrecord.service.MedicalRecordService;
 import com.tasukarte.patient.entity.Patient;
 
 // 指定したURLにアクセスされた時に、
@@ -21,15 +20,12 @@ public class MedicalInformationController {
 	
 	// このContrllerで使うService(データ処理担当クラス)を
 	// 保持するフィールドを定義
-	private final MedicalRecordService medicalRecordService;
 	private final PatientService patientService;
 	
 	// コンストラクタで注入
 	public MedicalInformationController (
-			MedicalRecordService medicalRecordService,
 			PatientService patientService
 			) {
-		this.medicalRecordService = medicalRecordService;
 		this.patientService = patientService;
 	}
 	
@@ -48,15 +44,20 @@ public class MedicalInformationController {
 	// 対象データが0件だった時の表示はHTML側のth:if
 	@GetMapping("/search")
 	public String searchPatients(
-			@RequestParam String name,
+			// URLの直接入力によるアクセスがあったとしても
+			// エラーで止めずelse句に回せるようにrequired=falseをつける
+			@RequestParam(required=false) String searchPatientName,
 			Model model
 			) {
-		if (name != null && !name.isBlank()) {
-			List<Patient> patients = patientService.searchPatients(name);
+		if (searchPatientName != null && !searchPatientName.isBlank()) {
+			// 検索欄に正しく入力があった場合は検索を実行
+			List<Patient> patients = patientService.searchPatients(searchPatientName);
 			model.addAttribute("patients", patients);
 		} else {
+			// 空欄でボタンが押された場合、エラーメッセージを渡す
 			model.addAttribute("errormessage", "患者名を入力して下さい。");
 		}
+		
 		return "medical-records/medical-information";
 	}
 	
@@ -66,10 +67,14 @@ public class MedicalInformationController {
 	@GetMapping("/patients/{patientId}")
 	public String showPatientRegistrationMenu(
 			@PathVariable Integer id,
+			@RequestParam String searchPatientName,
 			Model model
 			) {
+		// URLに含められたIDで患者を特定し情報を取得、渡す
 		Patient patient = patientService.findPatientById(id);
 		model.addAttribute("patient", patient);
+		// トップに戻ったとき検索状態を復元するために渡す
+		model.addAttribute("searchPatientName", searchPatientName);
 		return "medical-records/patient-detail";
 	}
 }

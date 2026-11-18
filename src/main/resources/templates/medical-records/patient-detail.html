@@ -5,6 +5,12 @@
 <title>患者情報照会・登録内容選択</title>
 </head>
 <body>
+
+<form th:action="@{/medical-information/search}" method="get">
+	<input type="hidden" th:value="${searchPatientName}">
+	<button type="submit">戻る</button>
+</form>
+
 <h2 th:text="${patient.patientName}"></h2>
 
 <table>
