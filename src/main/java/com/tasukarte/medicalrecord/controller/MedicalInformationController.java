@@ -22,12 +22,15 @@ public class MedicalInformationController {
 	// このContrllerで使うService(データ処理担当クラス)を
 	// 保持するフィールドを定義
 	private final MedicalRecordService medicalRecordService;
+	private final PatientService patientService;
 	
 	// コンストラクタで注入
 	public MedicalInformationController (
-			MedicalRecordService medicalRecordService
+			MedicalRecordService medicalRecordService,
+			PatientService patientService
 			) {
 		this.medicalRecordService = medicalRecordService;
+		this.patientService = patientService;
 	}
 	
 	// 【診療情報管理トップ】初回表示
@@ -49,7 +52,7 @@ public class MedicalInformationController {
 			Model model
 			) {
 		if (name != null && !name.isBlank()) {
-			List<Patient> patients = medicalRecordService.searchPatients(name);
+			List<Patient> patients = patientService.searchPatients(name);
 			model.addAttribute("patients", patients);
 		} else {
 			model.addAttribute("errormessage", "患者名を入力して下さい。");
@@ -62,8 +65,11 @@ public class MedicalInformationController {
 	// @PathVariableで患者ID取得、それで患者情報取得、渡す
 	@GetMapping("/patients/{patientId}")
 	public String showPatientRegistrationMenu(
-			@PathVariable Integer id
+			@PathVariable Integer id,
+			Model model
 			) {
-		return "medical-records/患者情報照会・登録内容選択";
+		Patient patient = patientService.findPatientById(id);
+		model.addAttribute("patient", patient);
+		return "medical-records/patient-detail";
 	}
 }
