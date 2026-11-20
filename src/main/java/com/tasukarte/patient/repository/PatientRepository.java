@@ -3,11 +3,12 @@ package com.tasukarte.patient.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import com.tasukarte.patient.entity.Patient;
 
 public interface PatientRepository 
-        extends JpaRepository<Patient, Integer>{
+        extends JpaRepository<Patient, Integer>,JpaSpecificationExecutor<Patient>{
 	
 	//患者名で部分一致検索
 	//Spring Data　JPAがメソッド名から検索条件を判断する
