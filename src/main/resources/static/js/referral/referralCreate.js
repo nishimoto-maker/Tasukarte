@@ -94,6 +94,8 @@ function setupAutocomplete(config) {
 }
 
 
+//フォーム送信時のバリデーションを実装すること
+
 //検索部分を共通の部品とし、異なる部分だけ設定として渡す
 // 患者の場合
 setupAutocomplete({

@@ -6,46 +6,56 @@
 </head>
 <body>
 
-<!-- ThymeleafによるURL生成、jsで利用 -->
-<div id="referralSearchConfig"
-     th:attr="data-patient-url=@{/referrals/search/patients},
-              data-hospital-url=@{/referrals/search/hospitals}">
-</div>
+<form th:action="@{/referrals/input}" method="post">
 
-<div class="form-group">
-    <label for="patientName">患者名</label>
+	<!-- ThymeleafによるURL生成、jsで利用 -->
+	<div id="referralSearchConfig"
+    	 th:attr="data-patient-url=@{/referrals/search/patients},
+        	      data-hospital-url=@{/referrals/search/hospitals}">
+	</div>
 
-    <input type="text"
-           id="patientName"
-           placeholder="患者名を入力してください"
-           autocomplete="off">
+	<div class="form-group">
+    	<label for="patientName">患者名</label>
 
-    <!-- 選択された患者IDを保持 -->
-    <input type="hidden"
-           id="patientId"
-           name="patientId">
+    	<input type="text"
+        	   id="patientName"
+	           placeholder="患者名を入力してください"
+	           autocomplete="off">
 
-    <!-- 検索候補を表示 -->
-    <div id="patientSuggestions"></div>
-</div>
+    	<!-- 選択された患者IDを保持 -->
+    	<input type="hidden"
+          	 id="patientId"
+          	 name="patientId">
 
-<div class="form-group">
-    <label for="recipientHospitalName">宛先病院</label>
+    	<!-- 検索候補を表示 -->
+    	<div id="patientSuggestions"></div>
+	</div>
 
-    <input type="text"
-           id="recipientHospitalName"
-           placeholder="病院名を入力してください"
-           autocomplete="off">
+	<div class="form-group">
+    	<label for="recipientHospitalName">宛先病院</label>
 
-    <!-- 選択された病院IDを保持 -->
-    <input type="hidden"
-           id="recipientHospitalId"
-           name="recipientHospitalId">
+    	<input type="text"
+        	   id="recipientHospitalName"
+        	   placeholder="病院名を入力してください"
+        	   autocomplete="off">
 
-    <!-- 検索候補を表示 -->
-    <div id="hospitalSuggestions"></div>
-</div>
+    	<!-- 選択された病院IDを保持 -->
+    	<input type="hidden"
+        	   id="recipientHospitalId"
+        	   name="recipientHospitalId">
 
+    	<!-- 検索候補を表示 -->
+    	<div id="hospitalSuggestions"></div>
+	</div>
+
+<p th:if="${eerrorMessage != null}"
+   th:text="${errorMessage}"
+   style="color: red;"></p>
+   
+	<!-- 次へ -->
+	<button type="submit">次へ</button>
+
+</form>
 <script th:src="@{/js/referral/referralCreate.js}"></script>
 </body>
 </html>
