@@ -1,0 +1,138 @@
+
+@charset "UTF-8";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    background-color: #f8fafc;
+    color: #334155;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+.page-header {
+    margin-bottom: 28px;
+    border-left: 5px solid #f59e42;
+    padding-left: 14px;
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.page-subtitle {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+.menu-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 18px;
+    height: 112px;
+    padding: 20px 26px;
+    border: 1px solid #fed7aa;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f59e42 0%, #ea8825 100%);
+    color: #ffffff;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(245, 158, 66, 0.22);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.menu-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(245, 158, 66, 0.35);
+    filter: brightness(1.03);
+}
+
+.menu-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(245, 158, 66, 0.2);
+}
+
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.22);
+    flex-shrink: 0;
+}
+
+.icon-wrapper svg {
+    width: 30px;
+    height: 30px;
+    stroke: #ffffff;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.menu-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.menu-title {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.menu-desc {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ヘッダーの下の画面レイアウト */
+.page-layout {
+    display: flex;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+}
+
+/* サイドバー */
+.page-layout .sidebar {
+    flex-shrink: 0;
+}
+
+/* メインコンテンツ */
+.page-layout main {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+}

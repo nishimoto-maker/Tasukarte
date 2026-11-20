@@ -1,0 +1,128 @@
+
+/* サイドバー全体 */
+.sidebar {
+    width: 250px;
+    min-height: calc(100vh - 80px);
+    background-color: #f39a50;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow-y: auto;
+    transition: width 0.3s ease;
+}
+
+/* ハンバーガーボタン */
+.sidebar-toggle {
+    width: 100%;
+    padding: 18px;
+    background-color: #e8883e;
+    color: #ffffff;
+    border: none;
+    text-align: left;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* メニュー一覧 */
+.sidebar-menu {
+    padding: 10px 0;
+}
+
+/* メニュー項目のグループ */
+.menu-group {
+    width: 100%;
+}
+
+/* 大機能のメニュー */
+.menu-parent {
+    width: 100%;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    text-align: left;
+    cursor: pointer;
+}
+
+/* 直接遷移するメニュー */
+.menu-direct {
+    display: block;
+    padding: 16px 20px;
+    color: #ffffff;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+/* メニューにカーソルを合わせたとき */
+.menu-parent:hover,
+.menu-direct:hover {
+    background-color: #e8883e;
+}
+
+/* 中機能の一覧 */
+.submenu {
+    display: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: #e8883e;
+}
+
+/* 展開中の中機能一覧 */
+.menu-group.active .submenu {
+    display: block;
+}
+
+/* 中機能のリンク */
+.submenu a {
+    display: block;
+    padding: 12px 20px 12px 38px;
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* 中機能にカーソルを合わせたとき */
+.submenu a:hover {
+    background-color: #d97832;
+}
+
+/* メニューの矢印 */
+.menu-arrow {
+    font-size: 11px;
+    transition: transform 0.3s ease;
+}
+
+/* メニュー展開時の矢印 */
+.menu-group.active .menu-arrow {
+    transform: rotate(180deg);
+}
+
+/* サイドバー収納時 */
+.sidebar.collapsed {
+    width: 65px;
+    overflow: hidden;
+}
+
+/* 収納時はメニュー名を非表示 */
+.sidebar.collapsed .menu-parent span:first-child,
+.sidebar.collapsed .menu-direct,
+.sidebar.collapsed .submenu {
+    display: none;
+}
+
+/* 収納時の矢印 */
+.sidebar.collapsed .menu-arrow {
+    display: none;
+}
+
+/* 収納時の大機能ボタン */
+.sidebar.collapsed .menu-parent {
+    justify-content: center;
+    padding: 16px 0;
+}

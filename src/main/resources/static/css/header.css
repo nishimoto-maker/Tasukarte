@@ -1,0 +1,46 @@
+
+/* ヘッダー全体 */
+.app-header {
+    width: 100%;
+    height: 80px;
+    background-color: #ff914d;
+    color: #ffffff;
+
+    display: grid;
+    grid-template-columns: 42% 30% 16% 12%;
+    align-items: center;
+
+    padding: 0 8%;
+    box-sizing: border-box;
+}
+
+/* システム名 */
+.header-system-name {
+    font-size: 26px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* 病院名 */
+.header-hospital-name {
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* ユーザー名 */
+.header-user-name {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* ログアウト */
+.header-logout {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: right;
+    white-space: nowrap;
+}

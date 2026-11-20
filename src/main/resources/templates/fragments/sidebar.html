@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <!-- サイドバー -->
+    <aside class="sidebar" th:fragment="sidebar">
+		<link rel="stylesheet"
+      		href="../../static/css/sidebar.css"
+      		th:href="@{/css/sidebar.css}">
+
+        <!-- ハンバーガーボタン -->
+        <button type="button" class="sidebar-toggle">
+            ☰
+        </button>
+
+        <!-- メニュー一覧 -->
+        <nav class="sidebar-menu">
+
+            <!-- 患者情報管理 -->
+            <div class="menu-group">
+                <button type="button" class="menu-parent">
+                    <span>患者情報管理</span>
+                    <span class="menu-arrow">▼</span>
+                </button>
+
+                <ul class="submenu">
+                    <li><a href="#">患者情報管理TOP</a></li>
+                    <li><a href="#">患者情報登録</a></li>
+                    <li><a href="#">患者情報検索</a></li>
+                </ul>
+            </div>
+
+            <!-- 診療情報管理 -->
+            <div class="menu-group">
+                <button type="button" class="menu-parent">
+                    <span>診療情報管理</span>
+                    <span class="menu-arrow">▼</span>
+                </button>
+
+                <ul class="submenu">
+                    <li><a href="#">診療情報管理TOP</a></li>
+                    <li><a href="#">診療記録検索</a></li>
+                    <li><a href="#">問診票検索</a></li>
+                </ul>
+            </div>
+
+            <!-- 処方箋検索：直接遷移 -->
+            <div class="menu-group">
+                <a href="#" class="menu-direct">処方箋検索</a>
+            </div>
+
+            <!-- 病院検索：直接遷移 -->
+            <div class="menu-group">
+                <a href="#" class="menu-direct">病院検索</a>
+            </div>
+
+            <!-- 病院間連携 -->
+            <div class="menu-group">
+                <button type="button" class="menu-parent">
+                    <span>病院間連携</span>
+                    <span class="menu-arrow">▼</span>
+                </button>
+
+                <ul class="submenu">
+                    <li><a href="#">メッセージ一覧</a></li>
+                    <li><a href="#">メッセージ作成</a></li>
+                    <li><a href="#">紹介状一覧</a></li>
+                    <li><a href="#">紹介状作成</a></li>
+                </ul>
+            </div>
+
+            <!-- 職員検索：直接遷移 -->
+            <div class="menu-group">
+                <a href="#" class="menu-direct">職員検索</a>
+            </div>
+
+            <!-- 院内管理 -->
+            <div class="menu-group">
+                <button type="button" class="menu-parent">
+                    <span>院内管理</span>
+                    <span class="menu-arrow">▼</span>
+                </button>
+
+                <ul class="submenu">
+                    <li><a href="#">職員登録</a></li>
+                    <li><a href="#">病院編集</a></li>
+                </ul>
+            </div>
+
+        </nav>
+        <script src="../../static/js/sidebar.js"
+        	th:src="@{/js/sidebar.js}" defer></script>
+    </aside>
+
+</body>
+</html>
