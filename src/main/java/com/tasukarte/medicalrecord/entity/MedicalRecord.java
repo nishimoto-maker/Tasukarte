@@ -48,8 +48,8 @@ public class MedicalRecord {
 	// 必須、100字まで、カラム定義
 	@NotBlank
 	@Size(max=100)
-	@Column(name="desease_name", nullable=false, length=100)
-	private String deseaseName;
+	@Column(name="disease_name", nullable=false, length=100)
+	private String diseaseName;
 	
 	// 転帰
 	// 10字まで、カラム定義
@@ -136,11 +136,11 @@ public class MedicalRecord {
 		this.staff = staff;
 	}
 
-	public String getDeseaseName() {
-		return deseaseName;
+	public String getDiseaseName() {
+		return diseaseName;
 	}
-	public void setDeseaseName(String deseaseName) {
-		this.deseaseName = deseaseName;
+	public void setDiseaseName(String diseaseName) {
+		this.diseaseName = diseaseName;
 	}
 
 	public String getOutcome() {
