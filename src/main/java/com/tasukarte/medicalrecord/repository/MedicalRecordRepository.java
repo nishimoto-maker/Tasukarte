@@ -1,5 +1,9 @@
 package com.tasukarte.medicalrecord.repository;
 
-public class MedicalRecordRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.tasukarte.medicalrecord.entity.MedicalRecord;
+public interface MedicalRecordRepository
+	extends JpaRepository<MedicalRecord, Integer> {
 
 }
