@@ -58,8 +58,8 @@ public class ReferralController {
     	//宛先病院が未選択の場合
     	if (recipientHospitalId == null) {
     		model.addAttribute("errorMessage",
-    				"患者を選択してください");
-    		return "referral/regferralCreate";
+    				"宛先病院を選択してください");
+    		return "referral/referralCreate";
     	}
     	
     	//患者が空欄の場合（nullとは別）
@@ -87,7 +87,7 @@ public class ReferralController {
     }
     
     //紹介状を一時保存する
-    @PostMapping("referral/draft")
+    @PostMapping("referrals/draft")
     public String saveDraft(
     		//formから送信されたデータをDTOに格納
     		@ModelAttribute ReferralDraftFormDTO form,

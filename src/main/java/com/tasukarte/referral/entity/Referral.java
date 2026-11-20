@@ -119,7 +119,8 @@ public class Referral {
     @Column(name = "shared_end_at")
     private LocalDate sharedEndAt;
 
-    //DB登録直前に実行
+    //初回登録時(INSERT1時に@PrePersistで設定)
+    //UPDATE時には実行されない
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();

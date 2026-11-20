@@ -1,7 +1,5 @@
 package com.tasukarte.referral.service;
 
-import java.time.LocalDateTime;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,13 +39,24 @@ public class ReferralService {
         this.staffRepository = staffRepository;
     }
     
-    //紹介状を下書きとして一時保存する
+    //新規の紹介状を下書きとして一時保存する
     public void saveDraft(
     		ReferralDraftFormDTO form,
     		LoginUser loginUser) {
     	
-    	
     	//以下、取得及びバリデーション、エラーハンドリング
+    	//患者IDが未設定の場合
+    	if (form.getPatientId() == null) {
+    		//このエラー発生時の処理も必ず実装すること
+    		throw new IllegalArgumentException("患者が選択されていません");
+    	}
+    	
+    	//宛先病院IDが未設定の場合
+    	if (form.getRecipientHospitalId() == null) {
+    		//このエラー発生時の処理も必ず実装すること
+    		throw new IllegalArgumentException("宛先病院が選択されていません");
+    	}
+    	
     	//患者を取得
     	Patient patient = patientRepository
     			.findById(form.getPatientId())
@@ -113,7 +122,8 @@ public class ReferralService {
         referral.setSharedEndAt(form.getSharedEndAt());
         
         //初回登録日時(編集すると更新する想定)
-        referral.setCreatedAt(LocalDateTime.now());
+        //↓Entityで設定済みのためいらない
+        //referral.setCreatedAt(LocalDateTime.now());
 
         //一時保存時点では未依頼・未承認
         referral.setRequestedAt(null);
