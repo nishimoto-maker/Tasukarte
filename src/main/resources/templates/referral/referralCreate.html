@@ -16,7 +16,6 @@
 
 	<div class="form-group">
     	<label for="patientName">患者名</label>
-
     	<input type="text"
         	   id="patientName"
 	           placeholder="患者名を入力してください"
@@ -33,7 +32,6 @@
 
 	<div class="form-group">
     	<label for="recipientHospitalName">宛先病院</label>
-
     	<input type="text"
         	   id="recipientHospitalName"
         	   placeholder="病院名を入力してください"
@@ -48,7 +46,8 @@
     	<div id="hospitalSuggestions"></div>
 	</div>
 
-<p th:if="${eerrorMessage != null}"
+<!--エラーメッセージ用-->
+<p th:if="${errorMessage != null}"
    th:text="${errorMessage}"
    style="color: red;"></p>
    

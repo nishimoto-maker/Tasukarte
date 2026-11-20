@@ -21,14 +21,31 @@
     		   name="recipientHospitalId"
     		   th:value="${recipientHospitalId}">
     	
-    	<!-- 患者名も表示させたい -->
-    	<!-- 宛先病院名も表示させたい -->
-    	<!-- 依頼内容 -->
+    	<!-- 患者名 -->
     	<div>
-			<label for="referralPurpose">依頼内容</label>
-			<textarea id="regerralPurpose"
-					  name="referralPurpose"></textarea>
+    		<label>患者名</label>
+    		<span th:text="${patientName}"></span>
 		</div>
+		
+    	<!-- 宛先病院名 -->
+    	<div>
+    		<label>宛先病院</label>
+    		<span th:text="${recipientHospitalName}"></span>
+		</div>
+    	
+    	<!-- 紹介目的 -->
+        <div>
+            <label for="referralPurpose">紹介目的</label>
+            <textarea id="referralPurpose"
+                      name="referralPurpose"></textarea>
+        </div>
+
+        <!-- 依頼内容 -->
+        <div>
+            <label for="requestContent">依頼内容</label>
+            <textarea id="requestContent"
+                      name="requestContent"></textarea>
+        </div>
 		
 		<!-- 備考 -->
 		<div>
@@ -44,6 +61,16 @@
 			       id="sharedStartAt"
 			       name="sharedStartAt">
 		</div>
+		
+		<!-- 共有終了日 -->
+		<div>
+    		<label for="sharedEndAt">共有終了日</label>
+    		<input type="date"
+           		id="sharedEndAt"
+           		name="sharedEndAt">
+		</div>
+
+		<button type="submit">一時保存</button>
     
     </form>
 

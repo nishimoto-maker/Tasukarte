@@ -1,7 +1,5 @@
 package com.tasukarte.referral.service;
 
-import java.time.LocalDateTime;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,26 +39,37 @@ public class ReferralService {
         this.staffRepository = staffRepository;
     }
     
-    //紹介状を下書きとして一時保存する
+    //新規の紹介状を下書きとして一時保存する(下書きを修正して再保存は別)
     public void saveDraft(
     		ReferralDraftFormDTO form,
     		LoginUser loginUser) {
     	
-    	
     	//以下、取得及びバリデーション、エラーハンドリング
+    	//患者IDが未設定の場合
+    	if (form.getPatientId() == null) {
+    		//このエラー発生時の処理も必ず実装すること
+    		throw new IllegalArgumentException("患者が選択されていません");
+    	}
+    	
+    	//宛先病院IDが未設定の場合
+    	if (form.getRecipientHospitalId() == null) {
+    		//TODO:このエラー発生時の処理も必ず実装すること
+    		throw new IllegalArgumentException("宛先病院が選択されていません");
+    	}
+    	
     	//患者を取得
     	Patient patient = patientRepository
     			.findById(form.getPatientId())
     			.orElseThrow(() ->
-    			//このエラーが発生時の処理も必ず実装すること
+    			//TODO:このエラーが発生時の処理も必ず実装すること
     					new IllegalArgumentException(
     							"患者が存在しません。"));
     	
     	//ログインユーザーの所属病院に登録されている患者か確認
-    	//これを含む、権限系の確認機能を共通部品化できないか考える事）
+    	//TODO:これを含む、権限系の確認機能を共通部品化できないか考える事）
     	if (!patient.getHospital().getHospitalId()
     			.equals(loginUser.getHospitalId())) {
-    		//このエラー発生時の処理も必ず実装すること
+    		//TODO:このエラー発生時の処理も必ず実装すること
     		throw new IllegalArgumentException(
     				//もしこのメッセージを渡すなら、内容を変更すること。（患者が存在することはわかるのでリスク）
     				"この患者を選択する権限がありません");
@@ -76,7 +85,7 @@ public class ReferralService {
     	if (recipientHospital.isDeleted()
     			|| recipientHospital.getHospitalId()
     				.equals(loginUser.getHospitalId())) {
-    		//このエラー発生時の処理も必ず実装すること
+    		//TODO:このエラー発生時の処理も必ず実装すること
     		throw new IllegalArgumentException(
     				"指定された宛先病院は利用できません");
     	}
@@ -84,16 +93,19 @@ public class ReferralService {
     	 //ログインユーザーの所属病院を取得
         Hospital senderHospital = hospitalRepository
                 .findById(loginUser.getHospitalId())
-                //このエラー発生時の処理も必ず実装すること（どの画面に何をどう渡して何を表示するのか）
+                //TODO:このエラー発生時の処理も必ず実装すること（どの画面に何をどう渡して何を表示するのか）
                 .orElseThrow(() ->
                         new IllegalArgumentException("所属病院が存在しません。"));
 
         //ログインユーザーの職員情報を取得
         Staff staff = staffRepository
                 .findById(loginUser.getStaffId())
-              //このエラー発生時の処理も必ず実装すること（どの画面に何をどう渡して何を表示するのか）
+              //TODO:このエラー発生時の処理も必ず実装すること（どの画面に何をどう渡して何を表示するのか）
                 .orElseThrow(() ->
                         new IllegalArgumentException("職員情報が存在しません。"));
+        
+        //TODO:共有開始日・終了日の前後関係を確認
+        //TODO:共有開始日・終了日の必須条件を確認
         
         //以下、一時保存用entityインスタンスの作成
         //ReferralEntityインスタンスを生成
@@ -113,7 +125,8 @@ public class ReferralService {
         referral.setSharedEndAt(form.getSharedEndAt());
         
         //初回登録日時(編集すると更新する想定)
-        referral.setCreatedAt(LocalDateTime.now());
+        //↓Entityで設定済みのためいらない
+        //referral.setCreatedAt(LocalDateTime.now());
 
         //一時保存時点では未依頼・未承認
         referral.setRequestedAt(null);
