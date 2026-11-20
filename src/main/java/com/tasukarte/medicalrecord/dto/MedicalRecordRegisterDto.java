@@ -2,23 +2,47 @@ package com.tasukarte.medicalrecord.dto;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+
 public class MedicalRecordRegisterDto {
-	private String deseaseName;
+	@NotBlank(message="入力必須です。")
+	@Max(value=100, message="100字以内で入力して下さい。")
+	private String diseaseName;
+	
 	private String outcome;
 	private LocalDate outcomeDate;
+	
+	@NotBlank(message="入力必須です。")
+	@Max(value=1000, message="1000字以内で入力して下さい。")
 	private String progressS;
+	
+	@NotBlank(message="入力必須です。")
+	@Max(value=1000, message="1000字以内で入力して下さい。")
 	private String progressO;
+	
+	@NotBlank(message="入力必須です。")
+	@Max(value=1000, message="1000字以内で入力して下さい。")
 	private String progressA;
+	
+	@NotBlank(message="入力必須です。")
+	@Max(value=1000, message="1000字以内で入力して下さい。")
 	private String progressP;
+	
+	@NotBlank(message="入力必須です。")
+	@Max(value=1000, message="1000字以内で入力して下さい。")
 	private String procedure;
+	
 	private LocalDate followUpDate;
+	
+	@NotBlank(message="選択必須です。")
 	private boolean hasPrescription;
 	
-	public String getDeseaseName() {
-		return deseaseName;
+	public String getDiseaseName() {
+		return diseaseName;
 	}
-	public void setDeseaseName(String deseaseName) {
-		this.deseaseName = deseaseName;
+	public void setDiseaseName(String diseaseName) {
+		this.diseaseName = diseaseName;
 	}
 	
 	public String getOutcome() {

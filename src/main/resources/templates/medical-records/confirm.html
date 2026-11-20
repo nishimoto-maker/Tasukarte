@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>診療記録登録内容確認</title>
+    <style>
+        .wrapper {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 6px 10px;
+            vertical-align: top;
+        }
+        /* 見出し用の行（Subjectや処置の名前部分） */
+        .label-row td {
+            height: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            background-color: #fafafa;
+        }
+        /* 入力スペース用の行 */
+        .input-row td {
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>診療記録登録内容確認</h1>
+
+<form
+	th:object="${medicalRecordRegisterDto}"
+	th:action="@{/medical-records/register/{patientId}/back(
+		patientId=${patient.patientId}
+	)}"
+	method="post">
+	
+	<input type="hidden" th:field="*{diseaseName}">
+	<input type="hidden" th:field="*{outcome}">
+	<input type="hidden" th:field="*{outcomeDate}">
+	<input type="hidden" th:field="*{progressS}">
+	<input type="hidden" th:field="*{progressO}">
+	<input type="hidden" th:field="*{progressA}">
+	<input type="hidden" th:field="*{progressP}">
+	<input type="hidden" th:field="*{procedure}">
+	<input type="hidden" th:field="*{followUpDate}">
+	<input type="hidden" th:field="*{hasPrescription}">
+	
+	<button type="submit">修正する</button>
+</form>
+
+<form
+	th:object="${medicalRecordRegisterDto}"
+	th:action="@{/medical-records/{patientId}(
+		patientId=${patient.patientId}
+	)}"
+	method="post">
+	
+	<input type="hidden" th:field="*{diseaseName}">
+	<input type="hidden" th:field="*{outcome}">
+	<input type="hidden" th:field="*{outcomeDate}">
+	<input type="hidden" th:field="*{progressS}">
+	<input type="hidden" th:field="*{progressO}">
+	<input type="hidden" th:field="*{progressA}">
+	<input type="hidden" th:field="*{progressP}">
+	<input type="hidden" th:field="*{procedure}">
+	<input type="hidden" th:field="*{followUpDate}">
+	<input type="hidden" th:field="*{hasPrescription}">
+	
+	<button type="submit">
+		<span th:if="*{hasPrescription}">
+			登録して処方箋の作成へ
+		</span>
+		<span th:unless="*{hasPrescription}">
+			登録
+		</span>
+	</button>
+</form>
+
+<div class="wrapper">
+
+	<!-- 左側：患者情報 -->
+	<table>
+		<tr>
+			<th colspan="2">基本情報</th>
+		</tr>
+		<tr>
+			<th>患者ID</th>
+			<td th:text="${patient.patientId}"></td>
+		</tr>
+		<tr>
+			<th>病院ID</th>
+			<td th:text="${patient.hospitalId}"></td>
+		</tr>
+		<tr>
+			<th>氏名</th>
+			<td th:text="${patient.name}"></td>
+		</tr>
+		<tr>
+			<th>フリガナ</th>
+			<td th:text="${patient.kata}"></td>
+		</tr>
+		<tr>
+			<th>生年月日</th>
+			<td th:text="${patient.birthDay}"></td>
+		</tr>
+		<tr>
+			<th>性別</th>
+			<td  th:text="${patient.gender}"></td>>
+		</tr>
+		
+		<tr>
+			<th colspan="2">身体情報</th>
+		</tr>
+		<tr>
+			<th>血液型</th>
+			<td th:text="${patient.bloodType}"></td>
+		</tr>
+		<tr>
+			<th>RH</th>
+			<td th:text="${patient.rh}"></td>
+		</tr>
+		<tr>
+			<th>身長</th>
+			<td th:text="${patient.height}"></td>
+		</tr>
+		<tr>
+			<th>体重</th>
+			<td th:text="${patient.weight}"></td>
+		</tr>
+		
+		<tr>
+			<th colspan="2">アレルギー情報</th>
+		</tr>
+		<tr th:if="${patient.allergy}">
+			<th>アレルギーあり</th>
+			<td>多分Listで受け取るから、th:eachでループ表示</td>
+		</tr>
+		<tr th:unless="${patient.allergy}">
+			<th>アレルギーなし</th>
+			<td>アレルギーなし</td>
+		</tr>
+	</table>
+	
+	
+	<div>
+		<!-- 2. 右側：カルテ欄 -->
+		<table th:object="${medicalRecordRegisterDto}">
+			<tr>
+				<td style="width: 110px;">傷病名</td>
+				<td
+					colspan="3"
+					th:text="*{diseaseName}"
+				>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>転帰状況</td>
+				<td
+					style="width: 130px;"
+					th:text="*{outcome}"
+				>
+				</td>
+				
+				<td style="width: 100px;">転帰日</td>
+				<td
+					style="width: 120px;"
+					th:text="*{outcomeDate}"
+				>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan="4" style="height: 50px;">経過</td>
+			</tr>
+			
+			<tr class="label-row">
+				<td>Subject</td>
+				<td>Object</td>
+				<td>Assessment</td>
+				<td>Plan</td>
+			</tr>
+			
+			<tr class="input-row">
+				<td th:text="*{progressS}">
+				</td>
+				<td th:text="*{progressO}">
+				</td>
+				<td th:text="*{progressA}">
+				</td>
+				<td th:text="*{progressS}">
+				</td>
+			</tr>
+			
+			<tr class="label-row">
+				<td colspan="4">処置</td>
+			</tr>
+			<tr class="input-row">
+				<td
+					colspan="4"
+					th:text="*{procedure}"
+				>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>再診予定日</td>
+				<td th:text="*{followUpDate}">
+				</td>
+				
+				<td>処方箋の有無</td>
+				<td>
+					<span th:if="*{hasPrescription}">有</span>
+					<span th:unless="*{hasPrescription}">無</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</div>
+
+</body>
+</html>
