@@ -68,4 +68,16 @@ public class Questionnaire {
     @NotBlank
     @Column(name = "symptom", nullable = false)
     private String symptom;
+    
+    /**
+     * 症状発症時期
+     *
+     * 例：
+     * ・3日前から
+     * ・昨日の夜から
+     * ・今朝から
+     */
+    @NotBlank
+    @Column(name = "symptom_onset", nullable = false)
+    private String symptomOnset;
 }
