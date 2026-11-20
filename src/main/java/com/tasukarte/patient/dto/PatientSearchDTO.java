@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class PatientSearchDTO {
 	private String name;
-	private String gender;
+	private Short gender;
 	private Integer age;
 	private LocalDate startDate;
 	private LocalDate endDate;
@@ -12,18 +12,16 @@ public class PatientSearchDTO {
 	private LocalDate endNextVisitDate;
 	private LocalDate startLastVisitDate;
 	private LocalDate endLastVisitDate;
-	
-	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getGender() {
+	public Short getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(Short gender) {
 		this.gender = gender;
 	}
 	public Integer getAge() {
@@ -68,5 +66,5 @@ public class PatientSearchDTO {
 	public void setEndLastVisitDate(LocalDate endLastVisitDate) {
 		this.endLastVisitDate = endLastVisitDate;
 	}
-
+	
 }
