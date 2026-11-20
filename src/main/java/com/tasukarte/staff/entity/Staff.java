@@ -116,7 +116,7 @@ public class Staff {
 	}
 
 	
-	public void setHospitalManagement(Hospital hospital) {
+	public void setHospital(Hospital hospital) {
 		this.hospital = hospital;
 	}
 
