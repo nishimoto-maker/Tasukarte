@@ -1,5 +1,6 @@
 package com.tasukarte.staff.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
@@ -42,7 +43,6 @@ public class StaffService {
     	// ログイン中の職員の病院IDを取得
     	Integer hospitalId = loginUser.getHospitalId();
     	
-    	// 検索条件を作成する
     	// Repositoryで作成した検索条件をspecificationに格納
     	Specification<Staff> specification =
     	        StaffRepository.search(
@@ -54,10 +54,9 @@ public class StaffService {
     	                isDeleted
     	        );
     	// 検索条件に一致する職員情報を取得する
-    	// Repositoryから職員情報を取得
     	List<Staff> staffList = staffRepository.findAll(specification);
     	// 画面表示用DTOを格納するリスト
-    	List<StaffListDto> dtoList = new java.util.ArrayList<>();
+    	List<StaffListDto> dtoList = new ArrayList<>();
 
     	// 職員情報を1件ずつ取り出す
     	for (Staff staff : staffList) {
