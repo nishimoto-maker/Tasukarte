@@ -109,7 +109,7 @@ public class Referral {
 
     // 削除フラグ
     @Column(name = "is_deleted", nullable = false)
-    private boolean deleted = false;
+    private boolean isDeleted = false;
 
     // 共有開始日（一時保存時Null許容、本登録時必須）
     @Column(name = "shared_start_at")
@@ -221,12 +221,12 @@ public class Referral {
 		this.status = status;
 	}
 
-	public boolean isDeleted() {
-		return deleted;
+	public boolean getIsDeleted() {
+		return isDeleted;
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
+	public void setIsDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
 	public LocalDate getSharedStartAt() {

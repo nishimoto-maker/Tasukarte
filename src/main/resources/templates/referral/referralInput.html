@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紹介状入力</title>
 </head>
 <body>
+
+    <h1>紹介状入力画面</h1>
+	
+	<form th:action="@{/referrals/draft}" method="post">
+	
+		<!-- 患者ID -->
+    	<input type="hidden"
+    		   name="patientId"
+    		   th:value="${patientId}">
+    	
+		<!-- 宛先病院ID　-->
+    	<input type="hidden"
+    		   name="recipientHospitalId"
+    		   th:value="${recipientHospitalId}">
+    	
+    	<!-- 患者名も表示させたい -->
+    	<!-- 宛先病院名も表示させたい -->
+    	<!-- 依頼内容 -->
+    	<div>
+			<label for="referralPurpose">依頼内容</label>
+			<textarea id="regerralPurpose"
+					  name="referralPurpose"></textarea>
+		</div>
+		
+		<!-- 備考 -->
+		<div>
+			<label for="remarks">備考</label>
+			<textarea id="remarks"
+					  name="remarks"></textarea>
+		</div>
+		
+		<!-- 共有開始日 -->
+		<div>
+			<label for="sharedStartAt">共有開始日</label>
+			<input type="date"
+			       id="sharedStartAt"
+			       name="sharedStartAt">
+		</div>
+    
+    </form>
 
 </body>
 </html>

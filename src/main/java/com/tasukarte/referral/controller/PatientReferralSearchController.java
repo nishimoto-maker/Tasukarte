@@ -32,7 +32,7 @@ public class PatientReferralSearchController {
 	//患者検索コントローラー
 	@GetMapping("/patients")
 	public List<PatientSearchReferralDTO> serachPatients(
-			//URLの喰えりパラメーターから取得
+			//URLのクエリパラメーターから取得
 			@RequestParam String keyword,
 			//SpringSecurityで認証済みのログインユーザー情報を取得(common>security>LoginUser)
 			@AuthenticationPrincipal LoginUser loginUser) {
@@ -43,7 +43,7 @@ public class PatientReferralSearchController {
 	//宛先病院検索コントローラー
 	@GetMapping("/hospitals")
 	public List<HospitalSearchReferralDTO> searchHospitals(
-			//URLの喰えりパラメーターから取得
+			//URLのクエリパラメーターから取得
 			@RequestParam String keyword,
 			//SpringSecurityで認証済みのログインユーザー情報を取得
 			@AuthenticationPrincipal LoginUser loginUser) {
