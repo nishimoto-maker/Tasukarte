@@ -77,7 +77,7 @@
 				<th>氏名</th>
 				<th>性別</th>
 				<th>役職</th>
-				<th>操作</th>
+				<th th:if="${isAdmin}">操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -88,7 +88,7 @@
 					<span th:case="1">男</span>
 					<span th:case="2">女</span>
 				</td>
-				<td th:text="${staff.hospitalPosition.positionName}"></td>
+				<td th:text="${staff.positionName}"></td>
 				<td th:if="${isAdmin}">
 					<a href="#">確認</a>
 					<a href="#">編集</a>

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tasukarte.common.security.LoginUser;
-import com.tasukarte.staff.entity.Staff;
+import com.tasukarte.staff.dto.StaffListDto;
 import com.tasukarte.staff.service.StaffService;
 
 // 職員情報に関する画面制御を担当するController
@@ -45,10 +45,10 @@ public class StaffController {
 		Integer loginRoleId = loginUser.getRoleId();
 
 		// 院内システム管理者か判定
-		boolean isAdmin = (loginRoleId == 2);
+		boolean isAdmin = Integer.valueOf(2).equals(loginRoleId);
 		
 		// 職員情報を検索する
-		List<Staff> staffList = staffService.searchStaff(
+		List<StaffListDto> staffList = staffService.searchStaff(
 		        name,
 		        gender,
 		        positionId,

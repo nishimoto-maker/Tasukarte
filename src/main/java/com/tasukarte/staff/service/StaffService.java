@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.tasukarte.common.security.LoginUser;
+import com.tasukarte.staff.dto.StaffListDto;
 import com.tasukarte.staff.entity.Staff;
 import com.tasukarte.staff.repository.StaffRepository;
 
@@ -23,7 +24,7 @@ public class StaffService {
     }
     
  // 職員を検索するメソッド
-    public List<Staff> searchStaff(
+    public List<StaffListDto> searchStaff(
             String name,
             Short gender,
             Integer positionId,
@@ -52,8 +53,26 @@ public class StaffService {
     	                roleId,
     	                isDeleted
     	        );
-    	// findAll() 条件に一致するデータをすべて取得する
-    	// 検索を実行して結果を返す
-    	return staffRepository.findAll(specification);
+    	// 検索条件に一致する職員情報を取得する
+    	// Repositoryから職員情報を取得
+    	List<Staff> staffList = staffRepository.findAll(specification);
+    	// 画面表示用DTOを格納するリスト
+    	List<StaffListDto> dtoList = new java.util.ArrayList<>();
+
+    	// 職員情報を1件ずつ取り出す
+    	for (Staff staff : staffList) {
+
+    	    // 職員情報から必要な項目だけをDTOに詰め替える
+    	    StaffListDto dto = new StaffListDto(
+    	            staff.getNameKanji(),
+    	            staff.getGender(),
+    	            staff.getHospitalPosition().getPositionName()
+    	    );
+
+    	    // DTOをリストに追加
+    	    dtoList.add(dto);
+    	}
+    	// DTOのリストをControllerに返す
+        return dtoList;
     }
 }
