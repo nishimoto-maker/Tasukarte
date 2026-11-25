@@ -67,6 +67,8 @@ public class CurrentMedication {
     @Column(name = "medicine_name", nullable = false)
     private String medicineName;
 
+    // 以下、getter・setter
+    
 	public Integer getCurrentMedicationId() {
 		return currentMedicationId;
 	}
