@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tasukarte.patient.dto.PatientListDTO;
+import com.tasukarte.patient.dto.PatientRegisterDTO;
 import com.tasukarte.patient.dto.PatientSearchDTO;
 import com.tasukarte.patient.service.PatientService;
 
@@ -36,12 +38,27 @@ public class PatientController {
 	}
 	
 	//【患者情報登録】
+	//登録画面表示をする
 	@GetMapping("/new")
-	public String patientsnew() {
+	public String patientsnew(Model model) {
+		
+		model.addAttribute("patientRegisterDTO",new PatientRegisterDTO());
+		
 		return "patient/patientNew";
 		
 	}
 	
+	//【患者情報登録】
+	//登録フォームを受け取る
+	@PostMapping("/new")
+	public String registerPatient(
+			@ModelAttribute PatientRegisterDTO patientRegisterDTO) {
+		
+		return "patient/patientNew";
+	}
+	
+	//【患者情報検索TOP】
+	//空欄で表示したいので最初にここに飛ばす
 	@GetMapping("/search-top")
 	public String showPatientSearchTop(Model model) {
 

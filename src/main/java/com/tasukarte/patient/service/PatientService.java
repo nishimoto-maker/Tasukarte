@@ -6,20 +6,31 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.tasukarte.common.security.LoginUser;
+import com.tasukarte.hospital.repository.HospitalRepository;
+import com.tasukarte.patient.dto.AllergieRegisterDTO;
 import com.tasukarte.patient.dto.PatientListDTO;
+import com.tasukarte.patient.dto.PatientRegisterDTO;
 import com.tasukarte.patient.dto.PatientSearchDTO;
+import com.tasukarte.patient.entity.Allergie;
 import com.tasukarte.patient.entity.Patient;
 import com.tasukarte.patient.repository.PatientRepository;
+import com.tasukarte.hospital.entity.Hospital;
 
 @Service
 public class PatientService {
-
+	
+	//フィールドを作成
     private final PatientRepository patientRepository;
+    private final HospitalRepository hospitalRepository;
 
-    public PatientService(PatientRepository patientRepository) {
-        this.patientRepository = patientRepository;
+    public PatientService(PatientRepository patientRepository,HospitalRepository hospitalRepository) {
+    	this.patientRepository = patientRepository;
+    	this.hospitalRepository = hospitalRepository;
     }
     
     //性別のをShortからStringに変換
@@ -90,4 +101,65 @@ public class PatientService {
 
         return dto;
     }
+    
+    
+    //患者情報の登録
+    public void registerPatient(PatientRegisterDTO dto) {
+    	
+    	//現在ログインしているユーザーの認証情報を取得
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	
+    	//ログインユーザーの情報を取得
+    	LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+    	
+    	//ログインユーザーが所属する病院IDを取得
+    	Integer hospitalId = loginUser.getHospitalId();
+    	
+    	//Patientを作成
+    	Patient patient = new Patient();
+    	
+    	//病院IDから病院情報を取得
+    	Hospital hospital = hospitalRepository.findById(hospitalId)
+    	        .orElseThrow(() -> new RuntimeException("病院情報が見つかりません"));
+    	
+    	//患者情報に病院を設定
+    	patient.setHospital(hospital);
+    	
+    	
+    	//DTOの値をEntityに移す
+    	patient.setName(dto.getName());
+    	patient.setKata(dto.getKata());
+    	patient.setBirthDay(dto.getBirthDay());
+    	patient.setGender(dto.getGender());
+    	patient.setPhoneNumber(dto.getPhoneNumber());
+    	patient.setEmailAddress(dto.getEmailAddress());
+    	patient.setAddress(dto.getAddress());
+    	patient.setPostCode(dto.getPostCode());
+    	patient.setBloodType(dto.getBloodType());
+    	patient.setRh(dto.getRh());
+    	patient.setAllergy(dto.getAllergy());
+    	patient.setWeight(dto.getWeight());
+    	patient.setHeight(dto.getHeight());
+    	
+    	//アレルギーの有無の判別
+    	if(Boolean.TRUE.equals(dto.getAllergy())) {
+    		
+    		//リストから1件ずつ取り出す(複数件の取得)
+    		for(AllergieRegisterDTO allergyDTO : dto.getAllergies()) {
+    			
+    			Allergie allergie = new Allergie();
+    			
+    			allergie.setAllergyType(allergyDTO.getAllergyType());
+    			allergie.setAllergySymptom(allergyDTO.getAllergySymptom());
+    			
+    			allergie.setPatient(patient);
+    			
+    	        //Patientのアレルギーリストに追加
+    	        patient.getAllergies().add(allergie);
+    			
+    		}
+    	}
+    	
+    }
+    
 }
