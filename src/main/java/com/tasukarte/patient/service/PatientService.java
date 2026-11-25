@@ -125,6 +125,8 @@ public class PatientService {
     	//患者情報に病院を設定
     	patient.setHospital(hospital);
     	
+    	// 登録日時を設定
+    	patient.setCreateAt(LocalDateTime.now());
     	
     	//DTOの値をEntityに移す
     	patient.setName(dto.getName());
