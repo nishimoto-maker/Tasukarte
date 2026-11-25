@@ -9,8 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 既往歴情報を管理するEntityクラス
@@ -22,8 +20,8 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "medical_histories")
-@Getter
-@Setter
+//@Getter
+//@Setter
 public class MedicalHistory {
 
     /**
@@ -85,4 +83,38 @@ public class MedicalHistory {
      */
     @Column(name = "medical_record_id")
     private Integer medicalRecordId;
+    
+    // 以下、getter・setter
+
+	public Integer getMedicalHistoryId() {
+		return medicalHistoryId;
+	}
+
+	public void setMedicalHistoryId(Integer medicalHistoryId) {
+		this.medicalHistoryId = medicalHistoryId;
+	}
+
+	public Questionnaire getQuestionnaire() {
+		return questionnaire;
+	}
+
+	public void setQuestionnaire(Questionnaire questionnaire) {
+		this.questionnaire = questionnaire;
+	}
+
+	public String getDiseaseName() {
+		return diseaseName;
+	}
+
+	public void setDiseaseName(String diseaseName) {
+		this.diseaseName = diseaseName;
+	}
+
+	public Integer getMedicalRecordId() {
+		return medicalRecordId;
+	}
+
+	public void setMedicalRecordId(Integer medicalRecordId) {
+		this.medicalRecordId = medicalRecordId;
+	}
 }
