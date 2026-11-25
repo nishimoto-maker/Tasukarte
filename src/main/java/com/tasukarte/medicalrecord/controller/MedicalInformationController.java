@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tasukarte.patient.entity.Patient;
+import com.tasukarte.patient.service.PatientService;
 
 // 指定したURLにアクセスされた時に、
 // 対応したメソッドを呼び出すクラスであることを指示
@@ -34,7 +35,7 @@ public class MedicalInformationController {
 	// LoginUserから権限を取り出してチェックする
 	@GetMapping
 	public String showMedicalInfomationTop() {
-		return "medical-records/medical-information";
+		return "medical-records/top";
 	}
 	
 	// 【トップ】から検索された患者を表示するとき
@@ -50,14 +51,14 @@ public class MedicalInformationController {
 			) {
 		if (searchPatientName != null && !searchPatientName.isBlank()) {
 			// 検索欄に正しく入力があった場合は検索を実行
-			List<Patient> patients = patientService.searchPatients(searchPatientName);
+			List<Patient> patients = patientService.searchPatientsByName(searchPatientName);
 			model.addAttribute("patients", patients);
 		} else {
 			// 空欄でボタンが押された場合、エラーメッセージを渡す
 			model.addAttribute("errormessage", "患者名を入力して下さい。");
 		}
 		
-		return "medical-records/medical-information";
+		return "medical-records/top";
 	}
 	
 	// トップから選択された患者の詳細情報と、各種登録へ遷移できるボタンが配置された
