@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>職員情報登録確認</title>
+</head>
+
+<body>
+
+	<h1>職員情報登録確認</h1>
+
+	<p>以下の内容で登録します。よろしいですか？</p>
+
+	<div th:object="${staffRegisterDto}">
+
+		<dl>
+			<dt>氏名（漢字）</dt>
+			<dd th:text="*{nameKanji}"></dd>
+
+			<dt>氏名（カナ）</dt>
+			<dd th:text="*{nameKana}"></dd>
+
+			<dt>性別</dt>
+			<dd th:text="*{gender == 0 ? 'その他' : (gender == 1 ? '男性' : '女性')}"></dd>
+
+			<dt>住所</dt>
+			<dd th:text="*{address}"></dd>
+
+			<dt>郵便番号</dt>
+			<dd th:text="*{postCode}"></dd>
+
+			<dt>電話番号</dt>
+			<dd th:text="*{phoneNumber}"></dd>
+
+			<dt>メールアドレス</dt>
+			<dd th:text="*{emailAddress}"></dd>
+
+			<dt>役職</dt>
+			<dd th:text="${positionName}"></dd>
+
+			<dt>権限</dt>
+			<dd th:text="${roleName}"></dd>
+
+			<dt>仮パスワード</dt>
+			<dd>設定済み</dd>
+		</dl>
+
+	</div>
+
+	<!-- ボタン -->
+	<div>
+		<!-- 入力画面に戻る -->
+		<form th:action="@{/staff/new}" method="get">
+			<button type="submit">戻る</button>
+		</form>
+
+		<!-- 登録を確定する -->
+		<form th:action="@{/staff/register}" method="post">
+			<button type="submit">登録確定</button>
+		</form>
+	</div>
+
+</body>
+
+</html>
