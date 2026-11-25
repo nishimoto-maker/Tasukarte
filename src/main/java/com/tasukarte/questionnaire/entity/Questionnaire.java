@@ -7,8 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 問診票情報を管理するEntityクラス
@@ -20,8 +18,8 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "questionnaires")
-@Getter
-@Setter
+//@Getter
+//@Setter
 public class Questionnaire {
 
     /**
@@ -80,4 +78,46 @@ public class Questionnaire {
     @NotBlank
     @Column(name = "symptom_onset", nullable = false)
     private String symptomOnset;
+
+    // 以下、getter・setter
+    
+	public Integer getQuestionnaireId() {
+		return questionnaireId;
+	}
+
+	public void setQuestionnaireId(Integer questionnaireId) {
+		this.questionnaireId = questionnaireId;
+	}
+
+	public Integer getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
+
+	public String getVisitPurpose() {
+		return visitPurpose;
+	}
+
+	public void setVisitPurpose(String visitPurpose) {
+		this.visitPurpose = visitPurpose;
+	}
+
+	public String getSymptom() {
+		return symptom;
+	}
+
+	public void setSymptom(String symptom) {
+		this.symptom = symptom;
+	}
+
+	public String getSymptomOnset() {
+		return symptomOnset;
+	}
+
+	public void setSymptomOnset(String symptomOnset) {
+		this.symptomOnset = symptomOnset;
+	}
 }
