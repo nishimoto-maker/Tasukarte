@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>患者情報内容確認</title>
+</head>
+<body>
+	<h1>患者情報内容確認</h1>
+	
+	<table>
+		<tr>
+			<th>以下の内容で保存してもよろしいでしょうか？</th>
+		</tr>
+		<tr>
+			<th>氏名：</th>
+			<td th:text="${patientRegisterDTO.name}"></td>
+		</tr>
+		<tr>
+			<th>フリガナ：</th>
+			<td th:text="${patientRegisterDTO.kata}"></td>
+		</tr>
+		<tr>
+			<th>生年月日：</th>
+			<td th:text="${patientRegisterDTO.birthDay}"></td>
+		</tr>
+		<tr>
+			<th>性別：</th>
+			<td th:text="${patientRegisterDTO.gender}"></td>
+		</tr>
+		<tr>
+			<th>電話番号：</th>
+			<td th:text="${patientRegisterDTO.phoneNumber}"></td>
+		</tr>
+		<tr>
+			<th>メールアドレス：</th>
+			<td th:text="${patientRegisterDTO.emailAddress}"></td>
+		</tr>
+		<tr>
+			<th>郵便番号：</th>
+			<td th:text="${patientRegisterDTO.postCode}"></td>
+		</tr>
+		<tr>
+			<th>住所：</th>
+			<td th:text="${patientRegisterDTO.address}"></td>
+		</tr>
+		<tr>
+			<th>血液型：</th>
+			<td th:text="${patientRegisterDTO.bloodType}"></td>
+		</tr>
+		<tr>
+			<th>RH：</th>
+			<td th:text="${patientRegisterDTO.rh}"></td>
+		</tr>
+		
+		<tr th:if="${patientRegisterDTO.allergy}">
+			<th>アレルギー： 有</th>
+			<td>
+				<div th:each="allergy : ${patientRegisterDTO.allergies}">
+					<span th:text="${allergy.allergyTpe}"></span>
+					<span th:text="${allergy.allergySymptom}"></span>
+				</div>
+			</td>
+		</tr>
+		
+		<tr th:unless="${patientRegisterDTO.allergy}">
+			<td>アレルギー：なし</td>
+		</tr>
+		<tr>
+			<th>体重：</th>
+			<td th:text="${patientRegisterDTO.wight}"></td>
+		</tr>
+		<tr>
+			<th>身長：</th>
+			<td th:text="${patientRegisterDTO.height}"></td>
+		</tr>
+	
+	</table>
+	<form th:action="@{/patients/new}"th:object="${patientRegisterDTO}"method="post">
+	<input type="hidden" th:field="*{name}">
+    <button type="submit">登録する</button>
+    </form>
+</body>
+</html>
