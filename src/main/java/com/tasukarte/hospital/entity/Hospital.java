@@ -12,13 +12,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "hospital_managements")
-public class HospitalManagement {
+@Table(name = "hospitals")
+public class Hospital {
 
-    // 病院ID（主キー）
+    // idを主キーにする
     @Id
+    // idを自動生成             //PostgreSQLのIDENTITYによる自動採番を利用
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hospital_id", nullable = false)
+    @Column(name = "hospital_id")
+    // 病院ID
     private Integer hospitalId;
 
     // 病院名
@@ -57,10 +59,10 @@ public class HospitalManagement {
     private String hospitalMail;
 
     // 削除フラグ
-    @Column(name = "is_deleted", nullable = false)
+    @Column(name = "is_deleted")
     private boolean isDeleted;
     
-    public HospitalManagement() {
+    public Hospital() {
     }
     
     public Integer getHospitalId() {

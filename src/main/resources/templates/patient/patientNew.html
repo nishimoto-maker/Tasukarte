@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>患者情報登録</title>
+</head>
+
+<script th:src="@{/js/patient/patientNew.js}"></script>
+
+<body>
+
+    <h1>患者情報登録</h1>
+
+    <form th:action="@{/patients/confirm}" 
+          th:object = "${patientRegisterDTO}" method="post">
+
+        <!-- 氏名 -->
+        <p>
+            氏名：
+            <input type="text" id="patientName" name="name">
+        </p>
+
+        <!-- フリガナ -->
+        <p>
+            フリガナ：
+            <input type="text" id="patientNameKana" name="kata">
+        </p>
+
+        <!-- 誕生日 -->
+        <p>
+            誕生日：
+            <input type="date" id="birthDay" name="birthDay">
+        </p>
+
+        <!-- 性別 -->
+        <p>
+            性別：
+            <input type="radio" id="male" name="gender" value="1">
+            <label for="male">男</label>
+
+            <input type="radio" id="female" name="gender" value="2">
+            <label for="female">女</label>
+        </p>
+
+        <!-- 電話番号 -->
+        <p>
+            電話番号：
+            <input type="tel" id="phoneNumber" name="phoneNumber">
+        </p>
+
+        <!-- メールアドレス -->
+        <p>
+            メールアドレス：
+            <input type="email" id="emailAddress" name="emailAddress">
+        </p>
+
+        <!-- 郵便番号 -->
+        <p>
+            郵便番号：
+            <input type="text" id="postCode" name="postCode">
+        </p>
+
+        <!-- 住所 -->
+        <p>
+            住所：
+            <input type="text" id="address" name="address">
+        </p>
+
+        <!-- 血液型 -->
+        <p>血液型：</p>
+
+        <p>
+            <input type="radio" id="bloodA" name="bloodType" value="A">
+            <label for="bloodA">A</label>
+
+            <input type="radio" id="bloodB" name="bloodType" value="B">
+            <label for="bloodB">B</label>
+
+            <input type="radio" id="bloodAB" name="bloodType" value="AB">
+            <label for="bloodAB">AB</label>
+
+            <input type="radio" id="bloodO" name="bloodType" value="O">
+            <label for="bloodO">O</label>
+        </p>
+
+        <!-- RH -->
+        <p>RH：</p>
+
+        <p>
+            <input type="radio" id="rhPlus" name="rh" value="true">
+            <label for="rhPlus">+</label>
+
+            <input type="radio" id="rhMinus" name="rh" value="false">
+            <label for="rhMinus">-</label>
+        </p>
+
+        <!-- アレルギー 有無-->
+        <p>アレルギー：</p>
+        <p>
+			<input type="radio" id="allergyYes" name="allergy" value="true">
+			<lable for= "allergyYes">有</lable>
+		</p>
+        <p>
+			<input type="radio" id="allergyNo" name="allergy" value="false">
+			<lable for= "allergyYes">無</lable>
+		</p>
+		
+		<!-- アレルギー詳細入力欄 -->
+        <div id="allergyContainer" style="display:none;">
+
+            <div class="allergy-row">
+                <p>
+                    アレルギー種別：
+                    <input type="text"
+                           name="allergies[0].allergyType">
+                </p>
+
+                <p>
+                    アレルギー症状：
+                    <input type="text"
+                           name="allergies[0].allergySymptom">
+                </p>
+            </div>
+
+        </div>
+        
+        <button type="button" id="addAllergyButton" onclick="addAllergy()" style="display: none;">
+            アレルギーを追加
+        </button>
+
+        <!-- 体重 -->
+        <p>
+            体重：
+            <input type="number" id="weight" name="weight"
+                   step="0.1" min="0">
+            kg
+        </p>
+
+        <!-- 身長 -->
+        <p>
+            身長：
+            <input type="number" id="height" name="height"
+                   step="0.1" min="0">
+            cm
+        </p>
+        <!-- 登録・キャンセルボタン -->
+        <p>
+			<button type="submit">登録</button>
+			<button type="button"
+			onclick="location.href='/patients'">キャンセル</button>
+		</p>
+
+    </form>
+
+</body>
+</html>

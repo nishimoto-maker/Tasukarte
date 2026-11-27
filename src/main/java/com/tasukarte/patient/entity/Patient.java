@@ -4,10 +4,12 @@ package com.tasukarte.patient.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.tasukarte.hospital.entity.HospitalManagement;
+import com.tasukarte.hospital.entity.Hospital;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,15 +36,16 @@ public class Patient {
     
     // アレルギー情報
     // 1人の患者に複数のアレルギー情報が紐づく
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
-    private List<Allergie> allergies;
+    // CascadeType.PERSISTにより、Patientの新規登録時に関連するAllergieも自動で保存する
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Allergie> allergies = new ArrayList<>();
     
     //病院ID
     //必須、カラム定義
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "hospital_id", nullable = false)
-    private HospitalManagement hospital;
+    private Hospital hospital;
 
     //氏名
     //必須、255文字まで、カラム定義
@@ -149,11 +152,11 @@ public class Patient {
 	    this.allergies = allergies;
 	}
 
-	public HospitalManagement getHospital() {
+	public Hospital getHospital() {
 		return hospital;
 	}
 
-	public void setHospital(HospitalManagement hospital) {
+	public void setHospital(Hospital hospital) {
 		this.hospital = hospital;
 	}
 

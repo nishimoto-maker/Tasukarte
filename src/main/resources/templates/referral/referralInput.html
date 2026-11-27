@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紹介状入力</title>
+</head>
+<body>
+
+    <h1>紹介状入力画面</h1>
+
+    <form th:action="@{/referrals/draft}" method="post">
+
+        <!-- 患者ID(非表示) -->
+        <input type="hidden" name="patientId"
+               th:value="${patientId}">
+
+        <!-- 宛先病院ID(非表示) -->
+        <input type="hidden" name="recipientHospitalId"
+               th:value="${recipientHospitalId}">
+
+        <!-- 患者名 -->
+        <div>
+            <label>患者名</label>
+            <span th:text="${patientName}"></span>
+        </div>
+
+        <!-- 宛先病院名 -->
+        <div>
+            <label>宛先病院</label>
+            <span th:text="${recipientHospitalName}"></span>
+        </div>
+
+        <!-- 紹介目的 -->
+        <div>
+            <label for="referralPurpose">紹介目的</label>
+            <textarea id="referralPurpose"
+                      name="referralPurpose"></textarea>
+        </div>
+
+        <!-- 依頼内容 -->
+        <div>
+            <label for="requestContent">依頼内容</label>
+            <textarea id="requestContent"
+                      name="requestContent"></textarea>
+        </div>
+
+        <!-- 備考 -->
+        <div>
+            <label for="remarks">備考</label>
+            <textarea id="remarks"
+                      name="remarks"></textarea>
+        </div>
+
+        <!-- 共有開始日 -->
+        <div>
+            <label for="sharedStartAt">共有開始日</label>
+            <input type="date"
+                   id="sharedStartAt"
+                   name="sharedStartAt">
+        </div>
+
+        <!-- 共有終了日 -->
+        <div>
+            <label for="sharedEndAt">共有終了日</label>
+            <input type="date"
+                   id="sharedEndAt"
+                   name="sharedEndAt">
+        </div>
+
+        <!-- 一時保存 -->
+        <div>
+            <button type="submit">一時保存</button>
+        </div>
+
+    </form>
+
+</body>
+</html>
+</html>

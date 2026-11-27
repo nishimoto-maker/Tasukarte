@@ -6,9 +6,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "bed_type")
+@Table(name = "bed_types")
 public class BedType {
 	//idを主キーにする。
 	@Id
@@ -19,6 +20,7 @@ public class BedType {
 	private Integer bedTypeId;
 	
 	//病床種別名
+	@NotBlank
 	@Column(name = "bed_type_name", nullable = false)
 	private String bedTypeName;
 	

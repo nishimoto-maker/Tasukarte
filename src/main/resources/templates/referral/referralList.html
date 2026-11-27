@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紹介状一覧</title>
+</head>
+<body>
+
+    <h1>紹介状一覧</h1>
+
+    <p>紹介状一覧画面です。</p>
+
+	<!-- 紹介状作成画面へ遷移する -->
+    <a th:href="@{/referrals/create}" class="btn btn-primary">
+        新規作成
+    </a>
+    
+        <!-- 紹介状が存在する場合 -->
+    <div th:if="${not #lists.isEmpty(referralList)}">
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>紹介状ID</th>
+                    <th>患者名</th>
+                    <th>宛先病院</th>
+                    <th>作成日</th>
+                    <th>状態</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+
+            <tbody>
+				
+                <tr th:each="referral : ${referralList}">
+                    <td th:text="${referral.referralId}"></td>
+
+                    <td th:text="${referral.patientName}"></td>
+
+                    <td th:text="${referral.recipientHospitalName}"></td>
+
+                    <td th:text="${#temporals.format(
+                        referral.createdAt, 'yyyy/MM/dd HH:mm')}"></td>
+					<!-- いったん下書きで置く -->
+                    <td>下書き</td>
+                    <td>
+    					<a th:href="@{/referrals/{referralId}/edit(
+        					referralId=${referral.referralId})}">
+        					編集
+    					</a>
+					</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- 紹介状が存在しない場合 -->
+    <p th:if="${#lists.isEmpty(referralList)}">
+        紹介状はありません。
+    </p>
+
+</body>
+</html>

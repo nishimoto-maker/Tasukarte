@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>患者情報照会・登録内容選択</title>
+</head>
+<body>
+
+<form th:action="@{/medical-information/search}" method="get">
+	<input type="hidden" th:value="${searchPatientName}">
+	<button type="submit">戻る</button>
+</form>
+
+<h2 th:text="${patient.patientName}"></h2>
+
+<table>
+	<thead>
+		<tr>
+			<th>患者名(カナ)</th>
+			<th>生年月日</th>
+			<th>性別</th>
+			<th>血液型</th>
+			<th>RH</th>
+			<th>身長</th>
+			<th>体重</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<tr>
+			<td th:text="${patient.kata}"></td>
+			<td th:text="${patient.birthDay}"></td>
+			<td th:text="${patient.gender}"></td>
+			<td th:text="${patient.bloodType}"></td>
+			<td th:text="${patient.rh}"></td>
+			<td th:text="${patient.height}"></td>
+			<td th:text="${patient.weight}"></td>
+		</tr>
+	</tbody>
+</table>
+
+<a th:href="@{/medical-records/register/{patientId}(patientId=${patient.patientId})}">
+	診療記録登録
+</a>
+<a th:href="@{/questionnaire/register/{patientId}(patientId=${patientId})}">
+	問診票登録
+</a>
+
+</body>
+</html>

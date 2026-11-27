@@ -1,0 +1,4 @@
+ALTER TABLE shared_patients
+ADD CONSTRAINT fk_shared_patients_shared_by_hospital_id
+FOREIGN KEY (shared_by_hospital_id)
+REFERENCES hospitals(hospital_id);

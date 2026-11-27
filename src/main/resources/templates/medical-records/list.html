@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>診療記録一覧</title>
+</head>
+<body>
+
+<h1>診療記録一覧</h1>
+
+<a th:href="@{/medical-records}">診療情報管理トップへ戻る</a>
+
+<form
+	id="medicalRecordSearchDto"
+	th:object="${medicalRecordSearchDto}"
+	th:action="@{/medical-records/search}"
+	method="get"
+>
+	<div>
+		<label for="patientName">
+			患者名：
+			<input type="text" th:field="*{patientName}">
+		</label>
+	</div>
+	
+	<div>
+		診療状況：
+		<select th:field="*{continuing}">
+			<option value="">すべて</option>
+			<option value="true">継続中</option>
+			<option value="false">終了</option>
+		</select>
+	</div>
+	
+	<div>
+		<label for="diseaseName">
+			傷病名：
+			<input type="text" th:field="*{diseaseName}">
+		</label>
+	</div>
+	
+	<div>
+		転帰状況：
+		<select th:field="*{outcome}">
+			<option value="">すべて</option>
+			<option value="1">治癒</option>
+			<option value="2">死亡</option>
+			<option value="3">中止</option>
+		</select>
+	</div>
+	
+	<button type="submit">検索</button>
+</form>
+
+<div th:if="${!medicalRecords.isEmpty()}">
+	<table>
+		<thead>
+			<!-- 表示する患者情報の数は増やすかも -->
+			<tr>
+				<th>患者名</th>
+				<th>傷病名</th>
+				<th>診療状況</th>
+				<th>転帰状況</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="medicalRecord : ${medicalRecords}">
+				<td>
+					<a th:href="@{/medical-records/{recordId}(
+						recordId=${medicalRecord.medicalRecordId}
+						)}"
+						th:text="${medicalRecord.patient.patientName}">
+					</a>
+				</td>
+				<td th:text="${medicalRecord.diseaseName}"></td>
+				<td th:text="${medicalRecord.outcome == null
+					? '継続中'
+					: '終了'}">
+				</td>
+				<td th:text="${medicalRecord.outcome == null
+					? '-'
+					: medicalRecord.outcome}">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div th:if="${medicalRecords.isEmpty()}">
+	<p>検索結果がありません。条件を変えてもう一度検索してください。</p>
+</div>
+
+</body>
+</html>

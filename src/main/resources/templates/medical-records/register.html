@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>診療記録登録</title>
+    <style>
+        .wrapper {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 6px 10px;
+            vertical-align: top;
+        }
+        /* 見出し用の行（Subjectや処置の名前部分） */
+        .label-row td {
+            height: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            background-color: #fafafa;
+        }
+        /* 入力スペース用の行 */
+        .input-row td {
+            height: 80px;
+        }
+        /* バリデーションエラーメッセージ用 */
+        .error-message {
+			color: red;
+			font-size: 12px;
+			margin: 4px 0 0;
+		}
+    </style>
+</head>
+<body>
+
+<h1>診療記録登録</h1>
+
+<form th:action="@{/medical-information/patients/{patientId}(
+	patientId=${patient.patientId}
+	)}">
+	<button type="submit">登録をやめる</button>
+</form>
+
+<button type="submit" form="medicalRecordForm">
+	入力内容を確認する
+</button>
+
+<div class="wrapper">
+
+	<!-- 左側：患者情報 -->
+	<table>
+		<tr>
+			<th colspan="2">基本情報</th>
+		</tr>
+		<tr>
+			<th>患者ID</th>
+			<td th:text="${patient.patientId}"></td>
+		</tr>
+		<tr>
+			<th>病院ID</th>
+			<td th:text="${patient.hospitalId}"></td>
+		</tr>
+		<tr>
+			<th>氏名</th>
+			<td th:text="${patient.name}"></td>
+		</tr>
+		<tr>
+			<th>フリガナ</th>
+			<td th:text="${patient.kata}"></td>
+		</tr>
+		<tr>
+			<th>生年月日</th>
+			<td th:text="${patient.birthDay}"></td>
+		</tr>
+		<tr>
+			<th>性別</th>
+			<td  th:text="${patient.gender}"></td>>
+		</tr>
+		
+		<tr>
+			<th colspan="2">身体情報</th>
+		</tr>
+		<tr>
+			<th>血液型</th>
+			<td th:text="${patient.bloodType}"></td>
+		</tr>
+		<tr>
+			<th>RH</th>
+			<td th:text="${patient.rh}"></td>
+		</tr>
+		<tr>
+			<th>身長</th>
+			<td th:text="${patient.height}"></td>
+		</tr>
+		<tr>
+			<th>体重</th>
+			<td th:text="${patient.weight}"></td>
+		</tr>
+		
+		<tr>
+			<th colspan="2">アレルギー情報</th>
+		</tr>
+		<tr th:if="${patient.allergy}">
+			<th>アレルギーあり</th>
+			<td>多分Listで受け取るから、th:eachでループ表示</td>
+		</tr>
+		<tr th:unless="${patient.allergy}">
+			<th>アレルギーなし</th>
+			<td>アレルギーなし</td>
+		</tr>
+	</table>
+	
+	
+	<div>
+		<form
+			id="medicalRecordForm"
+			th:object="${medicalRecordRegisterDto}"
+			th:action="@{/medical-records/register/{patientId}/confirm(
+				patientId=${patient.patientId}
+			)}"
+			method="post"
+		>
+			<!-- 2. 右側：カルテ欄 -->
+			<table>
+				<tr>
+					<td style="width: 110px;">傷病名</td>
+					<td colspan="3">
+						<input type="text" maxlength="100" 
+						 	th:field="*{diseaseName}" required>
+						<p th:if="${#fields.hasErrors('deseaseName')}"
+						   th:errors="*{deseaseName}"
+						   class="error-message">
+						</p>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>転帰状況</td>
+					<td style="width: 130px;">
+						<label>
+							<input type="radio" th:field="*{outcome}" value="治癒">
+							治癒
+						</label>
+						<label>
+							<input type="radio" th:field="*{outcome}" value="死亡">
+							死亡
+						</label>
+						<label>
+							<input type="radio" th:field="*{outcome}" value="中止">
+							中止
+						</label>
+					</td>
+					
+					<td style="width: 100px;">転帰日</td>
+					<td style="width: 120px;">
+						<input type="date" th:field="*{outcomeDate}">
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="4" style="height: 50px;">経過</td>
+				</tr>
+				
+				<tr class="label-row">
+					<td>Subject</td>
+					<td>Object</td>
+					<td>Assessment</td>
+					<td>Plan</td>
+				</tr>
+				
+				<tr class="input-row">
+					<td>
+						<textarea
+							th:field="*{progressS}" rows="4"
+							cols="30" maxlength="1000" required>
+						</textarea>
+						<p th:if="${#fields.hasErrors('progressS')}"
+						   th:errors="*{progressS}"
+						   class="error-message">
+						</p>
+					</td>
+					<td>
+						<textarea
+							th:field="*{progressO}" rows="4"
+							cols="30" maxlength="1000" required>
+						</textarea>
+						<p th:if="${#fields.hasErrors('progressO')}"
+						   th:errors="*{progressO}"
+						   class="error-message">
+						</p>
+					</td>
+					<td>
+						<textarea
+							th:field="*{progressA}" rows="4"
+							cols="30" maxlength="1000" required>
+						</textarea>
+						<p th:if="${#fields.hasErrors('progressA')}"
+						   th:errors="*{progressA}"
+						   class="error-message">
+						</p>
+					</td>
+					<td>
+						<textarea
+							th:field="*{progressP}" rows="4"
+							cols="30" maxlength="1000" required>
+						</textarea>
+						<p th:if="${#fields.hasErrors('progressP')}"
+						   th:errors="*{progressP}"
+						   class="error-message">
+						</p>
+					</td>
+				</tr>
+				
+				<tr class="label-row">
+					<td colspan="4">処置</td>
+				</tr>
+				<tr class="input-row">
+					<td colspan="4">
+						<textarea
+							th:field="*{procedure}" rows="4"
+							cols="30" maxlength="1000" required>
+						</textarea>
+						<p th:if="${#fields.hasErrors('procedure')}"
+						   th:errors="*{procedure}"
+						   class="error-message">
+						</p>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>再診予定日</td>
+					<td>
+						<input type="date" th:field="*{followUpDate}">
+					</td>
+					
+					<td>処方箋の有無</td>
+					<td>
+						<label>
+							<input type="radio" th:field="*{hasPrescription}"
+								value="true" required checked>
+							有
+						</label>
+						<label>
+							<input type="radio" th:field="*{hasPrescription}"
+								value="false">
+							無
+						</label>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+</div>
+
+</body>
+</html>

@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "medical_departments")
@@ -19,6 +20,7 @@ public class MedicalDepartment {
 	private Integer medicalDepartmentId;
 	
 	//診療科名
+	@NotBlank
 	@Column(name = "medical_department_name", nullable = false)
 	private String medicalDepartmentName;
 	

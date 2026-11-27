@@ -1,8 +1,9 @@
 package com.tasukarte.referral.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.tasukarte.hospital.entity.HospitalManagement;
+import com.tasukarte.hospital.entity.Hospital;
 import com.tasukarte.patient.entity.Patient;
 import com.tasukarte.staff.entity.Staff;
 
@@ -14,8 +15,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 //import lombok.Getter;
 import lombok.NoArgsConstructor;
 //import lombok.Setter;
@@ -49,21 +52,25 @@ public class Referral {
     // のように記述
     // Integer型のメリット：自動採番前はnullであるため、null利用が可能であること
     // デメリット：nullを許容するため、nullエラー時のハンドリングが必要
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name ="patient_id", nullable = false)
     private Patient patient;
 
     // 送信元病院ID（必須）
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @Column(name = "sender_hospital_id", nullable = false)
-    private HospitalManagement senderHospital;
+    @JoinColumn(name = "sender_hospital_id", nullable = false)
+    private Hospital senderHospital;
 
-    // 送信先病院ID（必須）
+    // 送信先病院ID（必須)
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "recipient_hospital_id", nullable = false)
-    private HospitalManagement recipientHospital;
+    private Hospital recipientHospital;
 
     // 作成者職員ID（必須）
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "staff_id", nullable = false)
     private Staff staff;
@@ -83,7 +90,7 @@ public class Referral {
             columnDefinition = "TEXT")
     private String remarks;
 
-    // 作成日（必須、内容変更時更新）
+    // 作成日（必須、編集時も更新しない）
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -101,17 +108,24 @@ public class Referral {
     private String status;
 
     // 削除フラグ
-    @Column(name = "is_deleted")
-    private boolean deleted;
+    @Column(name = "is_deleted", nullable = false)
+    private boolean isDeleted = false;
 
     // 共有開始日（一時保存時Null許容、本登録時必須）
     @Column(name = "shared_start_at")
-    private LocalDateTime sharedStartAt;
+    private LocalDate sharedStartAt;
 
     // 共有終了日（一時保存時Null許容、本登録時必須）
     @Column(name = "shared_end_at")
-    private LocalDateTime sharedEndAt;
+    private LocalDate sharedEndAt;
 
+    //初回登録時(INSERT1時に@PrePersistで設定)
+    //UPDATE時には実行されない
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+    
 	public Integer getReferralId() {
 		return referralId;
 	}
@@ -128,19 +142,19 @@ public class Referral {
 		this.patient = patient;
 	}
 
-	public HospitalManagement getSenderHospital() {
+	public Hospital getSenderHospital() {
 		return senderHospital;
 	}
 
-	public void setSenderHospital(HospitalManagement senderHospital) {
+	public void setSenderHospital(Hospital senderHospital) {
 		this.senderHospital = senderHospital;
 	}
 
-	public HospitalManagement getRecipientHospital() {
+	public Hospital getRecipientHospital() {
 		return recipientHospital;
 	}
 
-	public void setRecipientHospital(HospitalManagement recipientHospital) {
+	public void setRecipientHospital(Hospital recipientHospital) {
 		this.recipientHospital = recipientHospital;
 	}
 
@@ -208,27 +222,27 @@ public class Referral {
 		this.status = status;
 	}
 
-	public boolean isDeleted() {
-		return deleted;
+	public boolean getIsDeleted() {
+		return isDeleted;
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
+	public void setIsDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 
-	public LocalDateTime getSharedStartAt() {
+	public LocalDate getSharedStartAt() {
 		return sharedStartAt;
 	}
 
-	public void setSharedStartAt(LocalDateTime sharedStartAt) {
+	public void setSharedStartAt(LocalDate sharedStartAt) {
 		this.sharedStartAt = sharedStartAt;
 	}
 
-	public LocalDateTime getSharedEndAt() {
+	public LocalDate getSharedEndAt() {
 		return sharedEndAt;
 	}
 
-	public void setSharedEndAt(LocalDateTime sharedEndAt) {
+	public void setSharedEndAt(LocalDate sharedEndAt) {
 		this.sharedEndAt = sharedEndAt;
 	}
 
