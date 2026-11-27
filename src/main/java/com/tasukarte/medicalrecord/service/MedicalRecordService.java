@@ -1,11 +1,13 @@
 package com.tasukarte.medicalrecord.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.tasukarte.common.security.LoginUser;
 import com.tasukarte.medicalrecord.dto.MedicalRecordRegisterDto;
+import com.tasukarte.medicalrecord.dto.MedicalRecordSearchDto;
 import com.tasukarte.medicalrecord.entity.MedicalRecord;
 import com.tasukarte.medicalrecord.repository.MedicalRecordRepository;
 import com.tasukarte.patient.service.PatientService;
@@ -65,19 +67,27 @@ public class MedicalRecordService {
 		medicalRecordRepository.save(mr);
 	}
 	
-	// IDで診療記録を1件取得
-	public MedicalRecord findMedicalRecord(Integer medicalRecordId) {
-		return medicalRecordRepository.findById(medicalRecordId).orElse(null);
+	// 指定された条件で検索
+	// Specification作って条件組み立てる
+	// Sortで記録日の降順にするのと、
+	// ログインユーザーが所属する病院と、
+	// 記録の担当医師が所属する病院が一致するデータのみ取得する
+	public List<MedicalRecord> searchMedicalRecords(MedicalRecordSearchDto searchDto) {
+		return new ArrayList<MedicalRecord>();
 	}
 	
-	// ↑で取得した記録以外の記録を取得
-	public List<MedicalRecord> findOtherRecords(
-			Integer patientId,
-			Integer medicalRecordId
+	// IDで診療記録を1件取得
+	public MedicalRecord findMedicalRecordById(Integer medicalRecordId) {
+		return medicalRecordRepository
+				.findById(medicalRecordId)
+				.orElse(null);
+	}
+	
+	// 指定した患者に関連する記録を診療記録日の降順で取得
+	public List<MedicalRecord> findPatientRecords(
+			Integer patientId
 			) {
 		return medicalRecordRepository
-					.findByPatientIdAndMedicalRecordIdNot(
-							patientId, medicalRecordId
-						);
+					.findByPatientIdOrderByMedicalRecordDateDesc(patientId);
 	}
 }

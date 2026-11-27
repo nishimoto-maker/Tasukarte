@@ -1,47 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>診療記録詳細</title>
 	<!-- 仮置きCSS -->
-    <style>
-        .wrapper {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
-        table {
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 6px 10px;
-            vertical-align: top;
-        }
-        /* 見出し用の行（Subjectや処置の名前部分） */
-        .label-row td {
-            height: 20px;
-            font-size: 13px;
-            font-weight: bold;
-            background-color: #fafafa;
-        }
-        /* 入力スペース用の行 */
-        .input-row td {
-            height: 80px;
-        }
-        /* バリデーションエラーメッセージ用 */
-        .error-message {
-			color: red;
-			font-size: 12px;
-			margin: 4px 0 0;
+	<style>
+		body {
+			font-family: sans-serif;
+			margin: 20px;
+			color: #222;
 		}
-		
-		.record-viewer {
+		.top-nav {
+			display: flex;
+			gap: 12px;
+			margin-bottom: 16px;
+		}
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th, td {
+			border: 1px solid #333;
+			padding: 6px 10px;
+			vertical-align: top;
+		}
+		th {
+			background-color: #f4f6f8;
+			text-align: left;
+		}
+		/* 見出し用の行（Subjectや処置の名前部分） */
+		.label-row td {
+			height: 24px;
+			font-size: 13px;
+			font-weight: bold;
+			background-color: #fafafa;
+		}
+		/* 閲覧スペース用の行 */
+		.value-row td {
+			min-height: 80px;
+		}
+		/* レイアウト全体 */
+		.medicalRecord-viewer {
 			display: flex;
 			gap: 20px;
-			min-height: 80vh;
+			align-items: flex-start;
 		}
-		
+		/* 左サイドバー（左上：患者情報 / 左下：他の診療記録一覧） */
 		.sidebar {
 			width: 300px;
 			flex-shrink: 0;
@@ -49,270 +53,286 @@
 			flex-direction: column;
 			gap: 16px;
 		}
-		
 		.patient-box,
 		.history-box,
-		.record-detail {
-			border: 1px solid #d0d7de;
+		.medicalRecord-detail {
+			border: 1px solid #ccc;
 			border-radius: 6px;
-			padding: 16px;
+			padding: 14px;
 			background: #fff;
 		}
-		
+		.patient-box h2,
+		.history-box h2,
+		.medicalRecord-detail h2 {
+			margin: 0 0 10px;
+			font-size: 16px;
+		}
+		.patient-box table th {
+			width: 95px;
+		}
+		/* 他の診療記録一覧 */
 		.history-box {
-			flex: 1;
-			min-height: 0;
+			max-height: 360px;
 			display: flex;
 			flex-direction: column;
 		}
-		
 		.history-list {
 			list-style: none;
-			margin: 8px 0 0;
+			margin: 0;
 			padding: 0;
 			overflow-y: auto;
-			max-height: 420px;
 		}
-		
+		.history-list li {
+			margin-bottom: 4px;
+		}
 		.history-list li a {
 			display: block;
-			padding: 8px 10px;
+			padding: 6px 8px;
 			border-radius: 4px;
 			text-decoration: none;
 			color: inherit;
+			border: 1px solid transparent;
 		}
-		
+		.history-list li a:hover {
+			background-color: #f5f7fa;
+		}
 		.history-list li.is-active a {
-			background: #eef4ff;
+			background-color: #e8f0fe;
+			border-color: #90b4f8;
 			font-weight: bold;
 		}
-		
-		.record-detail {
-			flex: 1;
+		.medicalRecord-date {
+			display: block;
+			font-size: 12px;
+			color: #555;
 		}
-		
+		.medicalRecord-disease {
+			display: block;
+			font-size: 14px;
+		}
+		/* 右側：診療記録詳細 */
+		.medicalRecord-detail {
+			flex: 1;
+			min-width: 0;
+		}
 		.pre-wrap {
 			white-space: pre-wrap;
+			margin: 0;
 		}
-    </style>
+		.history-list li a,
+		.current-record {
+			display: block;
+			padding: 6px 8px;
+			border-radius: 4px;
+		}
+		
+		.history-list li a {
+			text-decoration: none;
+			color: inherit;
+			border: 1px solid transparent;
+		}
+		
+		.history-list li a:hover {
+			background-color: #f5f7fa;
+		}
+		
+		/* 今開いている記録の見た目 */
+		.current-record {
+			background-color: #e8f0fe;
+			border: 1px solid #90b4f8;
+			font-weight: bold;
+			color: #174ea6;
+			cursor: default;
+		}
+		
+		.current-badge {
+			display: inline-block;
+			margin-top: 4px;
+			padding: 1px 6px;
+			font-size: 11px;
+			font-weight: normal;
+			color: #fff;
+			background-color: #1a73e8;
+			border-radius: 3px;
+		}
+	</style>
 </head>
 <body>
 
 <h1>診療記録詳細</h1>
 
-<!-- 処方箋有無が無しの記録にのみ表示予定 -->
-<a th:href="@{}">処方箋作成</a>
-
-<a th:href="@{}">編集する</a>
-
-<!-- 検索状態を復元するように色々持ってくる、渡す -->
-<a th:href="@{}">戻る</a>
-
-<div class="wrapper">
-
-	<!-- 左側：患者情報 -->
-	<table>
-		<tr>
-			<th colspan="2">基本情報</th>
-		</tr>
-		<tr>
-			<th>患者ID</th>
-			<td th:text="${patient.patientId}"></td>
-		</tr>
-		<tr>
-			<th>病院ID</th>
-			<td th:text="${patient.hospitalId}"></td>
-		</tr>
-		<tr>
-			<th>氏名</th>
-			<td th:text="${patient.name}"></td>
-		</tr>
-		<tr>
-			<th>フリガナ</th>
-			<td th:text="${patient.kata}"></td>
-		</tr>
-		<tr>
-			<th>生年月日</th>
-			<td th:text="${patient.birthDay}"></td>
-		</tr>
-		<tr>
-			<th>性別</th>
-			<td  th:text="${patient.gender}"></td>>
-		</tr>
-		
-		<tr>
-			<th colspan="2">身体情報</th>
-		</tr>
-		<tr>
-			<th>血液型</th>
-			<td th:text="${patient.bloodType}"></td>
-		</tr>
-		<tr>
-			<th>RH</th>
-			<td th:text="${patient.rh}"></td>
-		</tr>
-		<tr>
-			<th>身長</th>
-			<td th:text="${patient.height}"></td>
-		</tr>
-		<tr>
-			<th>体重</th>
-			<td th:text="${patient.weight}"></td>
-		</tr>
-		
-		<tr>
-			<th colspan="2">アレルギー情報</th>
-		</tr>
-		<tr th:if="${patient.allergy}">
-			<th>アレルギーあり</th>
-			<td>多分Listで受け取るから、th:eachでループ表示</td>
-		</tr>
-		<tr th:unless="${patient.allergy}">
-			<th>アレルギーなし</th>
-			<td>アレルギーなし</td>
-		</tr>
-	</table>
+<div class="top-nav">
+	<!-- 処方箋有無が無しの記録にのみ表示 -->
+	<a th:if="${!medicalRecord.hasPrescription}"
+		th:href="@{処方箋側ができたら入力}">
+		処方箋作成
+	</a>
 	
+	<!-- MedicalRecordごと渡して、各入力欄に入力された状態になるようにする -->
+	<a th:href="@{/medical-records/{id}/edit(id=${medicalRecord.medicalRecordId})}">
+		編集する
+	</a>
 	
-	<div>
-		<form
-			id="medicalRecordForm"
-			th:object="${medicalRecordRegisterDto}"
-			th:action="@{/medical-records/register/{patientId}/confirm(
-				patientId=${patient.patientId}
-			)}"
-			method="post"
-		>
-			<!-- 2. 右側：カルテ欄 -->
+	<!-- 検索状態を復元するように色々持ってくる、渡す -->
+	<a th:href="@{/medical-records/search(
+		patientName=${searchMedicalRecordsDto.patientName},
+		continuing=${searchMedicalRecordsDto.medicalTreatmentStatus},
+		diseaseName=${searchMedicalRecordsDto.diseaseName},
+		outcome=${searchMedicalRecordsDto.outcome}
+	)}">
+		戻る
+	</a>
+</div>
+
+<div class="medicalRecord-viewer">
+
+	<!-- 左サイドバー：左上（患者情報）＋ 左下（他の診療記録一覧） -->
+	<aside class="sidebar">
+		<!-- 左上：患者情報 -->
+		<section class="patient-box">
+			<h2>患者情報</h2>
 			<table>
 				<tr>
-					<td style="width: 110px;">傷病名</td>
-					<td colspan="3">
-						<input type="text" maxlength="100" 
-						 	th:field="*{diseaseName}" required>
-						<p th:if="${#fields.hasErrors('deseaseName')}"
-						   th:errors="*{deseaseName}"
-						   class="error-message">
-						</p>
-					</td>
+					<th colspan="2">基本情報</th>
 				</tr>
-				
 				<tr>
-					<td>転帰状況</td>
-					<td style="width: 130px;">
-						<label>
-							<input type="radio" th:field="*{outcome}" value="治癒">
-							治癒
-						</label>
-						<label>
-							<input type="radio" th:field="*{outcome}" value="死亡">
-							死亡
-						</label>
-						<label>
-							<input type="radio" th:field="*{outcome}" value="中止">
-							中止
-						</label>
-					</td>
-					
-					<td style="width: 100px;">転帰日</td>
-					<td style="width: 120px;">
-						<input type="date" th:field="*{outcomeDate}">
-					</td>
+					<th>患者ID</th>
+					<td th:text="${patient.patientId}"></td>
 				</tr>
-				
 				<tr>
-					<td colspan="4" style="height: 50px;">経過</td>
+					<th>病院ID</th>
+					<td th:text="${patient.hospital.hospitalId}"></td>
 				</tr>
-				
-				<tr class="label-row">
-					<td>Subject</td>
-					<td>Object</td>
-					<td>Assessment</td>
-					<td>Plan</td>
-				</tr>
-				
-				<tr class="input-row">
-					<td>
-						<textarea
-							th:field="*{progressS}" rows="4"
-							cols="30" maxlength="1000" required>
-						</textarea>
-						<p th:if="${#fields.hasErrors('progressS')}"
-						   th:errors="*{progressS}"
-						   class="error-message">
-						</p>
-					</td>
-					<td>
-						<textarea
-							th:field="*{progressO}" rows="4"
-							cols="30" maxlength="1000" required>
-						</textarea>
-						<p th:if="${#fields.hasErrors('progressO')}"
-						   th:errors="*{progressO}"
-						   class="error-message">
-						</p>
-					</td>
-					<td>
-						<textarea
-							th:field="*{progressA}" rows="4"
-							cols="30" maxlength="1000" required>
-						</textarea>
-						<p th:if="${#fields.hasErrors('progressA')}"
-						   th:errors="*{progressA}"
-						   class="error-message">
-						</p>
-					</td>
-					<td>
-						<textarea
-							th:field="*{progressP}" rows="4"
-							cols="30" maxlength="1000" required>
-						</textarea>
-						<p th:if="${#fields.hasErrors('progressP')}"
-						   th:errors="*{progressP}"
-						   class="error-message">
-						</p>
-					</td>
-				</tr>
-				
-				<tr class="label-row">
-					<td colspan="4">処置</td>
-				</tr>
-				<tr class="input-row">
-					<td colspan="4">
-						<textarea
-							th:field="*{procedure}" rows="4"
-							cols="30" maxlength="1000" required>
-						</textarea>
-						<p th:if="${#fields.hasErrors('procedure')}"
-						   th:errors="*{procedure}"
-						   class="error-message">
-						</p>
-					</td>
-				</tr>
-				
 				<tr>
-					<td>再診予定日</td>
+					<th>氏名</th>
+					<td th:text="${patient.name}"></td>
+				</tr>
+				<tr>
+					<th>フリガナ</th>
+					<td th:text="${patient.kata}"></td>
+				</tr>
+				<tr>
+					<th>生年月日</th>
+					<td th:text="${patient.birthDay}"></td>
+				</tr>
+				<tr>
+					<th>性別</th>
+					<td th:text="${patient.gender}"></td>
+				</tr>
+
+				<tr>
+					<th colspan="2">身体情報</th>
+				</tr>
+				<tr>
+					<th>血液型</th>
+					<td th:text="${patient.bloodType}"></td>
+				</tr>
+				<tr>
+					<th>RH</th>
+					<td th:text="${patient.rh}"></td>
+				</tr>
+				<tr>
+					<th>身長</th>
+					<td th:text="${patient.height}"></td>
+				</tr>
+				<tr>
+					<th>体重</th>
+					<td th:text="${patient.weight}"></td>
+				</tr>
+
+				<tr>
+					<th colspan="2">アレルギー情報</th>
+				</tr>
+				<tr th:if="${patient.allergy}">
+					<th>アレルギー</th>
 					<td>
-						<input type="date" th:field="*{followUpDate}">
+						<!-- Listで受け取る場合は th:each でループ表示 -->
+						<span th:text="${patient.allergy}"></span>
 					</td>
-					
-					<td>処方箋の有無</td>
-					<td>
-						<label>
-							<input type="radio" th:field="*{hasPrescription}"
-								value="true" required checked>
-							有
-						</label>
-						<label>
-							<input type="radio" th:field="*{hasPrescription}"
-								value="false">
-							無
-						</label>
-					</td>
+				</tr>
+				<tr th:unless="${patient.allergy}">
+					<th>アレルギー</th>
+					<td>なし</td>
 				</tr>
 			</table>
-		</form>
-	</div>
+		</section>
+
+		<!-- 左下：他の診療記録一覧 -->
+		
+		<section class="history-box">
+			<h2>診療記録一覧</h2>
+			<ul class="history-list" th:if="${!#lists.isEmpty(otherRecords)}">
+				<li th:each="item : ${otherRecords}"
+					th:classappend="${item.id == record.id} ? 'is-active' : ''">
+					<!-- 他の記録：リンクあり -->
+					<a th:if="${item.id != record.id}"
+					th:href="@{/medical-records/{id}(id=${item.id})}">
+						<span class="record-date" th:text="${item.recordDate}"></span>
+					</a>
+					
+					<!-- 今開いている記録：リンクなし＋「（閲覧中）」表示 -->
+					<div th:if="${item.id == record.id}" class="current-record">
+						<span class="record-date" th:text="${item.recordDate}"></span>
+						<span class="current-badge">閲覧中</span>
+					</div>
+				</li>
+			</ul>
+			<p th:if="${#lists.isEmpty(otherRecords)}">他の診療記録はありません。</p>
+		</section>
+	</aside>
+
+	<!-- 右側：カルテ閲覧欄 -->
+	<section class="medicalRecord-detail">
+		<h2>診療記録内容</h2>
+		<table>
+			<tr>
+				<th style="width: 110px;">傷病名</th>
+				<td colspan="3" th:text="${medicalRecord.diseaseName}"></td>
+			</tr>
+
+			<tr>
+				<th>転帰状況</th>
+				<td style="width: 150px;" th:text="${medicalRecord.outcome}"></td>
+				
+				<th style="width: 100px;">
+					転帰日
+				</th>
+				<td style="width: 150px;" th:text="${medicalRecord.outcomeDate}"></td>
+			</tr>
+
+			<tr>
+				<th colspan="4">経過</th>
+			</tr>
+
+			<tr class="label-row">
+				<td style="width: 25%;">Subject</td>
+				<td style="width: 25%;">Object</td>
+				<td style="width: 25%;">Assessment</td>
+				<td style="width: 25%;">Plan</td>
+			</tr>
+
+			<tr class="value-row">
+				<td><p class="pre-wrap" th:text="${medicalRecord.progressS}"></p></td>
+				<td><p class="pre-wrap" th:text="${medicalRecord.progressO}"></p></td>
+				<td><p class="pre-wrap" th:text="${medicalRecord.progressA}"></p></td>
+				<td><p class="pre-wrap" th:text="${medicalRecord.progressP}"></p></td>
+			</tr>
+
+			<tr class="label-row">
+				<td colspan="4">処置</td>
+			</tr>
+			<tr class="value-row">
+				<td colspan="4"><p class="pre-wrap" th:text="${medicalRecord.procedure}"></p></td>
+			</tr>
+
+			<tr>
+				<th>再診予定日</th>
+				<td th:text="${medicalRecord.followUpDate}"></td>
+				<th>処方箋の有無</th>
+				<td th:text="${medicalRecord.hasPrescription} ? '有' : '無'"></td>
+			</tr>
+		</table>
+	</section>
 
 </div>
 

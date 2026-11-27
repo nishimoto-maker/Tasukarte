@@ -54,10 +54,10 @@ public class MedicalRecordController {
 	
 	// 【登録内容確認】表示
 	// POSTにすることで不正アクセス(URL直アクセスによるエラー)を防ぐ一手になる
-	// @ModelAttributeでDTOに入れて【登録】の内容を保持、DB保存にも修正で戻る用にも
 	@PostMapping("/register/{patientId}/confirm")
 	public String confirmRegister(
 			@PathVariable Integer patientId,
+			// 入力内容をDTOに格納し、バリデーションチェックをし、Modelにaddする
 			@Valid @ModelAttribute MedicalRecordRegisterDto medicalRecordRegisterDto,
 			BindingResult result,
 			Model model
@@ -65,8 +65,10 @@ public class MedicalRecordController {
 		model.addAttribute("patient", patientService.findPatientById(patientId));
 		
 		if (result.hasErrors()) {
+			// バリデーションエラーがあれば戻す
 			return "medicalrecords/register";
 		} else {
+			// 無ければ【登録内容確認】へ
 			return "medicalrecords/confirm";
 		}
 	}
@@ -75,6 +77,7 @@ public class MedicalRecordController {
 	@PostMapping("register/{patientId}/back")
 	public String backToRegisterForm(
 			@PathVariable Integer patientId,
+			// 入力内容をDTOに格納し、Modelにaddする
 			@ModelAttribute MedicalRecordRegisterDto medicalRecordRegisterDto,
 			Model model
 			) {
@@ -84,7 +87,6 @@ public class MedicalRecordController {
 	
 	// DBに登録
 	// エラーになったら【内容確認】へ、入力内容を渡す
-	// 登録出来たら「処方箋有無」に応じて遷移先を変える
 	@PostMapping("/register/{patientId}")
 	public String registerMedicalRecord(
 			@AuthenticationPrincipal LoginUser loginUser,
@@ -93,6 +95,7 @@ public class MedicalRecordController {
 			Model model
 			) {
 		if (medicalRecordRegisterDto.isHasPrescription()) {
+			// 処方箋有なら、DB登録後、患者情報とともに【処方箋作成】へ
 			medicalRecordService.registerMedicalRecord(
 					loginUser,
 					medicalRecordRegisterDto,
@@ -102,12 +105,19 @@ public class MedicalRecordController {
 			
 			return "処方箋作成画面";
 		} else {
-			return "medicalrecords/complete";
+			// 処方箋無なら【完了】へ
+			return "redirect:/medical-records/register/{patientId}/complete";
 		}
 	}
 	
-	// 【一覧】初回アクセス
-	// 最初は検索結果を表示しない
+	// DB登録後、【完了】を表示
+	@GetMapping("/register/{patientId}/complete")
+	public String showRegisterComplete() {
+		return "medical-records/complete";
+	}
+	
+	// 【一覧】初回アクセス 検索結果を表示しない
+	// 検索条件を入れるために、空のDTOを渡しておく
 	@GetMapping()
 	public String showMedicalRecordsList(Model model) {
 		model.addAttribute("medicalRecordSearchDto", new MedicalRecordSearchDto());
@@ -125,6 +135,7 @@ public class MedicalRecordController {
 			) {
 		List<MedicalRecord> medicalRecordsList;
 		
+		// 各入力欄に不備がある場合、空のリストを返してメッセージを表示する
 		if (result.hasErrors()) {
 			medicalRecordsList = Collections.emptyList();
 			model.addAttribute("medicalRecords", medicalRecordsList);
@@ -137,44 +148,55 @@ public class MedicalRecordController {
 	}
 	
 	// 1件選んで詳細を表示
-	// 選択された診療記録と、その記録の対象の患者情報と、
-	// この記録以外の他の記録を取得し渡す
 	@GetMapping("/{recordId}")
 	public String showMedicalRecord(
 			@PathVariable Integer recordId,
 			Model model
 			) {
-		MedicalRecord mr = medicalRecordService.findMedicalRecordById(recordId);
-		Patient p = mr.getPatient();
-		List<MedicalRecord> otherRecords = medicalRecordService.findOtherRecords(p.getPatientId(), recordId);
-		model.addAttribute("medicalRecord", mr);
-		model.addAttribute("patient", p);
-		model.addAttribute("otherRecords", otherRecords);
+		// IDで診療記録を1件取得
+		MedicalRecord medicalRecord = medicalRecordService.findMedicalRecordById(recordId);
+		
+		// ↑で取得した診療記録から患者を取り出す
+		// 設定によってはDBへの追加アクセスが発生するらしい、要検証
+		// ヤバそうなら画面表示用のDTOを別途作ってそれを渡すようにする
+		Patient patient = medicalRecord.getPatient();
+		
+		// ↑の患者に関連する診療記録を一覧取得
+		List<MedicalRecord> patientRecords = medicalRecordService.findPatientRecords(p.getPatientId());
+		
+		model.addAttribute("medicalRecord", medicalRecord);
+		model.addAttribute("patient", patient);
+		model.addAttribute("patientRecords", patientRecords);
 		return "medicalrecords/medicalrecord-detail";
 	}
 	
 	// 【編集】の表示
 	@GetMapping("/{recordId}/edit")
 	public String showMedicalRecordEdit() {
-		return "【登録】";
+		return "【登録(編集)】";
 	}
 	
 	// 編集内容の確認
 	@PostMapping("/{recordId}/edit/confirm")
 	public String showMedicalRecordUpdateConfirmation() {
-		return "【編集内容確認】";
+		return "【登録内容確認(編集内容確認)】";
+	}
+	
+	// 【編集確認】から【編集】に戻る用
+	@PostMapping("/{recordId}/edit/back")
+	public String backToEditForm() {
+		return "【登録(編集)】";
 	}
 	
 	// DBを更新
 	@PostMapping("/{recordId}/edit")
 	public String updateMedicalRecord() {
-		return "更新完了にリダイレクト";
+		return "redirect:/medical-records/{recordId}/edit/complete";
 	}
 	
-	// DB更新後、完了ページを表示する
-	// 送るものも受け取るものもない
+	// DB更新後、【完了】を表示
 	@GetMapping("/{recordId}/edit/complete")
 	public String showUpdateComplete() {
-		return "【更新完了】";
+		return "medical-records/complete";
 	}
 }
