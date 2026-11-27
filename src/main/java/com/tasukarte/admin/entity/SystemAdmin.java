@@ -44,7 +44,7 @@ public class SystemAdmin{
     
     @OneToOne(
     	// 主キーとして管理する側を指定
-    	mappedBy = "system_admin",
+    	mappedBy = "systemadmin",
     	// システム管理者に対する永続化、更新、削除等の操作を外部キー側にも連動させる
     	cascade = CascadeType.ALL,
     	// システム管理者エンティティからパスワードとの関連を解除した場合、パスワードエンティティを削除する
@@ -84,11 +84,11 @@ public class SystemAdmin{
 		this.adminMail = adminMail;
 	}
 
-	public SystemAdminPassword getSystemAdminPasswords() {
+	public SystemAdminPassword getSystemAdminPassword() {
 		return systemAdminPassword;
 	}
 
-	public void setSystemAdminPasswords(SystemAdminPassword systemAdminPasswords) {
-		this.systemAdminPassword = systemAdminPasswords;
+	public void setSystemAdminPassword(SystemAdminPassword systemAdminPassword) {
+		this.systemAdminPassword = systemAdminPassword;
 	}
 }

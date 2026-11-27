@@ -18,5 +18,5 @@ public interface SystemAdminRepository
     // メールアドレスの重複確認
     boolean existsByAdminMail(String adminMail);
 
-    
+
 }
