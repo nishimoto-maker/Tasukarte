@@ -30,6 +30,10 @@ public class SystemAdminPassword {
 	@Column(name = "admin_id")
 	private Integer admin_id;
     
+	@Id
+	@Column(name="admin_id")
+	private Integer adminId;
+
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name ="admin_id")
