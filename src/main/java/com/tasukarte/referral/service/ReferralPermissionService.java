@@ -74,6 +74,11 @@ public class ReferralPermissionService {
         if (referral == null) {
             return true;
         }
+        
+        //既存紹介状の場合、削除済みでないか確認
+        if(!isActiveReferral(referral)) {
+        	return false;
+        }
 
         //作成者本人か
         //送信元病院に所属しているか
@@ -151,9 +156,10 @@ public class ReferralPermissionService {
         //紹介状の状態を取得
         String status = referral.getStatus();
 
-        //下書き：作成者本人のみ
+        //下書き：送信元病院の作成者本人のみ
         if (ReferralStatus.DRAFT.equals(status)) {
-            return isCreator(referral, loginUser);
+            return isCreator(referral, loginUser)
+            		&& isSenderHospital(referral, loginUser);
         }
 
         //差し戻し・送信待ち：送信元病院
@@ -171,13 +177,16 @@ public class ReferralPermissionService {
         //共有中：送信元・送信先病院
         //共有終了日を過ぎている場合は閲覧不可
         if (ReferralStatus.SHARED.equals(status)) {
-
+        	
+        	//送信元病院か送信先病院
             boolean isRelatedHospital =
                     isSenderHospital(referral, loginUser)
                     || isRecipientHospital(referral, loginUser);
-
+            
+            //共有終了日
             LocalDate endAt = referral.getSharedEndAt();
 
+            //今日が共有終了日より前か
             return isRelatedHospital
                     && (endAt == null || !endAt.isBefore(LocalDate.now()));
         }
@@ -187,7 +196,10 @@ public class ReferralPermissionService {
     
     //編集可能なステータスか確認
     private boolean isEditableStatus(Referral referral) {
-
+    	
+    	//下書き状態か
+    	//差し戻し状態か
+    	//送信前状態か
         return ReferralStatus.DRAFT.equals(referral.getStatus())
                 || ReferralStatus.RETURNED.equals(referral.getStatus())
                 || ReferralStatus.READY_TO_SEND.equals(referral.getStatus());
