@@ -11,15 +11,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.tasukarte.common.security.LoginUser;
+import com.tasukarte.hospital.entity.Hospital;
 import com.tasukarte.hospital.repository.HospitalRepository;
 import com.tasukarte.patient.dto.AllergieRegisterDTO;
+import com.tasukarte.patient.dto.PatientDetailDTO;
 import com.tasukarte.patient.dto.PatientListDTO;
 import com.tasukarte.patient.dto.PatientRegisterDTO;
 import com.tasukarte.patient.dto.PatientSearchDTO;
 import com.tasukarte.patient.entity.Allergie;
 import com.tasukarte.patient.entity.Patient;
 import com.tasukarte.patient.repository.PatientRepository;
-import com.tasukarte.hospital.entity.Hospital;
 
 @Service
 public class PatientService {
@@ -35,13 +36,48 @@ public class PatientService {
     
     //性別のをShortからStringに変換
     private String convertGender(Short gender) {
-        if (gender == 1) {
+        if(gender == null) {
+        	return "未入力";
+        }
+    	if (gender == 1) {
             return "男";
         } else if (gender == 2) {
             return "女";
         }
 
-        return "";
+        return "未入力";
+    }
+    
+    private String convertRh(Boolean rh) {
+    	if(rh == null) {
+    		return "未入力";
+    	}
+    	if(rh == true) {
+    		return "Rh(+)";
+    	}else if(rh == false) {
+    		return "Rh(-)";
+    	}
+    	
+    	return "未入力";
+    }
+    
+    private String convertBloodType(String bloodType) {
+    	if(bloodType == null || bloodType.isBlank()) {
+    		return "未入力";
+    	}
+    	if(bloodType.equals("A")) {
+    		return "A";
+    	}
+    	if(bloodType.equals("B")) {
+    		return "B";
+    	}
+    	if(bloodType.equals("O")) {
+    		return "O";
+    	}else if(bloodType.equals("AB")) {
+    		return "AB";
+    	}
+    	
+    	return "未入力";
     }
     
     //誕生日の計算生。年月日を年齢に変換
@@ -103,8 +139,8 @@ public class PatientService {
     }
     
     
-    //患者情報の登録
-    public void registerPatient(PatientRegisterDTO dto) {
+    //患者情報の登録 登録完了画面にデータを取得する必要があるため void ⇒　Integerに変更
+    public Integer registerPatient(PatientRegisterDTO dto) {
     	
     	//現在ログインしているユーザーの認証情報を取得
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -143,8 +179,8 @@ public class PatientService {
     	patient.setWeight(dto.getWeight());
     	patient.setHeight(dto.getHeight());
     	
-    	//アレルギーの有無の判別
-    	if(Boolean.TRUE.equals(dto.getAllergy())) {
+    	//アレルギーの有無の判別&アレルギー情報のリストがnullではない場合のみ処理
+    	if(Boolean.TRUE.equals(dto.getAllergy()) && dto.getAllergies() != null) {
     		
     		//リストから1件ずつ取り出す(複数件の取得)
     		for(AllergieRegisterDTO allergyDTO : dto.getAllergies()) {
@@ -161,6 +197,19 @@ public class PatientService {
     			
     		}
     	}
+    	
+    	//Patientを保存（Patientの新規登録時に関連するアレルギーも自動で保存）
+    	Patient savedPatient = patientRepository.save(patient);
+    	
+    	//登録された患者情報を取得
+    	return savedPatient.getPatientId();
+    }
+    
+    //取得処理
+    public PatientDetailDTO findPatientById(Integer patientId) {
+    	
+    	Patient patient = patientRepository.findById(patientId).orElseThrow(() -> new RuntimeException("患者情報が見つかりませんでした"));
+    	
     	
     }
     

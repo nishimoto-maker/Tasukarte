@@ -38,7 +38,7 @@ public class PatientController {
 	}
 	
 	//【患者情報登録】
-	//登録画面表示をする
+	//	登録画面を表示
 	@GetMapping("/new")
 	public String patientsnew(Model model) {
 		
@@ -48,17 +48,26 @@ public class PatientController {
 		
 	}
 	
-	//【患者情報登録】
-	//登録フォームを受け取る
-	@PostMapping("/new")
+	//【患者情報確認】
+	//登録画面から送信された情報を受け取り、確認画面を表示
+	@PostMapping("/confirm")
 	public String registerPatient(
 			@ModelAttribute PatientRegisterDTO patientRegisterDTO) {
 		
-		return "patient/patientNew";
+		patientService.registerPatient(patientRegisterDTO);
+		
+		return "patient/patient";
+	}
+	
+	
+	//【患者情報登録完了】
+	//完了画面を表示
+	@GetMapping("/complete"){
+		
 	}
 	
 	//【患者情報検索TOP】
-	//空欄で表示したいので最初にここに飛ばす
+	//検索条件が未入力の状態で検索画面を表示
 	@GetMapping("/search-top")
 	public String showPatientSearchTop(Model model) {
 
@@ -66,6 +75,7 @@ public class PatientController {
 
 	    return "patient/patientSearch";
 	}
+	
 	
 	//【患者情報検索】
 	// 患者情報検索の条件を取得
