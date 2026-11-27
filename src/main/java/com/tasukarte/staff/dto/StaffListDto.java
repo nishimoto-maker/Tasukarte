@@ -3,30 +3,43 @@ package com.tasukarte.staff.dto;
 // 職員一覧画面に表示する情報をまとめるDTO
 public class StaffListDto {
 
-    // 職員名（漢字）
-    private String nameKanji;
+	// 職員ID
+	private Integer staffId;
 
-    // 性別
-    private short gender;
+	// 職員名（漢字）
+	private String nameKanji;
 
-    // 役職名
-    private String positionName;
+	// 性別
+	private short gender;
 
-    public StaffListDto(String nameKanji, short gender, String positionName) {
-        this.nameKanji = nameKanji;
-        this.gender = gender;
-        this.positionName = positionName;
-    }
+	// 役職名
+	private String positionName;
 
-    public String getNameKanji() {
-        return nameKanji;
-    }
+	public StaffListDto(
+			Integer staffId,
+			String nameKanji,
+			short gender,
+			String positionName) {
 
-    public short getGender() {
-        return gender;
-    }
+		this.staffId = staffId;
+		this.nameKanji = nameKanji;
+		this.gender = gender;
+		this.positionName = positionName;
+	}
 
-    public String getPositionName() {
-        return positionName;
-    }
+	public Integer getStaffId() {
+		return staffId;
+	}
+
+	public String getNameKanji() {
+		return nameKanji;
+	}
+
+	public short getGender() {
+		return gender;
+	}
+
+	public String getPositionName() {
+		return positionName;
+	}
 }

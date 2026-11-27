@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>職員登録</title>
+</head>
+
+<body>
+
+	<h1>職員登録</h1>
+
+	<p>職員IDは登録時に自動で発行されます。</p>
+
+	<form th:action="@{/staff/confirm}" th:object="${staffRegisterDto}" method="post">
+
+		<!-- 職員名（漢字） -->
+		<div>
+			<label>氏名（漢字）</label>
+			<input type="text" th:field="*{nameKanji}" required maxlength="50">
+			<p th:errors="*{nameKanji}"></p>
+		</div>
+
+		<!-- 職員名（カナ） -->
+		<div>
+			<label>氏名（カナ）</label>
+			<input type="text" th:field="*{nameKana}" required maxlength="50">
+			<p th:errors="*{nameKana}"></p>
+		</div>
+
+		<!-- 性別 -->
+		<div>
+			<label>性別</label>
+
+			<label>
+				<input type="radio" th:field="*{gender}" value="0" required>
+				その他
+			</label>
+
+			<label>
+				<input type="radio" th:field="*{gender}" value="1">
+				男性
+			</label>
+
+			<label>
+				<input type="radio" th:field="*{gender}" value="2">
+				女性
+			</label>
+
+			<p th:errors="*{gender}"></p>
+		</div>
+
+		<!-- 住所 -->
+		<div>
+			<label>住所</label>
+			<input type="text" th:field="*{address}" required maxlength="255">
+			<p th:errors="*{address}"></p>
+		</div>
+
+		<!-- 郵便番号 -->
+		<div>
+			<label>郵便番号</label>
+			<input type="text" th:field="*{postCode}" required maxlength="7">
+			<p th:errors="*{postCode}"></p>
+		</div>
+
+		<!-- 電話番号 -->
+		<div>
+			<label>電話番号</label>
+			<input type="text" th:field="*{phoneNumber}" required maxlength="20">
+			<p th:errors="*{phoneNumber}"></p>
+		</div>
+
+		<!-- メールアドレス -->
+		<div>
+			<label>メールアドレス</label>
+			<input type="email" th:field="*{emailAddress}" required maxlength="254">
+			<p th:errors="*{emailAddress}"></p>
+		</div>
+
+		<!-- 役職 -->
+		<div>
+			<label>役職</label>
+			<select th:field="*{positionId}" required>
+				<option value="">選択してください</option>
+				<option th:each="position : ${positionList}" th:value="${position.positionId}"
+					th:text="${position.positionName}">
+				</option>
+			</select>
+			<p th:errors="*{positionId}"></p>
+		</div>
+
+		<!-- 権限 -->
+		<div>
+			<label>権限</label>
+			<select th:field="*{roleId}" required>
+				<option value="">選択してください</option>
+				<option th:each="role : ${roleList}" th:value="${role.roleId}" th:text="${role.roleName}">
+				</option>
+			</select>
+			<p th:errors="*{roleId}"></p>
+		</div>
+
+		<!-- 仮パスワード -->
+		<div>
+			<label>仮パスワード</label>
+			<input type="password" th:field="*{temporaryPassword}" required>
+			<p th:errors="*{temporaryPassword}"></p>
+		</div>
+
+		<!-- ボタン -->
+		<div>
+			<a th:href="@{/staff}">戻る</a>
+			<button type="submit">確認画面へ</button>
+		</div>
+
+	</form>
+
+</body>
+
+</html>
