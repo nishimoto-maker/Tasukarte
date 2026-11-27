@@ -120,5 +120,18 @@ public class ReferralController {
         return "referral/referralEdit";
     }
     
+    @PostMapping("/referrals/{referralId}/update")
+    public String updateDraft(
+    		@PathVariable Integer referralId,
+    		@ModelAttribute ReferralDraftFormDTO form,
+    		@AuthenticationPrincipal LoginUser loginUser) {
+    	
+    	//Serviceに更新処理を依頼
+    	referralService.updateDraft(referralId, form, loginUser);
+    	
+    	//更新後は紹介状一覧画面へ戻る
+    	return "redirect:/referrals";
+    }
+    
     
 }

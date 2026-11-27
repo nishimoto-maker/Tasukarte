@@ -9,19 +9,8 @@
 
     <h1>紹介状編集画面</h1>
 
-    <form th:action="@{/referrals/{referralId}/update(referralId=${edit.referralId})}" method="post">
-
-        <!-- 編集対象の紹介状ID -->
-		<input type="hidden" name="referralId"
-       		th:value="${edit.referralId}">
-
-		<!-- 患者ID -->
-		<input type="hidden" name="patientId"
-       		th:value="${edit.patientId}">
-
-		<!-- 宛先病院ID -->
-		<input type="hidden" name="recipientHospitalId"
-       		th:value="${edit.recipientHospitalId}">
+    <form th:action="@{/referrals/{referralId}/update(referralId=${edit.referralId})}"
+     	method="post">
 
 		<!-- 患者名 -->
 		<div>

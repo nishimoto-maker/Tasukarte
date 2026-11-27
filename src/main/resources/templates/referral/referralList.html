@@ -42,8 +42,12 @@
 
                     <td th:text="${#temporals.format(
                         referral.createdAt, 'yyyy/MM/dd HH:mm')}"></td>
-					<!-- いったん下書きで置く -->
-                    <td>下書き</td>
+					
+                    <td th:swich="${referral.status}">
+						<span th:case="`DRAFT`">下書き</span>
+						<span th:case="`RETURNED`">差し戻し</span>
+						<span th:case="`READY_TO_SEND`">送信前</span>
+					</td>
                     <td>
     					<a th:href="@{/referrals/{referralId}/edit(
         					referralId=${referral.referralId})}">
