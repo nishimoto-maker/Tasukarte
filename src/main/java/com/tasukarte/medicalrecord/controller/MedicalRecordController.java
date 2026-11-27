@@ -1,5 +1,8 @@
 package com.tasukarte.medicalrecord.controller;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tasukarte.common.security.LoginUser;
 import com.tasukarte.medicalrecord.dto.MedicalRecordRegisterDto;
+import com.tasukarte.medicalrecord.dto.MedicalRecordSearchDto;
+import com.tasukarte.medicalrecord.entity.MedicalRecord;
 import com.tasukarte.medicalrecord.service.MedicalRecordService;
+import com.tasukarte.patient.entity.Patient;
+import com.tasukarte.patient.service.PatientService;
 
 import jakarta.validation.Valid;
 
@@ -99,31 +106,51 @@ public class MedicalRecordController {
 		}
 	}
 	
-	// 【登録完了】の表示
-	// 【トップ】へ戻れるリンク有り、戻ったとき検索状況はリセット
-	@GetMapping("/register/{patientId}/complete")
-	public String showRegistrationComplete() {
-		return "【登録完了】";
-	}
-	
 	// 【一覧】初回アクセス
 	// 最初は検索結果を表示しない
 	@GetMapping()
-	public String showMedicalRecordList() {
-		return "【一覧・検索】";
+	public String showMedicalRecordsList(Model model) {
+		model.addAttribute("medicalRecordSearchDto", new MedicalRecordSearchDto());
+		return "medicalrecords/list";
 	}
 	
 	// 診療記録の検索
 	// 当院で作成したもののみ取得可能、【一覧】に渡す
+	// 並び順は作成日の降順固定、すべて空欄なら作成日降順の全件取得
 	@GetMapping("/search")
-	public String searchMedicalRecords() {
-		return "【一覧・検索】";
+	public String searchMedicalRecords(
+			@Valid @ModelAttribute MedicalRecordSearchDto searchDto,
+			BindingResult result,
+			Model model
+			) {
+		List<MedicalRecord> medicalRecordsList;
+		
+		if (result.hasErrors()) {
+			medicalRecordsList = Collections.emptyList();
+			model.addAttribute("medicalRecords", medicalRecordsList);
+		}
+		
+		medicalRecordsList = medicalRecordService.searchMedicalRecords(searchDto);
+		model.addAttribute("medicalRecordsList", medicalRecordsList);
+		
+		return "medicalrecords/list";
 	}
 	
 	// 1件選んで詳細を表示
+	// 選択された診療記録と、その記録の対象の患者情報と、
+	// この記録以外の他の記録を取得し渡す
 	@GetMapping("/{recordId}")
-	public String showMedicalRecord() {
-		return "【詳細】";
+	public String showMedicalRecord(
+			@PathVariable Integer recordId,
+			Model model
+			) {
+		MedicalRecord mr = medicalRecordService.findMedicalRecordById(recordId);
+		Patient p = mr.getPatient();
+		List<MedicalRecord> otherRecords = medicalRecordService.findOtherRecords(p.getPatientId(), recordId);
+		model.addAttribute("medicalRecord", mr);
+		model.addAttribute("patient", p);
+		model.addAttribute("otherRecords", otherRecords);
+		return "medicalrecords/medicalrecord-detail";
 	}
 	
 	// 【編集】の表示

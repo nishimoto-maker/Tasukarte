@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紹介状編集</title>
+</head>
+<body>
+
+    <h1>紹介状編集画面</h1>
+
+    <form th:action="@{/referrals/{referralId}/update(referralId=${edit.referralId})}" method="post">
+
+        <!-- 編集対象の紹介状ID -->
+		<input type="hidden" name="referralId"
+       		th:value="${edit.referralId}">
+
+		<!-- 患者ID -->
+		<input type="hidden" name="patientId"
+       		th:value="${edit.patientId}">
+
+		<!-- 宛先病院ID -->
+		<input type="hidden" name="recipientHospitalId"
+       		th:value="${edit.recipientHospitalId}">
+
+		<!-- 患者名 -->
+		<div>
+    		<label>患者名</label>
+    		<span th:text="${edit.patientName}"></span>
+		</div>
+
+		<!-- 宛先病院名 -->
+		<div>
+    		<label>宛先病院</label>
+    		<span th:text="${edit.recipientHospitalName}"></span>
+		</div>
+
+		<!-- 紹介目的 -->
+		<div>
+		    <label for="referralPurpose">紹介目的</label>
+    		<textarea id="referralPurpose"
+              	name="referralPurpose"
+              	th:text="${edit.referralPurpose}"></textarea>
+		</div>
+
+		<!-- 依頼内容 -->
+		<div>
+    		<label for="requestContent">依頼内容</label>
+    		<textarea id="requestContent"
+           		name="requestContent"
+              	th:text="${edit.requestContent}"></textarea>
+		</div>
+
+		<!-- 備考 -->
+		<div>
+    		<label for="remarks">備考</label>
+    		<textarea id="remarks"
+              	name="remarks"
+              	th:text="${edit.remarks}"></textarea>
+		</div>
+
+		<!-- 共有開始日 -->
+		<div>
+    		<label for="sharedStartAt">共有開始日</label>
+    		<input type="date"
+           		id="sharedStartAt"
+           		name="sharedStartAt"
+           		th:value="${edit.sharedStartAt}">
+		</div>
+
+		<!-- 共有終了日 -->
+		<div>
+    		<label for="sharedEndAt">共有終了日</label>
+    		<input type="date"
+           		id="sharedEndAt"
+           		name="sharedEndAt"
+           		th:value="${edit.sharedEndAt}">
+		</div>
+        
+        <!-- 変更内容の保存 -->
+        <div>
+            <button type="submit">変更内容を保存</button>
+        </div>
+
+    </form>
+    
+    <!-- 紹介状一覧へ戻る -->
+
+</body>
+</html>
+</html>

@@ -9,8 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 現在服用薬情報を管理するEntityクラス
@@ -22,8 +20,8 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "current_medications")
-@Getter
-@Setter
+//@Getter
+//@Setter
 public class CurrentMedication {
 
     /**
@@ -68,4 +66,32 @@ public class CurrentMedication {
     @NotBlank
     @Column(name = "medicine_name", nullable = false)
     private String medicineName;
+
+    // 以下、getter・setter
+    
+	public Integer getCurrentMedicationId() {
+		return currentMedicationId;
+	}
+
+	public void setCurrentMedicationId(Integer currentMedicationId) {
+		this.currentMedicationId = currentMedicationId;
+	}
+
+	public Questionnaire getQuestionnaire() {
+		return questionnaire;
+	}
+
+	public void setQuestionnaire(Questionnaire questionnaire) {
+		this.questionnaire = questionnaire;
+	}
+
+	public String getMedicineName() {
+		return medicineName;
+	}
+
+	public void setMedicineName(String medicineName) {
+		this.medicineName = medicineName;
+	}
+    
+    
 }

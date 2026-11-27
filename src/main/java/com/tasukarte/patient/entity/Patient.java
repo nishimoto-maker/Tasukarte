@@ -4,6 +4,7 @@ package com.tasukarte.patient.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.tasukarte.hospital.entity.Hospital;
@@ -35,7 +36,7 @@ public class Patient {
     // アレルギー情報
     // 1人の患者に複数のアレルギー情報が紐づく
     @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
-    private List<Allergie> allergies;
+    private List<Allergie> allergies = new ArrayList<>();
     
     //病院ID
     //必須、カラム定義

@@ -90,7 +90,7 @@ public class Referral {
             columnDefinition = "TEXT")
     private String remarks;
 
-    // 作成日（必須、内容変更時更新）
+    // 作成日（必須、編集時も更新しない）
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
