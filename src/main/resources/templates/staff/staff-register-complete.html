@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>職員登録完了</title>
+	<meta charset="UTF-8">
+	<title>職員登録完了</title>
 </head>
+
 <body>
-    <h1>職員登録完了</h1>
+	<h1>職員登録完了</h1>
 
-    <p>職員の登録が完了しました。</p>
+	<p>職員の登録が完了しました。</p>
 
-    <div>
-        <p>発行された職員ID：</p>
-        <p th:text="${staffId}"></p>
-    </div>
+	<div>
+		<p>発行された職員ID：</p>
+		<p th:text="${staffId}"></p>
+	</div>
 
-    <a th:href="@{/staff}">職員一覧へ戻る</a>
+	<a th:href="@{/staff}">職員一覧へ戻る</a>
 </body>
+
 </html>

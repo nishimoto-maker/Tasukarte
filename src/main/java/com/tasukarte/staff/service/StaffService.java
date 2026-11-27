@@ -7,12 +7,14 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tasukarte.common.security.LoginUser;
 import com.tasukarte.hospital.entity.Hospital;
 import com.tasukarte.hospital.repository.HospitalRepository;
 import com.tasukarte.staff.dto.MyPageDto;
 import com.tasukarte.staff.dto.StaffDetailDto;
+import com.tasukarte.staff.dto.StaffEditDto;
 import com.tasukarte.staff.dto.StaffListDto;
 import com.tasukarte.staff.dto.StaffRegisterDto;
 import com.tasukarte.staff.entity.HospitalPosition;
@@ -172,6 +174,102 @@ public class StaffService {
 		return dto;
 	}
 
+	// 職員編集画面に表示する情報を取得する
+	public StaffEditDto getStaffEdit(Integer staffId) {
+
+		// ログイン中の認証情報を取得
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		// ログイン中のユーザー情報を取得
+		LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+
+		// ログイン中の職員の病院IDを取得
+		Integer hospitalId = loginUser.getHospitalId();
+
+		// 職員IDと病院IDを使って職員情報を取得
+		Staff staff = staffRepository.findStaffDetailByStaffId(
+				staffId, hospitalId)
+				.orElseThrow(() -> new IllegalStateException(
+						"職員情報が見つかりません。"));
+
+		// 編集画面に渡すDTOを作成
+		StaffEditDto dto = new StaffEditDto();
+
+		// 取得した職員情報をDTOに設定
+		dto.setStaffId(staff.getStaffId());
+		dto.setNameKanji(staff.getNameKanji());
+		dto.setNameKana(staff.getNameKana());
+		dto.setGender(staff.getGender());
+		dto.setAddress(staff.getAddress());
+		dto.setPostCode(staff.getPostCode());
+		dto.setPhoneNumber(staff.getPhoneNumber());
+		dto.setEmailAddress(staff.getEmailAddress());
+		dto.setPositionId(staff.getHospitalPosition().getPositionId());
+		dto.setRoleId(staff.getHospitalRole().getRoleId());
+		dto.setIsDeleted(staff.getIsDeleted());
+
+		// 編集画面に渡すDTOを返す
+		return dto;
+	}
+
+	// 職員情報を更新する
+	@Transactional
+	public void updateStaff(Integer staffId, StaffEditDto dto) {
+
+		// ログイン中の認証情報を取得
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		// ログイン中のユーザー情報を取得
+		LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+
+		// ログイン中の職員の病院IDを取得
+		Integer hospitalId = loginUser.getHospitalId();
+
+		// 職員IDと病院IDを使って更新対象の職員情報を取得
+		Staff staff = staffRepository.findStaffDetailByStaffId(
+				staffId, hospitalId)
+				.orElseThrow(() -> new IllegalStateException(
+						"職員情報が見つかりません。"));
+
+		// 自分以外の職員が同じメールアドレスを登録していないか確認
+		if (staffRepository.existsByEmailAddressAndStaffIdNot(
+				dto.getEmailAddress(), staffId)) {
+			throw new IllegalArgumentException(
+					"このメールアドレスは既に登録されています。");
+		}
+
+		// 役職情報を取得
+		HospitalPosition position = hospitalPositionRepository.findById(
+				dto.getPositionId())
+				.orElseThrow(() -> new IllegalArgumentException(
+						"役職情報が見つかりません。"));
+
+		// 権限情報を取得
+		HospitalRole role = hospitalRoleRepository.findById(
+				dto.getRoleId())
+				.orElseThrow(() -> new IllegalArgumentException(
+						"権限情報が見つかりません。"));
+
+		// 変更された職員情報を設定
+		staff.setNameKanji(dto.getNameKanji());
+		staff.setNameKana(dto.getNameKana());
+		staff.setGender(dto.getGender());
+		staff.setAddress(dto.getAddress());
+		staff.setPostCode(dto.getPostCode());
+		staff.setPhoneNumber(dto.getPhoneNumber());
+		staff.setEmailAddress(dto.getEmailAddress());
+
+		// 役職・権限を設定
+		staff.setHospitalPosition(position);
+		staff.setHospitalRole(role);
+
+		// 登録状況を設定
+		staff.setIsDeleted(dto.getIsDeleted());
+
+		// 更新した職員情報を保存
+		staffRepository.save(staff);
+	}
+
 	// 役職一覧を取得する
 	public List<HospitalPosition> getPositionList() {
 
@@ -188,13 +286,13 @@ public class StaffService {
 
 	// 職員情報を登録する
 	public Staff createStaff(
-	        StaffRegisterDto dto,
-	        Integer hospitalId) {
-		
+			StaffRegisterDto dto,
+			Integer hospitalId) {
+
 		// メールアドレスが既に登録されているか確認する
 		if (staffRepository.existsByEmailAddress(dto.getEmailAddress())) {
-		    throw new IllegalArgumentException(
-		            "このメールアドレスは既に登録されています。");
+			throw new IllegalArgumentException(
+					"このメールアドレスは既に登録されています。");
 		}
 
 		// 病院情報を取得する
@@ -234,9 +332,9 @@ public class StaffService {
 
 		return staff;
 	}
-	
+
 	// メールアドレスが既に登録されているか確認する
 	public boolean isEmailAddressRegistered(String emailAddress) {
-	    return staffRepository.existsByEmailAddress(emailAddress);
+		return staffRepository.existsByEmailAddress(emailAddress);
 	}
 }

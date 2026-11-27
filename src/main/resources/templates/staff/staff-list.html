@@ -91,7 +91,7 @@
 				<td th:text="${staff.positionName}"></td>
 				<td th:if="${isAdmin}">
 					<a th:href="@{/staff/{staffId}(staffId=${staff.staffId})}">確認</a>
-					<a href="#">編集</a>
+					<a th:href="@{/staff/{staffId}/edit(staffId=${staff.staffId})}">編集</a>
 					<a href="#">削除</a>
 				</td>
 			</tr>

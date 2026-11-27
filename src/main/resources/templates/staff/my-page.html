@@ -1,67 +1,69 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>マイページ</title>
-    <link rel="stylesheet" th:href="@{/css/staff/my-page.css}">
+	<meta charset="UTF-8">
+	<title>マイページ</title>
+	<link rel="stylesheet" th:href="@{/css/staff/my-page.css}">
 </head>
+
 <body>
 
-    <div class="mypage-container">
+	<div class="mypage-container">
 
-        <h1>マイページ</h1>
+		<h1>マイページ</h1>
 
-        <h2>職員情報</h2>
+		<h2>職員情報</h2>
 
-        <div class="info-row">
-            <span class="info-label">氏名（漢字）</span>
-            <span class="info-value" th:text="${myPage.nameKanji}"></span>
-        </div>
+		<div class="info-row">
+			<span class="info-label">氏名（漢字）</span>
+			<span class="info-value" th:text="${myPage.nameKanji}"></span>
+		</div>
 
-        <div class="info-row">
-            <span class="info-label">氏名（カナ）</span>
-            <span class="info-value" th:text="${myPage.nameKana}"></span>
-        </div>
+		<div class="info-row">
+			<span class="info-label">氏名（カナ）</span>
+			<span class="info-value" th:text="${myPage.nameKana}"></span>
+		</div>
 
-        <div class="info-row">
-            <span class="info-label">性別</span>
-            <span class="info-value"
-                  th:text="${myPage.gender == 0 ? 'その他' : (myPage.gender == 1 ? '男' : '女')}"></span>
-        </div>
+		<div class="info-row">
+			<span class="info-label">性別</span>
+			<span class="info-value" th:text="${myPage.gender == 0 ? 'その他' : (myPage.gender == 1 ? '男' : '女')}"></span>
+		</div>
 
-        <div class="info-row">
-            <span class="info-label">住所</span>
-            <span class="info-value" th:text="${myPage.address}"></span>
-        </div>
+		<div class="info-row">
+			<span class="info-label">住所</span>
+			<span class="info-value" th:text="${myPage.address}"></span>
+		</div>
 
-        <div class="info-row">
-            <span class="info-label">郵便番号</span>
-            <span class="info-value" th:text="${myPage.postCode}"></span>
-        </div>
+		<div class="info-row">
+			<span class="info-label">郵便番号</span>
+			<span class="info-value" th:text="${myPage.postCode}"></span>
+		</div>
 
-        <div class="info-row">
-            <span class="info-label">電話番号</span>
-            <span class="info-value" th:text="${myPage.phoneNumber}"></span>
-        </div>
+		<div class="info-row">
+			<span class="info-label">電話番号</span>
+			<span class="info-value" th:text="${myPage.phoneNumber}"></span>
+		</div>
 
-        <div class="info-row">
-            <span class="info-label">メールアドレス</span>
-            <span class="info-value" th:text="${myPage.emailAddress}"></span>
-        </div>
+		<div class="info-row">
+			<span class="info-label">メールアドレス</span>
+			<span class="info-value" th:text="${myPage.emailAddress}"></span>
+		</div>
 
-        <div class="info-row">
-            <span class="info-label">役職</span>
-            <span class="info-value" th:text="${myPage.positionName}"></span>
-        </div>
+		<div class="info-row">
+			<span class="info-label">役職</span>
+			<span class="info-value" th:text="${myPage.positionName}"></span>
+		</div>
 
-        <div class="info-row">
-            <span class="info-label">権限</span>
-            <span class="info-value" th:text="${myPage.roleName}"></span>
-        </div>
+		<div class="info-row">
+			<span class="info-label">権限</span>
+			<span class="info-value" th:text="${myPage.roleName}"></span>
+		</div>
 
-        <a class="back-link" th:href="@{/top}">TOP画面に戻る</a>
+		<a class="back-link" th:href="@{/top}">TOP画面に戻る</a>
 
-    </div>
+	</div>
 
 </body>
+
 </html>

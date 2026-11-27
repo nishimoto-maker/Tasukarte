@@ -130,4 +130,9 @@ public interface StaffRepository
 
 	// メールアドレスが既に登録されているか確認する
 	boolean existsByEmailAddress(String emailAddress);
+
+	// 自分以外の職員が同じメールアドレスを登録しているか確認する
+	boolean existsByEmailAddressAndStaffIdNot(
+			String emailAddress,
+			Integer staffId);
 }
